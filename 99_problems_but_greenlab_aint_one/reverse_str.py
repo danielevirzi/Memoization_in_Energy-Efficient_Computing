@@ -1,3 +1,5 @@
+#AI generated for explorative purposes
+
 def reverse_string(s):
     if len(s) == 0:
         return s
