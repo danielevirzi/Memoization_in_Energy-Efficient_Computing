@@ -1,3 +1,5 @@
+#AI generated for explorative purposes
+
 from functools import cache, lru_cache
 
 

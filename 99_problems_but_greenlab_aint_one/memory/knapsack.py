@@ -3,10 +3,10 @@
 from functools import cache, lru_cache
 
 # Basic Implementation
-def knapsack_basic(weights, values, capacity):
+def knapsack_basic(weights: list[int], values: list[int], capacity: int) -> int:
     n = len(weights)
     
-    def knapsack_recursive(i, remaining_capacity):
+    def knapsack_recursive(i: int, remaining_capacity: int) -> int:
         if i < 0 or remaining_capacity <= 0:
             return 0
         if weights[i] > remaining_capacity:
@@ -18,11 +18,11 @@ def knapsack_basic(weights, values, capacity):
     return knapsack_recursive(n - 1, capacity)
 
 # Using functools.cache (Python 3.9+)
-def knapsack_cache(weights, values, capacity):
+def knapsack_cache(weights: list[int], values: list[int], capacity: int) -> int:
     n = len(weights)
     
     @cache
-    def knapsack_recursive(i, remaining_capacity):
+    def knapsack_recursive(i: int, remaining_capacity: int) -> int:
         if i < 0 or remaining_capacity <= 0:
             return 0
         if weights[i] > remaining_capacity:
@@ -34,11 +34,11 @@ def knapsack_cache(weights, values, capacity):
     return knapsack_recursive(n - 1, capacity)
 
 # Using functools.lru_cache (for Python versions before 3.9)
-def knapsack_lru_cache(weights, values, capacity):
+def knapsack_lru_cache(weights: list[int], values: list[int], capacity: int) -> int:
     n = len(weights)
     
     @lru_cache(maxsize=None)
-    def knapsack_recursive(i, remaining_capacity):
+    def knapsack_recursive(i: int, remaining_capacity: int) -> int:
         if i < 0 or remaining_capacity <= 0:
             return 0
         if weights[i] > remaining_capacity:
@@ -56,7 +56,7 @@ weights = [1, 2, 3, 4]
 values = [10, 20, 30, 40]
 capacity = 5
 
-print("Basic Implementation:", knapsack_basic(weights, values, capacity))  # Output: 50
-print("Using functools.cache:", knapsack_cache(weights, values, capacity))  # Output: 50
-print("Using functools.lru_cache:", knapsack_lru_cache(weights, values, capacity))  # Output: 50
+print("Basic Implementation:", knapsack_basic(weights, values, capacity))
+print("Using functools.cache:", knapsack_cache(weights, values, capacity))
+print("Using functools.lru_cache:", knapsack_lru_cache(weights, values, capacity))
 """

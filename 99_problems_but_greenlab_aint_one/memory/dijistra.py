@@ -1,10 +1,10 @@
 #AI generated for explorative purposes
 
-import heapq
 from functools import cache, lru_cache
+import heapq
 
-# Basic Dijkstra's algorithm
-def dijkstra(graph, start):
+# Basic Implementation
+def dijkstra(graph: dict, start: str) -> dict:
     distances = {node: float('inf') for node in graph}
     distances[start] = 0
     priority_queue = [(0, start)]
@@ -24,9 +24,9 @@ def dijkstra(graph, start):
     
     return distances
 
-# Dijkstra's algorithm with cache decorator
+# Using functools.cache (Python 3.9+)
 @cache
-def dijkstra_cached(graph, start):
+def dijkstra_cache(graph: dict, start: str) -> dict:
     distances = {node: float('inf') for node in graph}
     distances[start] = 0
     priority_queue = [(0, start)]
@@ -48,7 +48,7 @@ def dijkstra_cached(graph, start):
 
 # Dijkstra's algorithm with lru_cache decorator
 @lru_cache(maxsize=None)
-def dijkstra_lru(graph, start):
+def dijkstra_lru_cache(graph: dict, start: str) -> dict:
     distances = {node: float('inf') for node in graph}
     distances[start] = 0
     priority_queue = [(0, start)]
@@ -78,8 +78,7 @@ graph = {
     'D': {'B': 5, 'C': 1}
 }
 
-# Running the functions
 print("Basic Dijkstra:", dijkstra(graph, 'A'))
-print("Cached Dijkstra:", dijkstra_cached(graph, 'A'))
-print("LRU Cached Dijkstra:", dijkstra_lru(graph, 'A'))
+print("Cached Dijkstra:", dijkstra_cache(graph, 'A'))
+print("LRU Cached Dijkstra:", dijkstra_lru_cache(graph, 'A'))
 """

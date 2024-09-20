@@ -1,3 +1,5 @@
+#AI generated for explorative purposes
+
 from functools import cache, lru_cache
 import numpy as np
 
@@ -5,7 +7,6 @@ import numpy as np
 #### Discrete Fourier Transform (DFT) ####
 
 def DFT(x: np.ndarray) -> np.ndarray:
-
     N = len(x)
     n = np.arange(N)
     k = n.reshape((N, 1))
@@ -15,7 +16,6 @@ def DFT(x: np.ndarray) -> np.ndarray:
 
 @cache
 def DFT_cache(x: np.ndarray) -> np.ndarray:
-
     N = len(x)
     n = np.arange(N)
     k = n.reshape((N, 1))
@@ -25,7 +25,6 @@ def DFT_cache(x: np.ndarray) -> np.ndarray:
 
 @lru_cache
 def DFT_lru_cache(x: np.ndarray) -> np.ndarray:
-
     N = len(x)
     n = np.arange(N)
     k = n.reshape((N, 1))

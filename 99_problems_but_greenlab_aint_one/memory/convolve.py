@@ -1,10 +1,10 @@
 #AI generated for explorative purposes
 
-from functools import lru_cache
+from functools import lru_cache, cache
 import numpy as np
 
 # Basic Implementation
-def convolve2d(matrix, kernel):
+def convolve2d(matrix: np.ndarray, kernel: np.ndarray) -> np.ndarray:
     m, n = matrix.shape
     km, kn = kernel.shape
     output = np.zeros((m - km + 1, n - kn + 1))
@@ -16,7 +16,7 @@ def convolve2d(matrix, kernel):
     return output
 
 # Using functools.cache (Python 3.9+)
-def convolve2d_cache(matrix, kernel):
+def convolve2d_cache(matrix: np.ndarray, kernel: np.ndarray) -> np.ndarray:
     m, n = matrix.shape
     km, kn = kernel.shape
     output = np.zeros((m - km + 1, n - kn + 1))
@@ -32,7 +32,7 @@ def convolve2d_cache(matrix, kernel):
     return output
 
 # Using functools.lru_cache
-def convolve2d_lru_cache(matrix, kernel):
+def convolve2d_lru_cache(matrix: np.ndarray, kernel: np.ndarray) -> np.ndarray:
     m, n = matrix.shape
     km, kn = kernel.shape
     output = np.zeros((m - km + 1, n - kn + 1))
