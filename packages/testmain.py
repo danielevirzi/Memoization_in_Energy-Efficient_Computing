@@ -1,6 +1,5 @@
 # Importing the packages
-from packages import *
-
+from cpu.isprime import *
 
 """
 from pyJoules.energy_meter import measure_energy

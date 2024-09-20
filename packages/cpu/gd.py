@@ -1,5 +1,5 @@
 #AI generated for explorative purposes
-
+"""
 from functools import cache, lru_cache
 import torch
 
@@ -48,3 +48,5 @@ print(gradient_descent(X, y, lr=0.01, iters=1000))
 print(gradient_descent_cached(X, y, lr=0.01, iters=1000))
 print(gradient_descent_lru(X, y, lr=0.01, iters=1000))
 '''
+
+"""

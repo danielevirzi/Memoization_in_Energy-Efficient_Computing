@@ -40,3 +40,6 @@ print(is_prime(n))
 print(is_prime_cache(n))
 print(is_prime_lru_cache(n))
 """
+
+def funziona(n):
+    return n+1
