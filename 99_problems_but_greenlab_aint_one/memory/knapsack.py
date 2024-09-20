@@ -33,7 +33,7 @@ def knapsack_cache(weights: list[int], values: list[int], capacity: int) -> int:
     
     return knapsack_recursive(n - 1, capacity)
 
-# Using functools.lru_cache (for Python versions before 3.9)
+# Using functools.lru_cache
 def knapsack_lru_cache(weights: list[int], values: list[int], capacity: int) -> int:
     n = len(weights)
     

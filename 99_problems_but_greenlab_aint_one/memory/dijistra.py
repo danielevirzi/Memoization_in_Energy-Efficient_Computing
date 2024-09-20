@@ -46,7 +46,7 @@ def dijkstra_cache(graph: dict, start: str) -> dict:
     
     return distances
 
-# Dijkstra's algorithm with lru_cache decorator
+# Using functools.lru_cache
 @lru_cache(maxsize=None)
 def dijkstra_lru_cache(graph: dict, start: str) -> dict:
     distances = {node: float('inf') for node in graph}
@@ -70,7 +70,7 @@ def dijkstra_lru_cache(graph: dict, start: str) -> dict:
 
 
 """
-# Example graph
+# Example usage
 graph = {
     'A': {'B': 1, 'C': 4},
     'B': {'A': 1, 'C': 2, 'D': 5},

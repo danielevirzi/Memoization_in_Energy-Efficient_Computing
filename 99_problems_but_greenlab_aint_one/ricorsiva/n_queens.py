@@ -3,8 +3,6 @@
 from functools import cache, lru_cache
 
 
-#### N-Queens ####
-
 def is_safe(board: list, row: int, col: int) -> bool:
     for i in range(col):
         if board[row][i] == 1:
@@ -18,7 +16,7 @@ def is_safe(board: list, row: int, col: int) -> bool:
     return True
 
 
-
+# Basic Implementation
 def solve_n_queens(board: list, col: int) -> bool:
     if col >= len(board):
         return True
@@ -30,7 +28,7 @@ def solve_n_queens(board: list, col: int) -> bool:
             board[i][col] = 0
     return False
 
-
+# Using functools.cache (Python 3.9+)
 @cache
 def solve_n_queens_cache(board: list, col: int) -> bool:
     if col >= len(board):
@@ -43,7 +41,7 @@ def solve_n_queens_cache(board: list, col: int) -> bool:
             board[i][col] = 0
     return False
 
-
+# Using functools.lru_cache
 @lru_cache
 def solve_n_queens_lru_cache(board: list, col: int) -> bool:
     if col >= len(board):
@@ -55,3 +53,12 @@ def solve_n_queens_lru_cache(board: list, col: int) -> bool:
                 return True
             board[i][col] = 0
     return False
+
+'''
+# Example usage
+board = [[0 for _ in range(8)] for _ in range(8)]
+
+print(solve_n_queens(board, 0))
+print(solve_n_queens_cache(board, 0))
+print(solve_n_queens_lru_cache(board, 0))
+'''

@@ -2,6 +2,8 @@
 
 from functools import cache, lru_cache
 
+
+# Basic Implementation
 def is_prime(n):
     if n <= 1:
         return False
@@ -10,6 +12,7 @@ def is_prime(n):
             return False
     return True
 
+# Using functools.cache (Python 3.9+)
 @cache
 def is_prime_cache(n):
     if n <= 1:
@@ -19,6 +22,7 @@ def is_prime_cache(n):
             return False
     return True
 
+# Using functools.lru_cache
 @lru_cache(maxsize=None)
 def is_prime_lru_cache(n):
     if n <= 1:
@@ -29,8 +33,10 @@ def is_prime_lru_cache(n):
     return True
 
 """
-# Example calls
-print(is_prime(29))           # Normal function call
-print(is_prime_cache(29))     # Function call with @cache decorator
-print(is_prime_lru_cache(29)) # Function call with @lru_cache decorator
+# Example usage
+n = 29
+
+print(is_prime(n))
+print(is_prime_cache(n))
+print(is_prime_lru_cache(n))
 """
