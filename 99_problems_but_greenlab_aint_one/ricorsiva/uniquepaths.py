@@ -21,7 +21,7 @@ class UniquePaths:
         return self.unique_paths_cache(m - 1, n) + self.unique_paths_cache(m, n - 1)
     
     # Using functools.lru_cache
-    @lru_cache
+    @lru_cache(maxsize=None)
     def unique_paths_lru_cache(self, m: int, n: int) -> int:
         if m == 1 or n == 1:
             return 1

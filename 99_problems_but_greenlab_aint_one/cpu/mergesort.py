@@ -44,7 +44,7 @@ def merge_sort_cache(arr: list) -> list:
     return merge(left, right)
 
 # Using functools.lru_cache
-@lru_cache
+@lru_cache(maxsize=None)
 def merge_sort_lru_cache(arr: list) -> list:
     if len(arr) <= 1:
         return arr

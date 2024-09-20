@@ -9,9 +9,12 @@ def convolve2d(matrix: np.ndarray, kernel: np.ndarray) -> np.ndarray:
     km, kn = kernel.shape
     output = np.zeros((m - km + 1, n - kn + 1))
     
+    def compute_element(i: int, j: int) -> float:
+        return np.sum(matrix[i:i+km, j:j+kn] * kernel)
+    
     for i in range(m - km + 1):
         for j in range(n - kn + 1):
-            output[i, j] = np.sum(matrix[i:i+km, j:j+kn] * kernel)
+            output[i, j] = compute_element(i, j)
     
     return output
 
@@ -22,7 +25,7 @@ def convolve2d_cache(matrix: np.ndarray, kernel: np.ndarray) -> np.ndarray:
     output = np.zeros((m - km + 1, n - kn + 1))
     
     @cache
-    def compute_element(i, j):
+    def compute_element(i: int, j: int) -> float:
         return np.sum(matrix[i:i+km, j:j+kn] * kernel)
     
     for i in range(m - km + 1):
@@ -38,7 +41,7 @@ def convolve2d_lru_cache(matrix: np.ndarray, kernel: np.ndarray) -> np.ndarray:
     output = np.zeros((m - km + 1, n - kn + 1))
     
     @lru_cache(maxsize=None)
-    def compute_element(i, j):
+    def compute_element(i: int, j: int) -> float:
         return np.sum(matrix[i:i+km, j:j+kn] * kernel)
     
     for i in range(m - km + 1):

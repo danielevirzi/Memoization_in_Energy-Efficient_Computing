@@ -4,7 +4,7 @@ from functools import cache, lru_cache
 
 
 # Basic Implementation
-def is_prime(n):
+def is_prime(n: int) -> bool:
     if n <= 1:
         return False
     for i in range(2, int(n**0.5) + 1):
@@ -14,7 +14,7 @@ def is_prime(n):
 
 # Using functools.cache (Python 3.9+)
 @cache
-def is_prime_cache(n):
+def is_prime_cache(n: int) -> bool:
     if n <= 1:
         return False
     for i in range(2, int(n**0.5) + 1):
@@ -24,7 +24,7 @@ def is_prime_cache(n):
 
 # Using functools.lru_cache
 @lru_cache(maxsize=None)
-def is_prime_lru_cache(n):
+def is_prime_lru_cache(n: int) -> bool:
     if n <= 1:
         return False
     for i in range(2, int(n**0.5) + 1):

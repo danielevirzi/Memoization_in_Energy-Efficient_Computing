@@ -42,7 +42,7 @@ def solve_n_queens_cache(board: list, col: int) -> bool:
     return False
 
 # Using functools.lru_cache
-@lru_cache
+@lru_cache(maxsize=None)
 def solve_n_queens_lru_cache(board: list, col: int) -> bool:
     if col >= len(board):
         return True

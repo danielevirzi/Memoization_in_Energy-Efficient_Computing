@@ -22,7 +22,7 @@ def DFT_cache(x: np.ndarray) -> np.ndarray:
     return np.dot(M, x)
 
 # Using functools.lru_cache
-@lru_cache
+@lru_cache(maxsize=None)
 def DFT_lru_cache(x: np.ndarray) -> np.ndarray:
     N = len(x)
     n = np.arange(N)

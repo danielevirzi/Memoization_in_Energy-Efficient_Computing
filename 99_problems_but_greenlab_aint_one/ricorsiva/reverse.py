@@ -19,7 +19,7 @@ def reverse_string_cache(s: str) -> str:
         return reverse_string_cache(s[1:]) + s[0]
     
 # Using functools.lru_cache
-@lru_cache
+@lru_cache(maxsize=None)
 def reverse_string_lru_cache(s: str) -> str:
     if len(s) == 0:
         return s

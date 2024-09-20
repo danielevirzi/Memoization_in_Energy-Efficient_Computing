@@ -28,7 +28,7 @@ def gradient_descent_cached(X: torch.Tensor, y: torch.Tensor, lr= float, iters= 
     return theta
 
 # Using functools.lru_cache
-@lru_cache
+@lru_cache(maxsize=None)
 def gradient_descent_lru(X: torch.Tensor, y: torch.Tensor, lr= float, iters= int) -> torch.Tensor:
     theta = torch.zeros(X.shape[1], requires_grad=True)
     for _ in range(iters):

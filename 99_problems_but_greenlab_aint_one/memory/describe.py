@@ -14,7 +14,7 @@ def describe_dataframe_cache(df: pd.DataFrame) -> pd.DataFrame:
     return df.describe()
 
 # Using functools.lru_cache
-@lru_cache
+@lru_cache(maxsize=None)
 def describe_dataframe_lru_cache(df: pd.DataFrame) -> pd.DataFrame:
     return df.describe()
 

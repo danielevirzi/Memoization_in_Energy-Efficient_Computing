@@ -21,7 +21,7 @@ def fibonacci_cache(n: int) -> int:
     return fibonacci_cache(n - 1) + fibonacci_cache(n - 2)
 
 # Using functools.lru_cache
-@lru_cache
+@lru_cache(maxsize=None)
 def fibonacci_lru_cache(n: int) -> int:
     if n == 0:
         return 0
