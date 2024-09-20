@@ -1,7 +1,7 @@
 # Importing the packages
-from packages import cpu
-from packages import memory
-from packages import ricorsiva
+from packages.cpu import *
+from packages.memory import *
+from packages.recursive import *
 
 """
 from pyJoules.energy_meter import measure_energy
