@@ -1,54 +1,53 @@
 #AI generated for explorative purposes
 
 from functools import cache, lru_cache
-from pyJoules.device.rapl_device import RaplPackageDomain
-from pyJoules.energy_meter import measure_energy
-import sys
+#from pyJoules.device.rapl_device import RaplPackageDomain
+#from pyJoules.energy_meter import measure_energy
+import spacy
 
+nlp = spacy.load("en_core_web_sm")
 
 # Basic Implementation
-@measure_energy(domains=[RaplPackageDomain(0)])
-def is_prime(n: int) -> bool:
-    if n <= 1:
-        return False
-    for i in range(2, int(n**0.5) + 1):
-        if n % i == 0:
-            return False
-    return True
+#@measure_energy(domains=[RaplPackageDomain(0)])
+def lemmatization(nlp: spacy.language.Language, sentence: str) -> str:
+    doc = nlp(sentence)
+    lemmatized_sentence = ' '.join([token.lemma_ for token in doc])
+    return lemmatized_sentence
 
 # Using functools.cache (Python 3.9+)
+#@measure_energy(domains=[RaplPackageDomain(0)])
 @cache
-@measure_energy(domains=[RaplPackageDomain(0)])
-def is_prime_cache(n: int) -> bool:
-    if n <= 1:
-        return False
-    for i in range(2, int(n**0.5) + 1):
-        if n % i == 0:
-            return False
-    return True
+def lemmatization_cache(nlp: spacy.language.Language, sentence: str) -> str:    
+    doc = nlp(sentence)
+    lemmatized_sentence = ' '.join([token.lemma_ for token in doc])
+    return lemmatized_sentence
 
 # Using functools.lru_cache
+#@measure_energy(domains=[RaplPackageDomain(0)])
 @lru_cache(maxsize=None)
-@measure_energy(domains=[RaplPackageDomain(0)])
-def is_prime_lru_cache(n: int) -> bool:
-    if n <= 1:
-        return False
-    for i in range(2, int(n**0.5) + 1):
-        if n % i == 0:
-            return False
-    return True
+def lemmatization_lru_cache(nlp: spacy.language.Language, sentence: str) -> str:
+    doc = nlp(sentence)
+    lemmatized_sentence = ' '.join([token.lemma_ for token in doc])
+    return lemmatized_sentence
 
 """
 # Example usage
-n = 29
+sentence = "The quick brown foxes are jumping over the lazy dogs"
 
-print(is_prime(n))
-print(is_prime_cache(n))
-print(is_prime_lru_cache(n))
+print(lemmatization(nlp, sentence))
+print(lemmatization_cache(nlp, sentence))
+print(lemmatization_lru_cache(nlp, sentence))
 """
-@measure_energy
-def funziona(n):
-    return n+1
+
+
+
+
+
+
+
+
+
+
 
 
 

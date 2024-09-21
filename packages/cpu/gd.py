@@ -1,52 +1,109 @@
 #AI generated for explorative purposes
-"""
+
 from functools import cache, lru_cache
-import torch
+#from pyJoules.device.rapl_device import RaplPackageDomain
+#from pyJoules.energy_meter import measure_energy
+import numpy as np
 
 
 # Basic Implementation
-def gradient_descent(X: torch.Tensor, y: torch.Tensor, lr= float, iters= int) -> torch.Tensor:
-    theta = torch.zeros(X.shape[1], requires_grad=True)
-    for _ in range(iters):
-        loss = ((X.mm(theta.unsqueeze(1)).squeeze() - y) ** 2).mean()
-        loss.backward()
-        with torch.no_grad():
-            theta -= lr * theta.grad
-            theta.grad.zero_()
-    return theta
+def hessian(f: callable, x: np.ndarray) -> np.ndarray:
+    x = np.asarray(x)
+    n = x.size
+    hessian_matrix = np.zeros((n, n))
+    epsilon = np.sqrt(np.finfo(float).eps)
+    
+    for i in range(n):
+        for j in range(n):
+            x_ij = x.copy()
+            x_ij[i] += epsilon
+            x_ij[j] += epsilon
+            f_ij = f(x_ij)
+            
+            x_i = x.copy()
+            x_i[i] += epsilon
+            f_i = f(x_i)
+            
+            x_j = x.copy()
+            x_j[j] += epsilon
+            f_j = f(x_j)
+            
+            f_0 = f(x)
+            
+            hessian_matrix[i, j] = (f_ij - f_i - f_j + f_0) / (epsilon ** 2)
+    
+    return hessian_matrix
 
 # Using functools.cache (Python 3.9+)
+#@measure_energy(domains=[RaplPackageDomain(0)])
 @cache
-def gradient_descent_cached(X: torch.Tensor, y: torch.Tensor, lr= float, iters= int) -> torch.Tensor:
-    theta = torch.zeros(X.shape[1], requires_grad=True)
-    for _ in range(iters):
-        loss = ((X.mm(theta.unsqueeze(1)).squeeze() - y) ** 2).mean()
-        loss.backward()
-        with torch.no_grad():
-            theta -= lr * theta.grad
-            theta.grad.zero_()
-    return theta
+def hessian_cache(f: callable, x: np.ndarray) -> np.ndarray:
+    x = np.asarray(x)
+    n = x.size
+    hessian_matrix = np.zeros((n, n))
+    epsilon = np.sqrt(np.finfo(float).eps)
+    
+    for i in range(n):
+        for j in range(n):
+            x_ij = x.copy()
+            x_ij[i] += epsilon
+            x_ij[j] += epsilon
+            f_ij = f(x_ij)
+            
+            x_i = x.copy()
+            x_i[i] += epsilon
+            f_i = f(x_i)
+            
+            x_j = x.copy()
+            x_j[j] += epsilon
+            f_j = f(x_j)
+            
+            f_0 = f(x)
+            
+            hessian_matrix[i, j] = (f_ij - f_i - f_j + f_0) / (epsilon ** 2)
+    
+    return hessian_matrix
 
 # Using functools.lru_cache
+#@measure_energy(domains=[RaplPackageDomain(0)])
 @lru_cache(maxsize=None)
-def gradient_descent_lru(X: torch.Tensor, y: torch.Tensor, lr= float, iters= int) -> torch.Tensor:
-    theta = torch.zeros(X.shape[1], requires_grad=True)
-    for _ in range(iters):
-        loss = ((X.mm(theta.unsqueeze(1)).squeeze() - y) ** 2).mean()
-        loss.backward()
-        with torch.no_grad():
-            theta -= lr * theta.grad
-            theta.grad.zero_()
-    return theta
+def hessian_lru_cache(f: callable, x: np.ndarray) -> np.ndarray:
+    x = np.asarray(x)
+    n = x.size
+    hessian_matrix = np.zeros((n, n))
+    epsilon = np.sqrt(np.finfo(float).eps)
+    
+    for i in range(n):
+        for j in range(n):
+            x_ij = x.copy()
+            x_ij[i] += epsilon
+            x_ij[j] += epsilon
+            f_ij = f(x_ij)
+            
+            x_i = x.copy()
+            x_i[i] += epsilon
+            f_i = f(x_i)
+            
+            x_j = x.copy()
+            x_j[j] += epsilon
+            f_j = f(x_j)
+            
+            f_0 = f(x)
+            
+            hessian_matrix[i, j] = (f_ij - f_i - f_j + f_0) / (epsilon ** 2)
+    
+    return hessian_matrix
+
 
 '''
 # Example usage
-X = torch.rand(100, 10)
-y = torch.rand(100)
+def high_dim_func(x):
+    return np.sum(x**2)
 
-print(gradient_descent(X, y, lr=0.01, iters=1000))
-print(gradient_descent_cached(X, y, lr=0.01, iters=1000))
-print(gradient_descent_lru(X, y, lr=0.01, iters=1000))
+# Example usage:
+x = np.random.rand(100)  # 100-dimensional input
+
+print(hessian(high_dim_func, x))
+print(hessian_cache(high_dim_func, x))
+print(hessian_lru_cache(high_dim_func, x))
 '''
-
-"""

@@ -1,8 +1,8 @@
 #AI generated for explorative purposes
 
 from functools import cache, lru_cache
-from pyJoules.device.rapl_device import RaplPackageDomain
-from pyJoules.energy_meter import measure_energy
+#from pyJoules.device.rapl_device import RaplPackageDomain
+#from pyJoules.energy_meter import measure_energy
 
 def merge(left: list, right: list) -> list:
     result = []
@@ -22,7 +22,7 @@ def merge(left: list, right: list) -> list:
 
 
 # Basic Implementation
-@measure_energy(domains=[RaplPackageDomain(0)])
+#@measure_energy(domains=[RaplPackageDomain(0)])
 def merge_sort(arr: list) -> list:
     if len(arr) <= 1:
         return arr
@@ -34,8 +34,8 @@ def merge_sort(arr: list) -> list:
     return merge(left, right)
 
 # Using functools.cache (Python 3.9+)
+#@measure_energy(domains=[RaplPackageDomain(0)])
 @cache
-@measure_energy(domains=[RaplPackageDomain(0)])
 def merge_sort_cache(arr: list) -> list:
     if len(arr) <= 1:
         return arr
@@ -47,8 +47,8 @@ def merge_sort_cache(arr: list) -> list:
     return merge(left, right)
 
 # Using functools.lru_cache
+#@measure_energy(domains=[RaplPackageDomain(0)])
 @lru_cache(maxsize=None)
-@measure_energy(domains=[RaplPackageDomain(0)])
 def merge_sort_lru_cache(arr: list) -> list:
     if len(arr) <= 1:
         return arr

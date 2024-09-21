@@ -1,8 +1,28 @@
 #AI generated for explorative purposes
 
 from functools import cache, lru_cache
-from pyJoules.device.rapl_device import RaplPackageDomain
-from pyJoules.energy_meter import measure_energy
+#from pyJoules.device.rapl_device import RaplPackageDomain
+#from pyJoules.energy_meter import measure_energy
+from time import perf_counter
+from functools import wraps
+
+def timer(func, *args, **kwargs):
+    
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        start = perf_counter()
+        print(f'Starting {func.__name__} at {start}')   # 1
+        result = func(*args, **kwargs)
+        end = perf_counter()
+        print(f'Finished {func.__name__} at {end}')     # 3
+        print(f"Elapsed time: {end - start}")           # 4
+        return result                                   # 5                
+    return wrapper
+
+@timer
+def measure_time(func: callable, *args, **kwargs):
+    print(f"Calling {func.__name__} with args: {args}")  # 2
+    return func(*args, **kwargs)
 
 
 # Basic Implementation
@@ -23,6 +43,7 @@ def fibonacci_cache(n: int) -> int:
     return fibonacci_cache(n - 1) + fibonacci_cache(n - 2)
 
 # Using functools.lru_cache
+
 @lru_cache(maxsize=None)
 def fibonacci_lru_cache(n: int) -> int:
     if n == 0:
@@ -32,27 +53,14 @@ def fibonacci_lru_cache(n: int) -> int:
     return fibonacci_lru_cache(n - 1) + fibonacci_lru_cache(n - 2)
 
 
-@measure_energy(domains=[RaplPackageDomain(0)])
-def wrapper_fibonacci(n: int) -> int:
-    return fibonacci(n)
-
-@measure_energy(domains=[RaplPackageDomain(0)])
-def wrapper_fibonacci_cache(n: int) -> int:
-    return fibonacci_cache(n)
-
-@measure_energy(domains=[RaplPackageDomain(0)])
-def wrapper_fibonacci_lru_cache(n: int) -> int:
-    return fibonacci_lru_cache(n)
 '''
 # Example usage
 n = 10
 
-print(fibonacci(n))
-print(fibonacci_cache(n))
-print(fibonacci_lru_cache(n))
+print(measure_time(fibonacci, n))
+print(measure_time(fibonacci_cache, n))
+print(measure_time(fibonacci_lru_cache, n))
 '''
-
-
 
 
 

@@ -1,12 +1,11 @@
 #AI generated for explorative purposes
 
 from functools import cache, lru_cache
-from pyJoules.device.rapl_device import RaplPackageDomain
-from pyJoules.energy_meter import measure_energy
+#from pyJoules.device.rapl_device import RaplPackageDomain
+#from pyJoules.energy_meter import measure_energy
 
 
 # Basic Implementation
-@measure_energy(domains=[RaplPackageDomain(0)])
 def tower_of_hanoi(n: int, source: str, target: str, auxiliary: str) -> None:
     if n == 1:
         print(f"Move disk 1 from {source} to {target}")
@@ -17,7 +16,6 @@ def tower_of_hanoi(n: int, source: str, target: str, auxiliary: str) -> None:
     
 # Using functools.cache (Python 3.9+)
 @cache
-@measure_energy(domains=[RaplPackageDomain(0)])
 def tower_of_hanoi_cache(n: int, source: str, target: str, auxiliary: str) -> None:
     if n == 1:
         print(f"Move disk 1 from {source} to {target}")
@@ -28,7 +26,6 @@ def tower_of_hanoi_cache(n: int, source: str, target: str, auxiliary: str) -> No
     
 # Using functools.lru_cache
 @lru_cache(maxsize=None)
-@measure_energy(domains=[RaplPackageDomain(0)])
 def tower_of_hanoi_lru_cache(n: int, source: str, target: str, auxiliary: str) -> None:
     if n == 1:
         print(f"Move disk 1 from {source} to {target}")

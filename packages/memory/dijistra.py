@@ -1,9 +1,12 @@
 #AI generated for explorative purposes
 
 from functools import cache, lru_cache
+#from pyJoules.device.rapl_device import RaplPackageDomain
+#from pyJoules.energy_meter import measure_energy
 import heapq
 
 # Basic Implementation
+#@measure_energy(domains=[RaplPackageDomain(0)])
 def dijkstra(graph: dict, start: str) -> dict:
     distances = {node: float('inf') for node in graph}
     distances[start] = 0
@@ -25,6 +28,7 @@ def dijkstra(graph: dict, start: str) -> dict:
     return distances
 
 # Using functools.cache (Python 3.9+)
+#@measure_energy(domains=[RaplPackageDomain(0)])
 @cache
 def dijkstra_cache(graph: dict, start: str) -> dict:
     distances = {node: float('inf') for node in graph}
@@ -47,6 +51,7 @@ def dijkstra_cache(graph: dict, start: str) -> dict:
     return distances
 
 # Using functools.lru_cache
+#@measure_energy(domains=[RaplPackageDomain(0)])
 @lru_cache(maxsize=None)
 def dijkstra_lru_cache(graph: dict, start: str) -> dict:
     distances = {node: float('inf') for node in graph}
@@ -69,7 +74,7 @@ def dijkstra_lru_cache(graph: dict, start: str) -> dict:
     return distances
 
 
-"""
+'''
 # Example usage
 graph = {
     'A': {'B': 1, 'C': 4},
@@ -81,4 +86,4 @@ graph = {
 print("Basic Dijkstra:", dijkstra(graph, 'A'))
 print("Cached Dijkstra:", dijkstra_cache(graph, 'A'))
 print("LRU Cached Dijkstra:", dijkstra_lru_cache(graph, 'A'))
-"""
+'''

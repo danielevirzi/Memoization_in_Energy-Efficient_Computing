@@ -1,8 +1,11 @@
 #AI generated for explorative purposes
 
 from functools import cache, lru_cache
+#from pyJoules.device.rapl_device import RaplPackageDomain
+#from pyJoules.energy_meter import measure_energy
 
 # Basic Implementation
+#@measure_energy(domains=[RaplPackageDomain(0)])
 def knapsack_basic(weights: list[int], values: list[int], capacity: int) -> int:
     n = len(weights)
     
@@ -18,6 +21,7 @@ def knapsack_basic(weights: list[int], values: list[int], capacity: int) -> int:
     return knapsack_recursive(n - 1, capacity)
 
 # Using functools.cache (Python 3.9+)
+#@measure_energy(domains=[RaplPackageDomain(0)])
 def knapsack_cache(weights: list[int], values: list[int], capacity: int) -> int:
     n = len(weights)
     
@@ -34,6 +38,7 @@ def knapsack_cache(weights: list[int], values: list[int], capacity: int) -> int:
     return knapsack_recursive(n - 1, capacity)
 
 # Using functools.lru_cache
+#@measure_energy(domains=[RaplPackageDomain(0)])
 def knapsack_lru_cache(weights: list[int], values: list[int], capacity: int) -> int:
     n = len(weights)
     

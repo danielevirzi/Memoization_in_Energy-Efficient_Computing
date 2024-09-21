@@ -1,9 +1,12 @@
 #AI generated for explorative purposes
 
 from functools import cache, lru_cache
+#from pyJoules.device.rapl_device import RaplPackageDomain
+#from pyJoules.energy_meter import measure_energy
 import numpy as np
 
 # Basic Implementation of Floyd-Warshall Algorithm
+#@measure_energy(domains=[RaplPackageDomain(0)])
 def floyd_warshall(graph: np.ndarray) -> np.ndarray:
     V = len(graph)
     dist = np.copy(graph)
@@ -16,6 +19,7 @@ def floyd_warshall(graph: np.ndarray) -> np.ndarray:
     return dist
 
 # Using functools.cache (Python 3.9+)
+#@measure_energy(domains=[RaplPackageDomain(0)])
 def floyd_warshall_cache(graph: np.ndarray) -> np.ndarray:
     V = len(graph)
     dist = np.copy(graph)
@@ -34,6 +38,7 @@ def floyd_warshall_cache(graph: np.ndarray) -> np.ndarray:
     return dist
 
 # Using functools.lru_cache
+#@measure_energy(domains=[RaplPackageDomain(0)])
 def floyd_warshall_lru_cache(graph: np.ndarray) -> np.ndarray:
     V = len(graph)
     dist = np.copy(graph)

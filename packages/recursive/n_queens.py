@@ -1,8 +1,8 @@
 #AI generated for explorative purposes
 
 from functools import cache, lru_cache
-from pyJoules.device.rapl_device import RaplPackageDomain
-from pyJoules.energy_meter import measure_energy
+#from pyJoules.device.rapl_device import RaplPackageDomain
+#from pyJoules.energy_meter import measure_energy
 
 
 def is_safe(board: list, row: int, col: int) -> bool:
@@ -19,7 +19,6 @@ def is_safe(board: list, row: int, col: int) -> bool:
 
 
 # Basic Implementation
-@measure_energy(domains=[RaplPackageDomain(0)])
 def solve_n_queens(board: list, col: int) -> bool:
     if col >= len(board):
         return True
@@ -33,7 +32,6 @@ def solve_n_queens(board: list, col: int) -> bool:
 
 # Using functools.cache (Python 3.9+)
 @cache
-@measure_energy(domains=[RaplPackageDomain(0)])
 def solve_n_queens_cache(board: list, col: int) -> bool:
     if col >= len(board):
         return True
@@ -47,7 +45,6 @@ def solve_n_queens_cache(board: list, col: int) -> bool:
 
 # Using functools.lru_cache
 @lru_cache(maxsize=None)
-@measure_energy(domains=[RaplPackageDomain(0)])
 def solve_n_queens_lru_cache(board: list, col: int) -> bool:
     if col >= len(board):
         return True
