@@ -1,9 +1,12 @@
 #AI generated for explorative purposes
 
 from functools import cache, lru_cache
+from pyJoules.device.rapl_device import RaplPackageDomain
+from pyJoules.energy_meter import measure_energy
 
 
 # Basic Implementation
+@measure_energy(domains=[RaplPackageDomain(0)])
 def reverse_string(s: str) -> str:
     if len(s) == 0:
         return s
@@ -12,6 +15,7 @@ def reverse_string(s: str) -> str:
     
 # Using functools.cache (Python 3.9+)
 @cache
+@measure_energy(domains=[RaplPackageDomain(0)])
 def reverse_string_cache(s: str) -> str:
     if len(s) == 0:
         return s
@@ -20,6 +24,7 @@ def reverse_string_cache(s: str) -> str:
     
 # Using functools.lru_cache
 @lru_cache(maxsize=None)
+@measure_energy(domains=[RaplPackageDomain(0)])
 def reverse_string_lru_cache(s: str) -> str:
     if len(s) == 0:
         return s

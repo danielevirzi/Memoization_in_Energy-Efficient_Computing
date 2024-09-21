@@ -2,8 +2,11 @@
 
 from functools import lru_cache, cache
 import numpy as np
+from pyJoules.device.rapl_device import RaplPackageDomain
+from pyJoules.energy_meter import measure_energy
 
 # Basic Implementation
+@measure_energy(domains=[RaplPackageDomain(0)])
 def convolve2d(matrix: np.ndarray, kernel: np.ndarray) -> np.ndarray:
     m, n = matrix.shape
     km, kn = kernel.shape
@@ -19,6 +22,7 @@ def convolve2d(matrix: np.ndarray, kernel: np.ndarray) -> np.ndarray:
     return output
 
 # Using functools.cache (Python 3.9+)
+@measure_energy(domains=[RaplPackageDomain(0)])
 def convolve2d_cache(matrix: np.ndarray, kernel: np.ndarray) -> np.ndarray:
     m, n = matrix.shape
     km, kn = kernel.shape
@@ -35,6 +39,7 @@ def convolve2d_cache(matrix: np.ndarray, kernel: np.ndarray) -> np.ndarray:
     return output
 
 # Using functools.lru_cache
+@measure_energy(domains=[RaplPackageDomain(0)])
 def convolve2d_lru_cache(matrix: np.ndarray, kernel: np.ndarray) -> np.ndarray:
     m, n = matrix.shape
     km, kn = kernel.shape

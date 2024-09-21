@@ -2,9 +2,12 @@
 
 from functools import cache, lru_cache
 import numpy as np
+from pyJoules.device.rapl_device import RaplPackageDomain
+from pyJoules.energy_meter import measure_energy
 
 
 # Basic Implementation
+@measure_energy(domains=[RaplPackageDomain(0)])
 def DFT(x: np.ndarray) -> np.ndarray:
     N = len(x)
     n = np.arange(N)
@@ -14,6 +17,7 @@ def DFT(x: np.ndarray) -> np.ndarray:
 
 # Using functools.cache (Python 3.9+)
 @cache
+@measure_energy(domains=[RaplPackageDomain(0)])
 def DFT_cache(x: np.ndarray) -> np.ndarray:
     N = len(x)
     n = np.arange(N)
@@ -23,6 +27,7 @@ def DFT_cache(x: np.ndarray) -> np.ndarray:
 
 # Using functools.lru_cache
 @lru_cache(maxsize=None)
+@measure_energy(domains=[RaplPackageDomain(0)])
 def DFT_lru_cache(x: np.ndarray) -> np.ndarray:
     N = len(x)
     n = np.arange(N)

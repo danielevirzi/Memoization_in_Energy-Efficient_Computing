@@ -1,6 +1,8 @@
 #AI generated for explorative purposes
 
 from functools import cache, lru_cache
+from pyJoules.device.rapl_device import RaplPackageDomain
+from pyJoules.energy_meter import measure_energy
 
 
 # Basic Implementation
@@ -30,6 +32,17 @@ def fibonacci_lru_cache(n: int) -> int:
     return fibonacci_lru_cache(n - 1) + fibonacci_lru_cache(n - 2)
 
 
+@measure_energy(domains=[RaplPackageDomain(0)])
+def wrapper_fibonacci(n: int) -> int:
+    return fibonacci(n)
+
+@measure_energy(domains=[RaplPackageDomain(0)])
+def wrapper_fibonacci_cache(n: int) -> int:
+    return fibonacci_cache(n)
+
+@measure_energy(domains=[RaplPackageDomain(0)])
+def wrapper_fibonacci_lru_cache(n: int) -> int:
+    return fibonacci_lru_cache(n)
 '''
 # Example usage
 n = 10
