@@ -24,11 +24,10 @@ def generate_permutations_lru_cache(tup: tuple) -> tuple:
     return list(itertools.permutations(tup))
 
 
-'''
-# Example Usage
-tup = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+if __name__ == '__main__':
+    # Example Usage
+    tup = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 
-print(generate_permutations(tup))
-print(generate_permutations_cache(tup))
-print(generate_permutations_lru_cache(tup))
-'''
+    print(generate_permutations(tup))
+    print(generate_permutations_cache(tup))
+    print(generate_permutations_lru_cache(tup))

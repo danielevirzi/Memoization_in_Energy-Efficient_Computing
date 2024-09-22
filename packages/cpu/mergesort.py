@@ -36,34 +36,38 @@ def merge_sort(arr: list) -> list:
 # Using functools.cache (Python 3.9+)
 #@measure_energy(domains=[RaplPackageDomain(0)])
 @cache
-def merge_sort_cache(arr: list) -> list:
+def merge_sort_cache(arr_tuple: tuple) -> list:
+    arr = list(arr_tuple)  # Convert tuple back to list
     if len(arr) <= 1:
         return arr
 
     mid = len(arr) // 2
-    left = merge_sort_cache(arr[:mid])
-    right = merge_sort_cache(arr[mid:])
+    left = merge_sort_cache(tuple(arr[:mid]))
+    right = merge_sort_cache(tuple(arr[mid:]))
 
     return merge(left, right)
 
 # Using functools.lru_cache
 #@measure_energy(domains=[RaplPackageDomain(0)])
 @lru_cache(maxsize=None)
-def merge_sort_lru_cache(arr: list) -> list:
+def merge_sort_lru_cache(arr_tuple: tuple) -> list:
+    arr = list(arr_tuple)  # Convert tuple back to list
     if len(arr) <= 1:
         return arr
 
     mid = len(arr) // 2
-    left = merge_sort_lru_cache(arr[:mid])
-    right = merge_sort_lru_cache(arr[mid:])
+    left = merge_sort_lru_cache(tuple(arr[:mid]))
+    right = merge_sort_lru_cache(tuple(arr[mid:]))
 
     return merge(left, right)
 
-'''
-# Example usage
-arr = [12, 11, 13, 5, 6, 7]
 
-print(merge_sort(arr))
-print(merge_sort_cache(arr))
-print(merge_sort_lru_cache(arr))
-'''
+if __name__ == '__main__':
+    # Example usage
+    arr = [12, 11, 13, 5, 6, 7]
+
+    print("Normal Merge Sort:", merge_sort(arr))
+
+    arr_tuple = tuple(arr)  # Convert list to tuple for caching
+    print("Cache Merge Sort:", merge_sort_cache(arr_tuple))
+    print("LRU Cache Merge Sort:", merge_sort_lru_cache(arr_tuple))

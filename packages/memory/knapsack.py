@@ -55,13 +55,12 @@ def knapsack_lru_cache(weights: list[int], values: list[int], capacity: int) -> 
     return knapsack_recursive(n - 1, capacity)
 
 
-"""
-# Example usage
-weights = [1, 2, 3, 4]
-values = [10, 20, 30, 40]
-capacity = 5
+if __name__ == '__main__':
+    # Example usage
+    weights = [1, 2, 3, 4]
+    values = [10, 20, 30, 40]
+    capacity = 5
 
-print("Basic Implementation:", knapsack_basic(weights, values, capacity))
-print("Using functools.cache:", knapsack_cache(weights, values, capacity))
-print("Using functools.lru_cache:", knapsack_lru_cache(weights, values, capacity))
-"""
+    print("Basic Implementation:", knapsack_basic(weights, values, capacity))
+    print("Using functools.cache:", knapsack_cache(weights, values, capacity))
+    print("Using functools.lru_cache:", knapsack_lru_cache(weights, values, capacity))

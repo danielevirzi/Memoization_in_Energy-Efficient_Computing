@@ -30,14 +30,13 @@ def lemmatization_lru_cache(nlp: spacy.language.Language, sentence: str) -> str:
     lemmatized_sentence = ' '.join([token.lemma_ for token in doc])
     return lemmatized_sentence
 
-"""
-# Example usage
-sentence = "The quick brown foxes are jumping over the lazy dogs"
+if __name__ == '__main__':
+    # Example usage
+    sentence = "The quick brown foxes are jumping over the lazy dogs"
 
-print(lemmatization(nlp, sentence))
-print(lemmatization_cache(nlp, sentence))
-print(lemmatization_lru_cache(nlp, sentence))
-"""
+    print(lemmatization(nlp, sentence))
+    print(lemmatization_cache(nlp, sentence))
+    print(lemmatization_lru_cache(nlp, sentence))
 
 
 

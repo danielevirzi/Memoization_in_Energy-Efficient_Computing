@@ -56,17 +56,17 @@ def floyd_warshall_lru_cache(graph: np.ndarray) -> np.ndarray:
     
     return dist
 
-'''
-# Example usage
-INF = float('inf')
-graph = np.array([
-    [0, 3, INF, INF],
-    [2, 0, INF, INF],
-    [INF, 7, 0, 1],
-    [6, INF, INF, 0]
-])
+if __name__ == '__main__':
+    # Example usage
+    INF = float('inf')
+    graph = np.array([
+        [0, 3, INF, INF],
+        [2, 0, INF, INF],
+        [INF, 7, 0, 1],
+        [6, INF, INF, 0]
+    ])
 
-print("Basic Implementation:\n", floyd_warshall(graph))
-print("Using functools.cache:\n", floyd_warshall_cache(graph))
-print("Using functools.lru_cache:\n", floyd_warshall_lru_cache(graph))
-'''
+    print("Basic Implementation:\n", floyd_warshall(graph))
+    print("Using functools.cache:\n", floyd_warshall_cache(graph))
+    print("Using functools.lru_cache:\n", floyd_warshall_lru_cache(graph))
+
