@@ -30,14 +30,13 @@ class UniquePaths:
         return self.unique_paths_lru_cache(m - 1, n) + self.unique_paths_lru_cache(m, n - 1)
     
 
-'''
-# Example usage
-up = UniquePaths()
-n = 3
-m = 7
+if __name__ == '__main__':
+    # Example usage
+    up = UniquePaths()
+    n = 3
+    m = 7
 
-print(up.unique_paths(n, m))
-print(up.unique_paths_cache(n, m))
-print(up.unique_paths_lru_cache(n, m))
-'''
+    print(up.unique_paths(n, m))
+    print(up.unique_paths_cache(n, m))
+    print(up.unique_paths_lru_cache(n, m))
 

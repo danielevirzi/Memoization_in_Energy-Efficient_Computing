@@ -1,6 +1,7 @@
 #AI generated for explorative purposes
 
 from functools import cache, lru_cache
+import copy
 #from pyJoules.device.rapl_device import RaplPackageDomain
 #from pyJoules.energy_meter import measure_energy
 
@@ -32,35 +33,36 @@ def solve_n_queens(board: list, col: int) -> bool:
 
 # Using functools.cache (Python 3.9+)
 @cache
-def solve_n_queens_cache(board: list, col: int) -> bool:
+def solve_n_queens_cache(board_tuple: tuple, col: int) -> bool:
+    board = [list(row) for row in board_tuple]  # Convert tuple back to list
     if col >= len(board):
         return True
     for i in range(len(board)):
         if is_safe(board, i, col):
             board[i][col] = 1
-            if solve_n_queens_cache(board, col + 1):
+            if solve_n_queens_cache(tuple(map(tuple, board)), col + 1):
                 return True
             board[i][col] = 0
     return False
 
 # Using functools.lru_cache
 @lru_cache(maxsize=None)
-def solve_n_queens_lru_cache(board: list, col: int) -> bool:
+def solve_n_queens_lru_cache(board_tuple: tuple, col: int) -> bool:
+    board = [list(row) for row in board_tuple]  # Convert tuple back to list
     if col >= len(board):
         return True
     for i in range(len(board)):
         if is_safe(board, i, col):
             board[i][col] = 1
-            if solve_n_queens_lru_cache(board, col + 1):
+            if solve_n_queens_lru_cache(tuple(map(tuple, board)), col + 1):
                 return True
             board[i][col] = 0
     return False
 
-'''
-# Example usage
-board = [[0 for _ in range(8)] for _ in range(8)]
 
-print(solve_n_queens(board, 0))
-print(solve_n_queens_cache(board, 0))
-print(solve_n_queens_lru_cache(board, 0))
-'''
+if __name__ == '__main__':
+    board = [[0 for _ in range(8)] for _ in range(8)]
+    print("Basic Implementation:", solve_n_queens(copy.deepcopy(board), 0))
+    board_tuple = tuple(map(tuple, board))
+    print("Cache Implementation:", solve_n_queens_cache(board_tuple, 0))
+    print("LRU Cache Implementation:", solve_n_queens_lru_cache(board_tuple, 0))

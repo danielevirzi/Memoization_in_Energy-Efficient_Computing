@@ -29,11 +29,11 @@ def reverse_string_lru_cache(s: str) -> str:
         return reverse_string_lru_cache(s[1:]) + s[0]
     
     
-'''
-# Example usage
-word = "greenlab"
+if __name__ == '__main__':
+    # Example usage
+    word = "greenlab"
 
-print(reverse_string(word))
-print(reverse_string_cache(word))
-print(reverse_string_lru_cache(word))
-'''
+    print(reverse_string(word))
+    print(reverse_string_cache(word))
+    print(reverse_string_lru_cache(word))
+

@@ -53,14 +53,14 @@ def fibonacci_lru_cache(n: int) -> int:
     return fibonacci_lru_cache(n - 1) + fibonacci_lru_cache(n - 2)
 
 
-'''
-# Example usage
-n = 10
+if __name__ == '__main__':
+    # Example usage
+    n = 10
 
-print(measure_time(fibonacci, n))
-print(measure_time(fibonacci_cache, n))
-print(measure_time(fibonacci_lru_cache, n))
-'''
+    print(measure_time(fibonacci, n))
+    print(measure_time(fibonacci_cache, n))
+    print(measure_time(fibonacci_lru_cache, n))
+
 
 
 

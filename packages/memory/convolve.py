@@ -57,12 +57,11 @@ def convolve2d_lru_cache(matrix: np.ndarray, kernel: np.ndarray) -> np.ndarray:
     return output
 
 
-'''
-# Example usage
-matrix = np.random.rand(1080, 1920)
-kernel = np.random.rand(3, 3)
+if __name__ == '__main__':
+    # Example usage
+    matrix = np.random.rand(1080, 1920)
+    kernel = np.random.rand(3, 3)
 
-print("Basic Implementation:\n", convolve2d(matrix, kernel))
-print("Using functools.cache:\n", convolve2d_cache(matrix, kernel))
-print("Using functools.lru_cache:\n", convolve2d_lru_cache(matrix, kernel))
-'''
+    print("Basic Implementation:\n", convolve2d(matrix, kernel))
+    print("Using functools.cache:\n", convolve2d_cache(matrix, kernel))
+    print("Using functools.lru_cache:\n", convolve2d_lru_cache(matrix, kernel))

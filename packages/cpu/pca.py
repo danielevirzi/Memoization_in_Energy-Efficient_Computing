@@ -22,7 +22,8 @@ def pca(X: np.ndarray, num_components: int) -> np.ndarray:
 # Using functools.cache (Python 3.9+)
 #@measure_energy(domains=[RaplPackageDomain(0)])
 @cache
-def pca_cache(X: np.ndarray, num_components: int) -> np.ndarray:
+def pca_cache(X_tuple: tuple, num_components: int) -> np.ndarray:
+    X = np.array(X_tuple)  # Convert tuple back to numpy array
     X_meaned = X - np.mean(X, axis=0)
     cov_matrix = np.cov(X_meaned, rowvar=False)
     eigenvalues, eigenvectors = np.linalg.eigh(cov_matrix)
@@ -36,7 +37,8 @@ def pca_cache(X: np.ndarray, num_components: int) -> np.ndarray:
 # Using functools.lru_cache
 #@measure_energy(domains=[RaplPackageDomain(0)])
 @lru_cache(maxsize=None)
-def pca_lru_cache(X: np.ndarray, num_components: int) -> np.ndarray:
+def pca_lru_cache(X_tuple: tuple, num_components: int) -> np.ndarray:
+    X = np.array(X_tuple)  # Convert tuple back to numpy array
     X_meaned = X - np.mean(X, axis=0)
     cov_matrix = np.cov(X_meaned, rowvar=False)
     eigenvalues, eigenvectors = np.linalg.eigh(cov_matrix)
@@ -48,12 +50,14 @@ def pca_lru_cache(X: np.ndarray, num_components: int) -> np.ndarray:
     return X_reduced
 
 
-"""
-# Example usage
-X = np.random.rand(1000, 100)
-num_components = 10
+if __name__ == '__main__':
+    # Example usage
+    X = np.random.rand(1000, 100)
+    num_components = 10
 
-print(pca(X, num_components))
-print(pca_cache(X, num_components))
-print(pca_lru_cache(X, num_components))
-"""
+    # Convert numpy array to tuple for caching
+    X_tuple = tuple(map(tuple, X))  # Convert 2D array to tuple of tuples
+
+    print('normal:', pca(X, num_components))
+    print('cache:',pca_cache(X_tuple, num_components))
+    print('lru_cache:', pca_lru_cache(X_tuple, num_components))

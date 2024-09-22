@@ -34,14 +34,13 @@ def tower_of_hanoi_lru_cache(n: int, source: str, target: str, auxiliary: str) -
     print(f"Move disk {n} from {source} to {target}")
     tower_of_hanoi_lru_cache(n-1, auxiliary, target, source)
     
-'''
-# Example usage
-n = 3
-source = "A"
-target = "C"
-auxiliary = "B"
+if __name__ == '__main__':
+    # Example usage
+    n = 3
+    source = "A"
+    target = "C"
+    auxiliary = "B"
 
-tower_of_hanoi(n, source, target, auxiliary)
-tower_of_hanoi_cache(n, source, target, auxiliary)
-tower_of_hanoi_lru_cache(n, source, target, auxiliary)
-'''
+    tower_of_hanoi(n, source, target, auxiliary)
+    tower_of_hanoi_cache(n, source, target, auxiliary)
+    tower_of_hanoi_lru_cache(n, source, target, auxiliary)
