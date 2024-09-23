@@ -5,7 +5,6 @@
 - experiment-runner
 - test
 - test-standalone
-- venv
 - examples(removed by me but you can check at https://github.com/S2-group/experiment-runner)
 - requirements.txt
 - CITATION.cff
