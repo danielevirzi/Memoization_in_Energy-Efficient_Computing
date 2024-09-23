@@ -6,6 +6,8 @@
 Install my-project with npm
 
 ```bash
-  pip install -r requirements.txt
+ chmod +x install.sh
+./install.sh
+
 ```
     
