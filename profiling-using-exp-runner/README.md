@@ -67,7 +67,7 @@ Then it should run smoothly and you can see the ongoing output indicating every 
 
 5. @cache and @lru_cache need **hashable** input while basic one(the function that doesn't use any cache decorator before definition) doesn't. 
 
-   So when writing corresponding RunnerConfig.py for the remaining problems,  for convenience, modify the input of  basic function to ensure the inputs are same in terms of format(hashable input) among all three functions. (**This modification need to be done with codes in experiment-runner/packages.** At the moment, except for DFT problem, the basic functions for some remaining problem use unhashable inputs. )
+   So when writing corresponding RunnerConfig.py for the remaining problems,  for convenience, modify the input of  basic function to ensure the inputs are same in terms of format(hashable input) among all three functions. (**This modification need to be done with codes located in profiling-using-exp-runner/packages.** At the moment, except for DFT problem, the basic functions for some remaining problem use unhashable inputs. )
 
 ## Code Structure
 
