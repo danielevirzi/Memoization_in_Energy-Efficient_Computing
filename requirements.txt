@@ -1,5 +1,9 @@
 numpy
-torch
+#torch
 pyJoules
 pandas
+setuptools
+wheel
+spacy
+
 
