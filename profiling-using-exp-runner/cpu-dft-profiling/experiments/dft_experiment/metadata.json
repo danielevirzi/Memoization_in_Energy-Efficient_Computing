@@ -1,6 +1,8 @@
 {
   "py/object": "ConfigValidator.Config.Models.Metadata.Metadata",
-  "_md5sum": {
-    "py/b64": "PIj0wGH7/yZjfLbx2Q5Pew=="
+  "py/state": {
+    "_md5sum": {
+      "py/b64": "fnr23Ozlq1sUtWv4vUIPrg=="
+    }
   }
 }
