@@ -154,9 +154,9 @@ class RunnerConfig:
         # Calculate average CPU usage across all cores
         cpu_columns = [col for col in df.columns if col.startswith('CPU_USAGE_')]
         if cpu_columns:
-            total_cpu_usage = df[cpu_columns].sum(axis=1)  # Sum up CPU usage of all cores for each row
-            average_cpu_usage = total_cpu_usage.mean()  # Compute the average CPU usage
-            run_data['average_cpu_usage'] = round(average_cpu_usage, 3)
+            core_avg_cpu_usage = df[cpu_columns].mean(axis=0)  # Sum up CPU usage of all cores for each row
+            overall_avg_cpu_usage = core_avg_cpu_usage.mean()  # Compute the average CPU usage
+            run_data['average_cpu_usage'] = round(overall_avg_cpu_usage, 8)
 
         # Get the execution time
         run_data['execution_time'] = getattr(context, 'run_execution_time', None)
