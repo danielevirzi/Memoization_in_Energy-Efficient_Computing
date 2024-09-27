@@ -64,7 +64,7 @@ class RunnerConfig:
         cache_factor = FactorModel("cache", ["DFT", "DFT_cache", "DFT_lru_cache"])  # Different cache strategies
         self.run_table_model = RunTableModel(
             factors=[input_size_factor, cache_factor, sampling_factor],
-            data_columns=['execution_time','average_cpu_usage','dram_energy', 'package_energy', 'pp0_energy', 'pp1_energy']
+            data_columns=['execution_time','average_cpu_usage','memory_usage','dram_energy', 'package_energy', 'pp0_energy', 'pp1_energy']
         )
         return self.run_table_model
 
@@ -144,6 +144,7 @@ class RunnerConfig:
         # energibridge.csv - Power consumption of the whole system
         df = pd.read_csv(context.run_dir / "energibridge.csv")
         run_data = {
+            'memory_usage': round(df.get('USED_MEMORY', pd.Series([0])).sum(), 3),
             'dram_energy': round(df.get('DRAM_ENERGY (J)', pd.Series([0])).sum(), 3),
             'package_energy': round(df.get('PACKAGE_ENERGY (J)', pd.Series([0])).sum(), 3),
             'pp0_energy': round(df.get('PP0_ENERGY (J)', pd.Series([0])).sum(), 3),
