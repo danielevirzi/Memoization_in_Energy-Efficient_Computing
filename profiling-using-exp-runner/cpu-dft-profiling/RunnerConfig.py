@@ -17,6 +17,7 @@ import time
 import subprocess
 import shlex
 import textwrap
+import re
 
 class RunnerConfig:
     ROOT_DIR = Path(dirname(realpath(__file__)))
@@ -59,12 +60,12 @@ class RunnerConfig:
     def create_run_table_model(self) -> RunTableModel:
         """Create and return the run_table model here. A run_table is a List (rows) of tuples (columns),
         representing each run performed"""
-        sampling_factor = FactorModel("sampling", [200, 1000]) # Define different sampling intervals
-        input_size_factor = FactorModel("input_size", [1024,4096])  # Define different input sizes
+        sampling_factor = FactorModel("sampling", [200]) # Define different sampling intervals
+        input_size_factor = FactorModel("input_size", [1024, 4096, 8192])  # Define different input sizes
         cache_factor = FactorModel("cache", ["DFT", "DFT_cache", "DFT_lru_cache"])  # Different cache strategies
         self.run_table_model = RunTableModel(
             factors=[input_size_factor, cache_factor, sampling_factor],
-            data_columns=['execution_time','average_cpu_usage','memory_usage','dram_energy', 'package_energy', 'pp0_energy', 'pp1_energy']
+            data_columns=['execution_time','average_cpu_usage','memory_usage','energy_consumption', 'dram_energy', 'package_energy', 'pp0_energy', 'pp1_energy']
         )
         return self.run_table_model
 
@@ -92,7 +93,7 @@ class RunnerConfig:
         input_size = context.run_variation['input_size']
         target_function_location = 'cpu.dft'
 
-        self.start_time = time.time()
+        # self.start_time = time.time()
 
         profiler_cmd = f'''sudo energibridge --interval {sampling_interval} \
         --max-execution 20 \
@@ -103,8 +104,8 @@ class RunnerConfig:
         energibridge_log = open(f'{context.run_dir}/energibridge.log', 'w')
         self.profiler = subprocess.Popen(shlex.split(profiler_cmd), stdout=energibridge_log)
 
-        end_time = time.time()
-        context.run_execution_time = round(end_time - self.start_time, 8)  # Keep the number of seconds of the 8 decimals
+        # end_time = time.time()
+        # context.run_execution_time = round(end_time - self.start_time, 8)  # Keep the number of seconds of the 8 decimals
 
         energibridge_log.write(f'sampling interval: {sampling_interval}, target function: {target_function}, input size: {input_size}\n')
         energibridge_log.flush()
@@ -137,6 +138,7 @@ class RunnerConfig:
         You can also store the raw measurement data under `context.run_dir`
         Returns a dictionary with keys `self.run_table_model.data_columns` and their values populated"""
         csv_path = context.run_dir / "energibridge.csv"
+        log_path = context.run_dir / "energibridge.log"
         if not csv_path.exists():
             output.console_log(f"Error: File {csv_path} does not exist!")
             return None
@@ -158,9 +160,38 @@ class RunnerConfig:
             overall_avg_cpu_usage = core_avg_cpu_usage.mean()  # Compute the average CPU usage
             run_data['average_cpu_usage'] = round(overall_avg_cpu_usage, 8)
 
-        # Get the execution time
-        run_data['execution_time'] = getattr(context, 'run_execution_time', None)
+        # Get the execution time (choose one of the two methods)
 
+        # method 1: using time.time() before and after the execution
+        # run_data['execution_time'] = getattr(context, 'run_execution_time', None)
+
+        # method 2: Read execution time from the log file
+        if log_path.exists():
+            try:
+                # Implement retry mechanism to handle file read issues
+                retries = 5  # Number of retries
+                for attempt in range(retries):
+                    try:
+                        with open(log_path, 'r') as log_file:
+                            log_content = log_file.read()
+                            # Use regular expression to find the execution time in seconds
+                            match = re.search(r"Energy consumption in joules: ([\d\.]+) for ([\d\.]+) sec of execution",log_content)
+                            if match:
+                                run_data['energy_consumption'] = float(match.group(1))  # Extract energy consumption in joules
+                                run_data['execution_time'] = float(match.group(2))  # Extract the execution time in seconds
+                            else:
+                                output.console_log(f"Warning: No energy consumption or execution time found in {log_path}")
+                                time.sleep(1)  # Wait for 1 second before retrying
+                    except IOError:
+                        output.console_log(f"Error reading file {log_path}. Retrying... ({attempt + 1}/{retries})")
+                        time.sleep(1)  # Wait for 1 second before retrying
+
+                if 'execution_time' and 'energy_consumption' not in run_data:
+                    output.console_log(f"Error: Unable to retrieve execution time from {log_path} after {retries} attempts.")
+            except Exception as e:
+                output.console_log(f"Exception occurred while reading log file {log_path}: {e}")
+        else:
+            output.console_log(f"Error: Log file {log_path} does not exist.")
         return run_data
 
     def after_experiment(self) -> None:
