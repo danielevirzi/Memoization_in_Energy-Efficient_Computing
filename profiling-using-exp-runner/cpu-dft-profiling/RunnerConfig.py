@@ -144,11 +144,11 @@ class RunnerConfig:
         # energibridge.csv - Power consumption of the whole system
         df = pd.read_csv(context.run_dir / "energibridge.csv")
         run_data = {
-            'memory_usage': round(df.get('USED_MEMORY', pd.Series([0])).sum(), 3),
-            'dram_energy': round(df.get('DRAM_ENERGY (J)', pd.Series([0])).sum(), 3),
-            'package_energy': round(df.get('PACKAGE_ENERGY (J)', pd.Series([0])).sum(), 3),
-            'pp0_energy': round(df.get('PP0_ENERGY (J)', pd.Series([0])).sum(), 3),
-            'pp1_energy': round(df.get('PP1_ENERGY (J)', pd.Series([0])).sum(), 3),
+            'memory_usage': round(df.get('USED_MEMORY', pd.Series([0])).mean()/(1024 ** 2), 8),
+            'dram_energy': round(df.get('DRAM_ENERGY (J)', pd.Series([0])).mean(), 8),
+            'package_energy': round(df.get('PACKAGE_ENERGY (J)', pd.Series([0])).mean(), 8),
+            'pp0_energy': round(df.get('PP0_ENERGY (J)', pd.Series([0])).mean(), 8),
+            'pp1_energy': round(df.get('PP1_ENERGY (J)', pd.Series([0])).mean(), 8),
         }
 
         # Calculate average CPU usage across all cores
