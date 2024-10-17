@@ -1,8 +1,25 @@
 #AI generated for explorative purposes
 
-from functools import cache, lru_cache
-#from pyJoules.device.rapl_device import RaplPackageDomain
-#from pyJoules.energy_meter import measure_energy
+from functools import cache, lru_cache, wraps
+from time import perf_counter
+
+def timer(func, *args, **kwargs):
+    
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        start = perf_counter()
+        print(f'Starting {func.__name__} at {start}')   # 1
+        result = func(*args, **kwargs)
+        end = perf_counter()
+        print(f'Finished {func.__name__} at {end}')     # 3
+        print(f"Elapsed time: {end - start}")           # 4
+        return result                                   # 5                
+    return wrapper
+
+@timer
+def measure_time(func: callable, *args, **kwargs):
+    print(f"Calling {func.__name__} with args: {args}")  # 2
+    return func(*args, **kwargs)
 
 
 # Basic Implementation
@@ -42,5 +59,12 @@ if __name__ == '__main__':
     auxiliary = "B"
 
     tower_of_hanoi(n, source, target, auxiliary)
-    tower_of_hanoi_cache(n, source, target, auxiliary)
-    tower_of_hanoi_lru_cache(n, source, target, auxiliary)
+    
+    print(measure_time(tower_of_hanoi, n, source, target, auxiliary))
+
+    print(measure_time(tower_of_hanoi_cache, n, source, target, auxiliary))
+    
+    print(measure_time(tower_of_hanoi_lru_cache, n, source, target, auxiliary))
+    
+    assert tower_of_hanoi(n, source, target, auxiliary) == tower_of_hanoi_cache(n, source, target, auxiliary) == tower_of_hanoi_lru_cache(n, source, target, auxiliary)
+

@@ -1,9 +1,25 @@
 #AI generated for explorative purposes
 
-from functools import cache, lru_cache
-import copy
-#from pyJoules.device.rapl_device import RaplPackageDomain
-#from pyJoules.energy_meter import measure_energy
+from functools import cache, lru_cache, wraps
+from time import perf_counter
+
+def timer(func, *args, **kwargs):
+    
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        start = perf_counter()
+        print(f'Starting {func.__name__} at {start}')   # 1
+        result = func(*args, **kwargs)
+        end = perf_counter()
+        print(f'Finished {func.__name__} at {end}')     # 3
+        print(f"Elapsed time: {end - start}")           # 4
+        return result                                   # 5                
+    return wrapper
+
+@timer
+def measure_time(func: callable, *args, **kwargs):
+    print(f"Calling {func.__name__} with args: {args}")  # 2
+    return func(*args, **kwargs)
 
 
 def is_safe(board: list, row: int, col: int) -> bool:
@@ -20,13 +36,14 @@ def is_safe(board: list, row: int, col: int) -> bool:
 
 
 # Basic Implementation
-def solve_n_queens(board: list, col: int) -> bool:
+def solve_n_queens(board_tuple: tuple, col: int) -> bool:
+    board = list(map(list, board_tuple))  # Convert tuple back to list
     if col >= len(board):
         return True
     for i in range(len(board)):
         if is_safe(board, i, col):
-            board[i][col] = 1
-            if solve_n_queens(board, col + 1):
+            board[i][col] = 1 
+            if solve_n_queens(tuple(map(tuple, board)), col + 1):
                 return True
             board[i][col] = 0
     return False
@@ -34,7 +51,7 @@ def solve_n_queens(board: list, col: int) -> bool:
 # Using functools.cache (Python 3.9+)
 @cache
 def solve_n_queens_cache(board_tuple: tuple, col: int) -> bool:
-    board = [list(row) for row in board_tuple]  # Convert tuple back to list
+    board = list(map(list, board_tuple))  # Convert tuple back to list
     if col >= len(board):
         return True
     for i in range(len(board)):
@@ -48,7 +65,7 @@ def solve_n_queens_cache(board_tuple: tuple, col: int) -> bool:
 # Using functools.lru_cache
 @lru_cache(maxsize=None)
 def solve_n_queens_lru_cache(board_tuple: tuple, col: int) -> bool:
-    board = [list(row) for row in board_tuple]  # Convert tuple back to list
+    board = list(map(list, board_tuple))  # Convert tuple back to list
     if col >= len(board):
         return True
     for i in range(len(board)):
@@ -61,8 +78,15 @@ def solve_n_queens_lru_cache(board_tuple: tuple, col: int) -> bool:
 
 
 if __name__ == '__main__':
-    board = [[0 for _ in range(8)] for _ in range(8)]
-    print("Basic Implementation:", solve_n_queens(copy.deepcopy(board), 0))
+    # initialize the board
+    board = [[0 for _ in range(25)] for _ in range(25)]    
     board_tuple = tuple(map(tuple, board))
-    print("Cache Implementation:", solve_n_queens_cache(board_tuple, 0))
-    print("LRU Cache Implementation:", solve_n_queens_lru_cache(board_tuple, 0))
+
+    print(measure_time(solve_n_queens, board_tuple, 0))
+    
+    print(measure_time(solve_n_queens_cache, board_tuple, 0))
+    
+    print(measure_time(solve_n_queens_lru_cache, board_tuple, 0))
+
+    assert solve_n_queens(board_tuple, 0) == solve_n_queens_cache(board_tuple, 0) == solve_n_queens_lru_cache(board_tuple, 0) == True
+    

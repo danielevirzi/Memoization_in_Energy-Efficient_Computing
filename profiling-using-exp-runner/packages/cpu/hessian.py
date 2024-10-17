@@ -1,9 +1,26 @@
 #AI generated for explorative purposes
 
-from functools import cache, lru_cache
-#from pyJoules.device.rapl_device import RaplPackageDomain
-#from pyJoules.energy_meter import measure_energy
+from functools import cache, lru_cache, wraps
 import numpy as np
+from time import perf_counter
+
+def timer(func, *args, **kwargs):
+    
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        start = perf_counter()
+        print(f'Starting {func.__name__} at {start}')   # 1
+        result = func(*args, **kwargs)
+        end = perf_counter()
+        print(f'Finished {func.__name__} at {end}')     # 3
+        print(f"Elapsed time: {end - start}")           # 4
+        return result                                   # 5                
+    return wrapper
+
+@timer
+def measure_time(func: callable, *args, **kwargs):
+    print(f"Calling {func.__name__} with args: {args}")  # 2
+    return func(*args, **kwargs)
 
 
 # Basic Implementation
@@ -35,7 +52,6 @@ def hessian(f: callable, x: np.ndarray) -> np.ndarray:
     return hessian_matrix
 
 # Using functools.cache (Python 3.9+)
-#@measure_energy(domains=[RaplPackageDomain(0)])
 @cache
 def hessian_cache(f: callable, x_tuple: tuple) -> np.ndarray:
     x = np.array(x_tuple)  # Convert tuple back to numpy array
@@ -66,7 +82,6 @@ def hessian_cache(f: callable, x_tuple: tuple) -> np.ndarray:
 
 
 # Using functools.lru_cache
-#@measure_energy(domains=[RaplPackageDomain(0)])
 @lru_cache(maxsize=None)
 def hessian_lru_cache(f: callable, x_tuple: tuple) -> np.ndarray:
     x = np.array(x_tuple)  # Convert tuple back to numpy array
@@ -103,6 +118,13 @@ if __name__ == '__main__':
     # Example usage:
     x = np.random.rand(100)  # 100-dimensional input
     x_tuple = tuple(x)
-    print(hessian(high_dim_func, x))
-    print(hessian_cache(high_dim_func, x_tuple))
-    print(hessian_lru_cache(high_dim_func, x_tuple))
+    
+    print(measure_time(hessian, high_dim_func, x))
+    
+    print(measure_time(hessian_cache, high_dim_func, x_tuple))
+    print(measure_time(hessian_cache, high_dim_func, x_tuple))
+
+    print(measure_time(hessian_lru_cache, high_dim_func, x_tuple))
+    print(measure_time(hessian_lru_cache, high_dim_func, x_tuple))
+
+    assert np.allclose(hessian(high_dim_func, x), hessian_cache(high_dim_func, x_tuple)) and np.allclose(hessian(high_dim_func, x_tuple), hessian_lru_cache(high_dim_func, x_tuple))

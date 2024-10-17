@@ -1,10 +1,7 @@
 #AI generated for explorative purposes
 
-from functools import cache, lru_cache
-#from pyJoules.device.rapl_device import RaplPackageDomain
-#from pyJoules.energy_meter import measure_energy
+from functools import cache, lru_cache, wraps
 from time import perf_counter
-from functools import wraps
 
 def timer(func, *args, **kwargs):
     
@@ -58,8 +55,12 @@ if __name__ == '__main__':
     n = 10
 
     print(measure_time(fibonacci, n))
+    
     print(measure_time(fibonacci_cache, n))
+    
     print(measure_time(fibonacci_lru_cache, n))
+    
+    assert fibonacci(n) == fibonacci_cache(n) == fibonacci_lru_cache(n)
 
 
 

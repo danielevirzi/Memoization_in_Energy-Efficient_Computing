@@ -1,8 +1,25 @@
 #AI generated for explorative purposes
 
-from functools import cache, lru_cache
-#from pyJoules.device.rapl_device import RaplPackageDomain
-#from pyJoules.energy_meter import measure_energy
+from functools import cache, lru_cache, wraps
+from time import perf_counter
+
+def timer(func, *args, **kwargs):
+    
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        start = perf_counter()
+        print(f'Starting {func.__name__} at {start}')   # 1
+        result = func(*args, **kwargs)
+        end = perf_counter()
+        print(f'Finished {func.__name__} at {end}')     # 3
+        print(f"Elapsed time: {end - start}")           # 4
+        return result                                   # 5                
+    return wrapper
+
+@timer
+def measure_time(func: callable, *args, **kwargs):
+    print(f"Calling {func.__name__} with args: {args}")  # 2
+    return func(*args, **kwargs)
 
 def merge(left: list, right: list) -> list:
     result = []
@@ -22,7 +39,6 @@ def merge(left: list, right: list) -> list:
 
 
 # Basic Implementation
-#@measure_energy(domains=[RaplPackageDomain(0)])
 def merge_sort(arr: list) -> list:
     if len(arr) <= 1:
         return arr
@@ -34,7 +50,6 @@ def merge_sort(arr: list) -> list:
     return merge(left, right)
 
 # Using functools.cache (Python 3.9+)
-#@measure_energy(domains=[RaplPackageDomain(0)])
 @cache
 def merge_sort_cache(arr_tuple: tuple) -> list:
     arr = list(arr_tuple)  # Convert tuple back to list
@@ -48,7 +63,6 @@ def merge_sort_cache(arr_tuple: tuple) -> list:
     return merge(left, right)
 
 # Using functools.lru_cache
-#@measure_energy(domains=[RaplPackageDomain(0)])
 @lru_cache(maxsize=None)
 def merge_sort_lru_cache(arr_tuple: tuple) -> list:
     arr = list(arr_tuple)  # Convert tuple back to list
@@ -65,9 +79,16 @@ def merge_sort_lru_cache(arr_tuple: tuple) -> list:
 if __name__ == '__main__':
     # Example usage
     arr = [12, 11, 13, 5, 6, 7]
-
-    print("Normal Merge Sort:", merge_sort(arr))
-
     arr_tuple = tuple(arr)  # Convert list to tuple for caching
-    print("Cache Merge Sort:", merge_sort_cache(arr_tuple))
-    print("LRU Cache Merge Sort:", merge_sort_lru_cache(arr_tuple))
+
+
+    print(measure_time(merge_sort, arr))
+
+    print(measure_time(merge_sort_cache, arr_tuple))
+    print(measure_time(merge_sort_cache, arr_tuple))
+
+    print(measure_time(merge_sort_lru_cache, arr_tuple))
+    print(measure_time(merge_sort_lru_cache, arr_tuple))
+
+    assert merge_sort(arr) == merge_sort_cache(arr_tuple) == merge_sort_lru_cache(arr_tuple)
+
