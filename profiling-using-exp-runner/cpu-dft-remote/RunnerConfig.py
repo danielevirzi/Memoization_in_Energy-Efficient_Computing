@@ -38,6 +38,14 @@ class RunnerConfig:
     This can be essential to accommodate for cooldown periods on some systems."""
     time_between_runs_in_ms:    int             = 1000
 
+    """remote ssh connection details"""
+    remote_user:                str             = "rr"
+    remote_host:                str             = "192.168.0.105"
+
+    """remote path to the experiment"""
+    remote_package_dir:        str             = "/Users/rr/GreenLab/ProjectCode/profiling-using-exp-runner/packages"
+    remote_temporary_results_dir:        str             = "/Users/rr/GreenLab/ProjectCode/profiling-using-exp-runner/RESULTS"
+
     # Dynamic configurations can be one-time satisfied here before the program takes the config as-is
     # e.g. Setting some variable based on some criteria
     def __init__(self):
@@ -61,7 +69,7 @@ class RunnerConfig:
         """Create and return the run_table model here. A run_table is a List (rows) of tuples (columns),
         representing each run performed"""
         sampling_factor = FactorModel("sampling", [200]) # Define different sampling intervals
-        input_size_factor = FactorModel("input_size", [1024 ])  # Define different input sizes
+        input_size_factor = FactorModel("input_size", [1024])  # Define different input sizes
         cache_factor = FactorModel("cache", ["DFT", "DFT_cache", "DFT_lru_cache"])  # Different cache strategies
         self.run_table_model = RunTableModel(
             factors=[input_size_factor, cache_factor, sampling_factor],
@@ -72,7 +80,15 @@ class RunnerConfig:
     def before_experiment(self) -> None:
         """Perform any activity required before starting the experiment here
         Invoked only once during the lifetime of the program."""
-        pass
+
+        remote_experiment_result_dir = f"{self.remote_temporary_results_dir}/{self.name}"
+        ssh_cmd = f"ssh {self.remote_user}@{self.remote_host} 'mkdir -p {remote_experiment_result_dir}'"
+        try:
+            subprocess.run(shlex.split(ssh_cmd), check=True)
+            output.console_log(f"Created remote directory: {remote_experiment_result_dir}")
+        except subprocess.CalledProcessError as e:
+            output.console_log(f"Error creating remote directory: {e}")
+            raise e
 
     def before_run(self) -> None:
         """Perform any activity required before starting a run.
@@ -84,6 +100,15 @@ class RunnerConfig:
         """Perform any activity required for starting the run here.
         For example, starting the target system to measure.
         Activities after starting the run should also be performed here."""
+        """Perform any activity required for starting the run here."""
+        remote_temporary_each_run_results_dir = f"{self.remote_temporary_results_dir}/{self.name}/run_{context.run_nr}"
+        ssh_cmd = f"ssh {self.remote_user}@{self.remote_host} 'mkdir -p {remote_temporary_each_run_results_dir}'"
+        try:
+            subprocess.run(shlex.split(ssh_cmd), check=True)
+            output.console_log(f"Created remote run directory: {remote_temporary_each_run_results_dir}")
+        except subprocess.CalledProcessError as e:
+            output.console_log(f"Error creating remote run directory: {e}")
+            raise e
 
 
     def start_measurement(self, context: RunnerContext) -> None:
@@ -92,18 +117,10 @@ class RunnerConfig:
         target_function = context.run_variation['cache']
         input_size = context.run_variation['input_size']
         target_function_location = 'cpu.dft'
-
-        # profiler_cmd = f'''sudo energibridge --interval {sampling_interval} \
-        # --max-execution 20 \
-        # --output {context.run_dir / "energibridge.csv"} \
-        # --summary \
-        # python3 -c "import sys; import os; import numpy as np; sys.path.append(os.path.join(os.getcwd(), 'packages')); import {target_function_location} as module; X = tuple(np.random.random({input_size})); module.{target_function}(X)"'''
-
-        # separte the command into multiple lines for better readability
-
+        remote_temporary_each_run_results_dir = f"{self.remote_temporary_results_dir}/{self.name}/run_{context.run_nr}"
         python_cmd = (
             f"import sys; import os; import numpy as np; "
-            f"sys.path.append(os.path.join(os.getcwd(), 'packages')); "
+            f"sys.path.append('{self.remote_package_dir}'); "
             f"import {target_function_location} as module; "
             f"X = tuple(np.random.random({input_size})); "
             f"module.{target_function}(X)"
@@ -112,25 +129,26 @@ class RunnerConfig:
         profiler_cmd = (
             f"sudo energibridge --interval {sampling_interval} "
             f"--max-execution 20 "
-            f"--output {context.run_dir}/energibridge.csv "
+            f"--output {remote_temporary_each_run_results_dir}/energibridge.csv "
             f"--summary "
             f"python3 -c \"{python_cmd}\" "
         )
 
+        ssh_cmd = f"ssh {self.remote_user}@{self.remote_host} '{profiler_cmd}'"
+
         energibridge_log = open(f'{context.run_dir}/energibridge.log', 'w')
-        self.profiler = subprocess.Popen(shlex.split(profiler_cmd), stdout=energibridge_log)
+        self.profiler = subprocess.Popen(shlex.split(ssh_cmd), stdout=energibridge_log)
 
         energibridge_log.write(f'sampling interval: {sampling_interval}, target function: {target_function}, input size: {input_size}\n')
         energibridge_log.flush()
         energibridge_log.close()
 
-        output.console_log(f"Context.run_nr: {context.run_nr}, sampling interval: {sampling_interval}, target function: {target_function}, input size: {input_size}")
+
+
     def interact(self, context: RunnerContext) -> None:
         """Perform any interaction with the running target system here, or block here until the target finishes."""
-
         # No interaction. We just run it for XX seconds.
         # Another example would be to wait for the target to finish, e.g. via `self.target.wait()`
-        output.console_log("Running program for 20 seconds")
         time.sleep(20)
 
 
@@ -151,14 +169,27 @@ class RunnerConfig:
         """Parse and process any measurement data here.
         You can also store the raw measurement data under `context.run_dir`
         Returns a dictionary with keys `self.run_table_model.data_columns` and their values populated"""
-        csv_path = context.run_dir / "energibridge.csv"
-        log_path = context.run_dir / "energibridge.log"
-        if not csv_path.exists():
-            output.console_log(f"Error: File {csv_path} does not exist!")
+
+        remote_temporary_each_run_results_dir = f"{self.remote_temporary_results_dir}/{self.name}/run_{context.run_nr}"
+        local_csv_path = context.run_dir / "energibridge.csv"
+        local_log_path = context.run_dir / "energibridge.log"
+        remote_csv_path = f"{remote_temporary_each_run_results_dir}/energibridge.csv"
+
+        scp_csv_cmd = f"scp {self.remote_user}@{self.remote_host}:{remote_csv_path} {context.run_dir}"
+        try:
+            subprocess.run(shlex.split(scp_csv_cmd), check=True)
+            output.console_log(
+                f"Copied energibridge.csv rom remote directory to local directory: {context.run_dir}")
+        except subprocess.CalledProcessError as e:
+            output.console_log(f"Error during SCP: {e}")
+            return None
+
+        if not local_csv_path.exists():
+            output.console_log(f"Error: File {local_csv_path} does not exist!")
             return None
 
         # energibridge.csv - Power consumption of the whole system
-        df = pd.read_csv(context.run_dir / "energibridge.csv")
+        df = pd.read_csv(local_csv_path)
         run_data = {
             'memory_usage': round(df.get('USED_MEMORY', pd.Series([0])).mean()/(1024 ** 2), 8),
             'dram_energy': round(df.get('DRAM_ENERGY (J)', pd.Series([0])).mean(), 8),
@@ -174,19 +205,13 @@ class RunnerConfig:
             overall_avg_cpu_usage = core_avg_cpu_usage.mean()  # Compute the average CPU usage
             run_data['average_cpu_usage'] = round(overall_avg_cpu_usage, 8)
 
-        # Get the execution time (choose one of the two methods)
-
-        # method 1: using time.time() before and after the execution
-        # run_data['execution_time'] = getattr(context, 'run_execution_time', None)
-
-        # method 2: Read execution time from the log file
-        if log_path.exists():
+        if local_log_path.exists():
             try:
                 # Implement retry mechanism to handle file read issues
                 retries = 5  # Number of retries
                 for attempt in range(retries):
                     try:
-                        with open(log_path, 'r') as log_file:
+                        with open(local_log_path, 'r') as log_file:
                             log_content = log_file.read()
                             # Use regular expression to find the execution time in seconds
                             match = re.search(r"Energy consumption in joules: ([\d\.]+) for ([\d\.]+) sec of execution",log_content)
@@ -194,18 +219,18 @@ class RunnerConfig:
                                 run_data['energy_consumption'] = float(match.group(1))  # Extract energy consumption in joules
                                 run_data['execution_time'] = float(match.group(2))  # Extract the execution time in seconds
                             else:
-                                output.console_log(f"Warning: No energy consumption or execution time found in {log_path}")
+                                output.console_log(f"Warning: No energy consumption or execution time found in {local_log_path}")
                                 time.sleep(1)  # Wait for 1 second before retrying
                     except IOError:
-                        output.console_log(f"Error reading file {log_path}. Retrying... ({attempt + 1}/{retries})")
+                        output.console_log(f"Error reading file {local_log_path}. Retrying... ({attempt + 1}/{retries})")
                         time.sleep(1)  # Wait for 1 second before retrying
 
                 if 'execution_time' and 'energy_consumption' not in run_data:
-                    output.console_log(f"Error: Unable to retrieve execution time from {log_path} after {retries} attempts.")
+                    output.console_log(f"Error: Unable to retrieve execution time from {local_log_path} after {retries} attempts.")
             except Exception as e:
-                output.console_log(f"Exception occurred while reading log file {log_path}: {e}")
+                output.console_log(f"Exception occurred while reading log file {local_log_path}: {e}")
         else:
-            output.console_log(f"Error: Log file {log_path} does not exist.")
+            output.console_log(f"Error: Log file {local_log_path} does not exist.")
         return run_data
 
     def after_experiment(self) -> None:
