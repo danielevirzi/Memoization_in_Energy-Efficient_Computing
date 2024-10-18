@@ -52,7 +52,7 @@ def fibonacci_lru_cache(n: int) -> int:
 
 if __name__ == '__main__':
     # Example usage
-    n = 10
+    n = 30
 
     print(measure_time(fibonacci, n))
     
