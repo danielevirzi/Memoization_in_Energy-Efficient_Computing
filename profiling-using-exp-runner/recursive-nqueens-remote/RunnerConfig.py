@@ -25,6 +25,9 @@ class RunnerConfig:
     # ================================ USER SPECIFIC CONFIG ================================
     """The name of the experiment."""
     name:                       str             = "nqueens_experiment"
+    """target function location in remote laptop"""
+    target_function_location = 'recursive.n_queens'
+    target_function_names = ['solve_n_queens', 'solve_n_queens_cache', 'solve_n_queens_lru_cache']
 
     """The path in which Experiment Runner will create a folder with the name `self.name`, in order to store the
     results from this experiment. (Path does not need to exist - it will be created if necessary.)
@@ -73,7 +76,7 @@ class RunnerConfig:
         representing each run performed"""
         sampling_factor = FactorModel("sampling", [200]) # Define different sampling intervals
         input_size_factor = FactorModel("input_size", [1024,4096,8192])  # Define different input sizes
-        cache_factor = FactorModel("cache", ["solve_n_queens", "solve_n_queens_cache", "solve_n_queens_lru_cache"])  # Different cache strategies
+        cache_factor = FactorModel("cache", self.target_function_names)  # Different cache strategies
         self.run_table_model = RunTableModel(
             factors=[input_size_factor, cache_factor, sampling_factor],
             data_columns=['execution_time','average_cpu_usage','memory_usage','energy_consumption', 'dram_energy', 'package_energy', 'pp0_energy', 'pp1_energy']
@@ -119,12 +122,12 @@ class RunnerConfig:
         sampling_interval = context.run_variation['sampling']
         target_function = context.run_variation['cache']
         input_size = context.run_variation['input_size']
-        target_function_location = 'recursive.n_queens'
+
         remote_temporary_each_run_results_dir = f"{self.remote_temporary_results_dir}/{self.name}/run_{context.run_nr}"
         python_cmd = (
             f"import sys; import os; import numpy as np; "
             f"sys.path.append('{self.remote_package_dir}'); "
-            f"import {target_function_location} as module; "
+            f"import {self.target_function_location} as module; "
             f"board = [[0 for _ in range({input_size})] for _ in range({input_size})]；"
             f"X = tuple(map(tuple, board));"
             f"X = tuple(np.random.random({input_size})); "
