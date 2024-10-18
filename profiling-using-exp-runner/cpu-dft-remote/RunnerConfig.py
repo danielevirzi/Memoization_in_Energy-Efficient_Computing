@@ -46,6 +46,9 @@ class RunnerConfig:
     remote_package_dir:        str             = "/Users/rr/GreenLab/ProjectCode/profiling-using-exp-runner/packages"
     remote_temporary_results_dir:        str             = "/Users/rr/GreenLab/ProjectCode/profiling-using-exp-runner/RESULTS"
 
+    """energibridge location in remote laptop"""
+    energibridge_location:        str             = "/usr/local/bin/energibridge"
+
     # Dynamic configurations can be one-time satisfied here before the program takes the config as-is
     # e.g. Setting some variable based on some criteria
     def __init__(self):
@@ -127,7 +130,7 @@ class RunnerConfig:
         )
 
         profiler_cmd = (
-            f"/usr/local/bin/energibridge --interval {sampling_interval} "
+            f"{self.energibridge_location} --interval {sampling_interval} "
             f"--max-execution 20 "
             f"--output {remote_temporary_each_run_results_dir}/energibridge.csv "
             f"--summary "
