@@ -24,11 +24,11 @@ class RunnerConfig:
 
     # ================================ USER SPECIFIC CONFIG ================================
     """The name of the experiment."""
-    name:                       str             = "nqueens_experiment"
+    name:                       str             = "hanoi_experiment"
     """target function location in remote laptop"""
-    target_function_location = 'recursive.n_queens'
-    target_function_names = ['solve_n_queens', 'solve_n_queens_cache', 'solve_n_queens_lru_cache']
-    input_size_options = [1024, 4096, 8912]
+    target_function_location = 'recursive.hanoi'
+    target_function_names = ['tower_of_hanoi', 'tower_of_hanoi_cache', 'tower_of_hanoi_lru_cache']
+    input_size_options = [10,20,30]
     sampling_rate_options = [200]
 
     """The path in which Experiment Runner will create a folder with the name `self.name`, in order to store the
@@ -41,7 +41,7 @@ class RunnerConfig:
 
     """The time Experiment Runner will wait after a run completes.
     This can be essential to accommodate for cooldown periods on some systems."""
-    time_between_runs_in_ms:    int             = 1000
+    time_between_runs_in_ms:    int             = 1000 # should be 60000, 1minute
 
     """remote ssh connection details"""
     remote_user:                str             = "rr"
@@ -130,10 +130,8 @@ class RunnerConfig:
             f"import sys; import os; import numpy as np; "
             f"sys.path.append('{self.remote_package_dir}'); "
             f"import {self.target_function_location} as module; "
-            f"board = [[0 for _ in range({input_size})] for _ in range({input_size})]；"
-            f"X = tuple(map(tuple, board));"
-            f"X = tuple(np.random.random({input_size})); "
-            f"module.{target_function}(X,0)"
+            f"X = {input_size}; "
+            f"module.{target_function}(X,'A','C','B'); "
         )
 
         profiler_cmd = (
