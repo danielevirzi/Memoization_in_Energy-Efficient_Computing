@@ -25,6 +25,11 @@ class RunnerConfig:
     # ================================ USER SPECIFIC CONFIG ================================
     """The name of the experiment."""
     name:                       str             = "dft_experiment"
+    """target function location in remote laptop"""
+    target_function_location = 'cpu.dft'
+    target_function_names = ["DFT", "DFT_cache", "DFT_lru_cache"]
+    input_size_options = [1024, 4096, 8192]
+    sampling_rate_options = [200]
 
     """The path in which Experiment Runner will create a folder with the name `self.name`, in order to store the
     results from this experiment. (Path does not need to exist - it will be created if necessary.)
@@ -71,9 +76,9 @@ class RunnerConfig:
     def create_run_table_model(self) -> RunTableModel:
         """Create and return the run_table model here. A run_table is a List (rows) of tuples (columns),
         representing each run performed"""
-        sampling_factor = FactorModel("sampling", [200]) # Define different sampling intervals
-        input_size_factor = FactorModel("input_size", [1024])  # Define different input sizes
-        cache_factor = FactorModel("cache", ["DFT", "DFT_cache", "DFT_lru_cache"])  # Different cache strategies
+        sampling_factor = FactorModel("sampling", self.sampling_rate_options) # Define different sampling intervals
+        input_size_factor = FactorModel("input_size", self.input_size_options)  # Define different input sizes
+        cache_factor = FactorModel("cache", self.target_function_names)  # Different cache strategies
         self.run_table_model = RunTableModel(
             factors=[input_size_factor, cache_factor, sampling_factor],
             data_columns=['execution_time','average_cpu_usage','memory_usage','energy_consumption', 'dram_energy', 'package_energy', 'pp0_energy', 'pp1_energy']
