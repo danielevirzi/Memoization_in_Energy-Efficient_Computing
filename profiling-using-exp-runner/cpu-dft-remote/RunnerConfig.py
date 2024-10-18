@@ -127,7 +127,7 @@ class RunnerConfig:
         )
 
         profiler_cmd = (
-            f"sudo energibridge --interval {sampling_interval} "
+            f"/usr/local/bin/energibridge --interval {sampling_interval} "
             f"--max-execution 20 "
             f"--output {remote_temporary_each_run_results_dir}/energibridge.csv "
             f"--summary "
@@ -137,7 +137,7 @@ class RunnerConfig:
         ssh_cmd = f"ssh {self.remote_user}@{self.remote_host} '{profiler_cmd}'"
 
         energibridge_log = open(f'{context.run_dir}/energibridge.log', 'w')
-        self.profiler = subprocess.Popen(shlex.split(ssh_cmd), stdout=energibridge_log)
+        self.profiler = subprocess.Popen(shlex.split(ssh_cmd), stdout=energibridge_log, stderr=energibridge_log)
 
         energibridge_log.write(f'sampling interval: {sampling_interval}, target function: {target_function}, input size: {input_size}\n')
         energibridge_log.flush()
