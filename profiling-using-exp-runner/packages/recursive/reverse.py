@@ -48,7 +48,7 @@ def reverse_string_lru_cache(s: str) -> str:
     
 if __name__ == '__main__':
     # Example usage
-    word = "greenlab"
+    word = "abcde" * 30
 
     print(measure_time(reverse_string, word))
     print(measure_time(reverse_string_cache, word))

@@ -48,8 +48,8 @@ class UniquePaths:
 if __name__ == '__main__':
     # Example usage
     up = UniquePaths()
-    n = 3
-    m = 7
+    n = 9
+    m = 9
 
     print(measure_time(up.unique_paths, n, m))
     print(measure_time(up.unique_paths_cache, n, m))
