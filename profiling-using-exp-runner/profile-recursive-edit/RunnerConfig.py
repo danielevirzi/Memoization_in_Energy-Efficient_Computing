@@ -30,7 +30,7 @@ class RunnerConfig:
     target_function_location = 'recursive.edit'
     target_function_names = ['edit_distance', 'edit_distance_cache', 'edit_distance_lru_cache']
     input_size_options = [4, 8, 12]
-    input_description = ["4 x 4 strings", "8 x 8 strings", "12 x 12 board"]
+    input_description = ["4 x 4 strings", "8 x 8 strings", "12 x 12 strings"]   
     sampling_rate_options = [200]
     """The time Experiment Runner will wait after a run completes.
     This can be essential to accommodate for cooldown periods on some systems."""
