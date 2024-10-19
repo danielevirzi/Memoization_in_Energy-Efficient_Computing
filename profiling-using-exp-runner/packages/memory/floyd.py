@@ -28,10 +28,15 @@ def floyd_warshall(graph_tuple: tuple) -> np.ndarray:
     V = len(graph)
     dist = np.copy(graph)
     
+    def compute_distance(i: int, j: int, k: int) -> int:
+        if k == -1:
+            return dist[i][j]
+        return min(compute_distance(i, j, k-1), compute_distance(i, k, k-1) + compute_distance(k, j, k-1))
+    
     for k in range(V):
         for i in range(V):
             for j in range(V):
-                dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])
+                dist[i][j] = compute_distance(i, j, k)
     
     return dist
 
