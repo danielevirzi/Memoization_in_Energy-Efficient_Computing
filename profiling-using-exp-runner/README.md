@@ -106,7 +106,7 @@ wifis:
     optional: true
     access-points:
       "Your_WIFI_NAME":
-        **hidden: true
+        hidden: true
         password: "Your_Wifi_Password"
 ```
 
