@@ -1,4 +1,0 @@
-__run_id,__done,input_size,cache,sampling,execution_time,average_cpu_usage,memory_usage,energy_consumption,dram_energy,package_energy,pp0_energy,pp1_energy
-run_0_repetition_0,DONE,1024,DFT,200,0.23419821,17.8532274,35689.2890625,13.795509338378906,0.0,0.0,0.0,0.0
-run_1_repetition_0,DONE,1024,DFT_cache,200,0.2283723,19.32252516,35709.04296875,7.7043098449707035,0.0,0.0,0.0,0.0
-run_2_repetition_0,DONE,1024,DFT_lru_cache,200,0.22951859,14.6189577,35744.13932292,7.797344547271729,0.0,0.0,0.0,0.0
