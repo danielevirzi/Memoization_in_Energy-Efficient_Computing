@@ -25,12 +25,12 @@ class RunnerConfig:
 
     # ================================ USER SPECIFIC CONFIG ================================
     """The name of the experiment."""
-    name:                       str             = "nqueens_experiment"
+    name:                       str             = "edit_experiment"
     """target function location in remote laptop"""
-    target_function_location = 'recursive.n_queens'
-    target_function_names = ['solve_n_queens', 'solve_n_queens_cache', 'solve_n_queens_lru_cache']
-    input_size_options = [1024, 4096, 8912]
-    input_description = ["1024 x 1024 board", "4096 x 4096 board", "8912 x 8912 board"]
+    target_function_location = 'recursive.edit'
+    target_function_names = ['edit_distance', 'edit_distance_cache', 'edit_distance_lru_cache']
+    input_size_options = [4, 8, 12]
+    input_description = ["4 x 4 strings", "8 x 8 strings", "12 x 12 board"]
     sampling_rate_options = [200]
     """The time Experiment Runner will wait after a run completes.
     This can be essential to accommodate for cooldown periods on some systems."""
