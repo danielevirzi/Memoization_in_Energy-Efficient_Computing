@@ -94,7 +94,7 @@ We utilized Raspberry Pi's official tools and the officially provided Ubuntu Ser
 **Steps:**
 
 1. Reinsert the SD Card:
-   - Once flashing is complete, remove the SD card from the Raspberry Pi and reinsert it into the SD card reader connected to your computer.
+   - Once flashing is complete, remove the SD card reader from the laptop and reinsert the SD card reader to your computer.
 2. Edit the `network-config` File:
    - Locate the `network-config` file on the SD card.
    - Open it with vscode editor and modify it as shown below. 
