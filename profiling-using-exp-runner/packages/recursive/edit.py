@@ -72,7 +72,7 @@ def edit_distance_lru_cache(str1: str, str2: str, m: int, n: int) -> int:
 if __name__ == '__main__':
     # set recursion limit to the maximum
     sys.setrecursionlimit(10**6)
-    # set a random string of length 100
+    
     str1 = random_string(12)
     str2 = random_string(12)
     m = len(str1)
