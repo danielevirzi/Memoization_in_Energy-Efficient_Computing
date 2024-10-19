@@ -201,7 +201,7 @@ class RunnerConfig:
         # energibridge.csv - Power consumption of the whole system
         df = pd.read_csv(local_csv_path)
         run_data = {
-            'input_description': self.input_description[math.ceil(context.run_nr / len(self.input_description)) - 1],
+            'input_description': self.input_description[ math.ceil(context.run_nr/ (len(self.target_function_names) * len(self.sampling_rate_options))) - 1 ],
             'memory_usage': round(df.get('USED_MEMORY', pd.Series([0])).mean()/(1024 ** 2), 8),
             'dram_energy': round(df.get('DRAM_ENERGY (J)', pd.Series([0])).mean(), 8),
             'package_energy': round(df.get('PACKAGE_ENERGY (J)', pd.Series([0])).mean(), 8),
