@@ -205,32 +205,35 @@ From the Raspberry Pi terminal, attempt to SSH into your laptop.
 
 To execute the profiling experiments, follow the steps below:
 
-### 1. Modify SSH-Related Information in `RunnerConfig.py`
+### 1. Modify SSH-related and Problem-related variables in `RunnerConfig.py`
 
 Before running the profiling code, you need to update the SSH configuration details to match your environment.
 
 **Steps to Modify:**
 
-1. **Navigate to the Problem Directory:** for example, profile-cpu-dft directory
+1. **Navigate to the Problem Directory:** for example, in **profile-recursive-uniquepaths directory**
+2. **Edit the profile-recursive-uniquepaths/RunnerConfig.py**:
 
-2. **Edit the RunnerConfig.py**:
+- **Problem-Related Variables:**
 
-   Update the following variables:
+  - **`name`**: Set the name of the experiment (e.g., `"uniquepaths_experiment"`).
 
-- **`name`**: Set the name of the experiment (e.g., `"dft_experiment"`).
-- **`target_function_location`**: Specify the module path of the target function in the remote laptop (e.g., `'cpu.dft'`).
-- **`target_function_names`**: List the different variations of the target function you intend to profile (e.g., `["DFT", "DFT_cache", "DFT_lru_cache"]`).
-- **`input_size_options`**: Define the different input sizes to be used in the experiments (e.g., `[1024, 4096, 8192]`).
-- **`input_description`**: Provide descriptions corresponding to each input size for clarity in results (e.g., `["1024 points", "4096 points", "8192 points"]`).
-- **`sampling_rate_options`**: Set the sampling rates for profiling (e.g., `[200]`).
-- **`time_between_runs_in_ms`**: Configure the cooldown period between runs in milliseconds (e.g., `60000` for 1 minute).
-- **`results_output_path`**: Define the path where the results will be stored (e.g., `Path(dirname(realpath(__file__))) / 'experiments'`).
-- **`operation_type`**: Choose the operation type, typically `OperationType.AUTO` for automated runs.
-- **`remote_user`**: Set the SSH username for the remote laptop (e.g., `"rr"`).
-- **`remote_host`**: Specify the IP address of the remote laptop (e.g., `"192.168.0.105"`).
-- **`remote_package_dir`**: Provide the path to the packages directory on the remote laptop (e.g., `"/Users/rr/GreenLab/ProjectCode/profiling-using-exp-runner/packages"`).
-- **`remote_temporary_results_dir`**: Define the path where temporary results will be stored on the remote laptop (e.g., `"/Users/rr/GreenLab/ProjectCode/profiling-using-exp-runner/RESULTS"`).
-- **`energibridge_location`**: Specify the path to the `energibridge` executable on the remote laptop (e.g., `"/usr/local/bin/energibridge"`).
+  - **`target_function_location`**: Specify the module path of the target function in the remote laptop (e.g., `'recursive.uniquepaths'`).
+
+  - **`target_function_names`**: List the different variations of the target function you intend to profile (e.g., `['unique_paths', 'unique_paths_cache', 'unique_paths_lru_cache']`).
+
+  - **`input_size_options`**: Define the different input sizes to be used in the experiments (e.g., `[3, 6, 9]`).
+
+  - **`input_description`**: Provide descriptions corresponding to each input size for clarity in results (e.g., `["3 x 3 grid", "6 x 6 grid", "9 x 9 grid"]`).
+
+  - **`sampling_rate_options`**: Set the sampling rates for profiling (e.g., `[200]`).
+
+- **SSH-Related Variables:**
+  - **`remote_user`**: Set the SSH username for the remote laptop (e.g., `"rr"`).
+  - **`remote_host`**: Specify the IP address of the remote laptop (e.g., `"192.168.0.105"`).
+  - **`remote_package_dir`**: Provide the path to the packages directory on the remote laptop (e.g., `"/Users/rr/GreenLab/ProjectCode/profiling-using-exp-runner/packages"`).
+  - **`remote_temporary_results_dir`**: Define the path where temporary results will be stored on the remote laptop (e.g., `"/Users/rr/GreenLab/ProjectCode/profiling-using-exp-runner/RESULTS"`).
+  - **`energibridge_location`**: Specify the path to the `energibridge` executable on the remote laptop (e.g., `"/usr/local/bin/energibridge"`).
 
 ```python
 class RunnerConfig:
@@ -238,16 +241,16 @@ class RunnerConfig:
 
     # ================================ USER SPECIFIC CONFIG ================================
     """The name of the experiment."""
-    name:                       str             = "dft_experiment"
+    name:                       str             = "uniquepaths_experiment"
     """target function location in remote laptop"""
-    target_function_location = 'cpu.dft'
-    target_function_names = ["DFT", "DFT_cache", "DFT_lru_cache"]
-    input_size_options = [1024, 4096, 8192]
-    input_description = ["1024 points", "4096 points", "8192 points"]
+    target_function_location = 'recursive.uniquepaths'
+    target_function_names = ['unique_paths', 'unique_paths_cache', 'unique_paths_lru_cache']
+    input_size_options = [3, 6, 9]
+    input_description = ["3 x 3 grid", "6 x 6 grid", "9 x 9 grid"]
     sampling_rate_options = [200]
     """The time Experiment Runner will wait after a run completes.
     This can be essential to accommodate for cooldown periods on some systems."""
-    time_between_runs_in_ms:    int             = 60000
+    time_between_runs_in_ms:    int             = 60000 # should be 60000, 1minute
 
     """The path in which Experiment Runner will create a folder with the name `self.name`, in order to store the
     results from this experiment. (Path does not need to exist - it will be created if necessary.)
@@ -256,6 +259,8 @@ class RunnerConfig:
 
     """Experiment operation type. Unless you manually want to initiate each run, use `OperationType.AUTO`."""
     operation_type:             OperationType   = OperationType.AUTO
+
+
 
     """remote ssh connection details"""
     remote_user:                str             = "rr"
@@ -269,7 +274,47 @@ class RunnerConfig:
     energibridge_location:        str             = "/usr/local/bin/energibridge"
 ```
 
-### 2. Run the profiling code
+### 2. Modify start_measurement method in RunnerConfig.py
+
+- Within the `RunnerConfig.py` file, locate the `start_measurement` method.
+- Update the **`python_cmd`** variable to match the input required by the specific problem function. This typically involves modifying the input size parameter based on the problem's requirements.
+
+```python
+  def start_measurement(self, context: RunnerContext) -> None:
+        """Start energy measurement using Energibridge."""
+        sampling_interval = context.run_variation['sampling_rate']
+        target_function = context.run_variation['cache_strategy']
+        input_size = context.run_variation['input_size']
+
+        remote_temporary_each_run_results_dir = f"{self.remote_temporary_results_dir}/{self.name}/run_{context.run_nr}"
+        python_cmd = (
+            f"import sys; import os; import numpy as np; "
+            f"sys.path.append('{self.remote_package_dir}'); "
+            f"import {self.target_function_location} as module; "
+            f"up = UniquePaths(); "
+            f"up.{target_function}({input_size},{input_size}); "
+        )
+
+        # update here !!!!!!!!!!!!!!!!!!!!!
+        profiler_cmd = (
+            f"{self.energibridge_location} --interval {sampling_interval} "
+            f"--max-execution 20 "
+            f"--output {remote_temporary_each_run_results_dir}/energibridge.csv "
+            f"--summary "
+            f"python3 -c \"{python_cmd}\" "
+        )
+
+        ssh_cmd = f"ssh {self.remote_user}@{self.remote_host} '{profiler_cmd}'"
+
+        energibridge_log = open(f'{context.run_dir}/energibridge.log', 'w')
+        self.profiler = subprocess.Popen(shlex.split(ssh_cmd), stdout=energibridge_log, stderr=energibridge_log)
+
+        energibridge_log.write(f'sampling interval: {sampling_interval}, target function: {target_function}, input size: {input_size}\n')
+        energibridge_log.flush()
+        energibridge_log.close()
+```
+
+### 3. Run the profiling code
 
 **Steps:**
 
@@ -280,3 +325,4 @@ class RunnerConfig:
 python experiment-runner/ profile-<type>-<problem>/RunnerConfig.py
 ```
 
+### 
