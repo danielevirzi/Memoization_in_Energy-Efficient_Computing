@@ -25,7 +25,7 @@ class RunnerConfig:
 
     # ================================ USER SPECIFIC CONFIG ================================
     """The name of the experiment."""
-    name:                       str             = "fibonacci_experiment"
+    name:                       str             = "convolve_experiment"
     """target function location in remote laptop"""
     target_function_location = 'memory.convolve'
     target_function_names = ['convolve2d', 'convolve2d_cache', 'convolve2d_lru_cache']

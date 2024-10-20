@@ -25,7 +25,7 @@ class RunnerConfig:
 
     # ================================ USER SPECIFIC CONFIG ================================
     """The name of the experiment."""
-    name:                       str             = "fibonacci_experiment"
+    name:                       str             = "floyd_experiment"
     """target function location in remote laptop"""
     target_function_location = 'memory.floyd'
     target_function_names = ['floyd_warshall', 'floyd_warshall_cache', 'floyd_warshall_lru_cache']
