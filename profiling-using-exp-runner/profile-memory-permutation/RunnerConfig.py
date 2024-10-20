@@ -25,7 +25,7 @@ class RunnerConfig:
 
     # ================================ USER SPECIFIC CONFIG ================================
     """The name of the experiment."""
-    name:                       str             = "fibonacci_experiment"
+    name:                       str             = "permutation_experiment"
     """target function location in remote laptop"""
     target_function_location = 'memory.permutation'
     target_function_names = ['generate_permutations', 'generate_permutations_cache', 'generate_permutations_lru_cache']

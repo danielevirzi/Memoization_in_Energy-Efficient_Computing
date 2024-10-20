@@ -25,7 +25,7 @@ class RunnerConfig:
 
     # ================================ USER SPECIFIC CONFIG ================================
     """The name of the experiment."""
-    name:                       str             = "fibonacci_experiment"
+    name:                       str             = "knapsack_experiment"
     """target function location in remote laptop"""
     target_function_location = 'memory.knapsack'
     target_function_names = ['knapsack', 'knapsack_cache', 'knapsack_lru_cache']
