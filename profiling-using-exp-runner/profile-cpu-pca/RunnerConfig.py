@@ -138,7 +138,7 @@ class RunnerConfig:
             f"import sys; import os; import numpy as np; "
             f"sys.path.append('{self.remote_package_dir}'); "
             f"import {self.target_function_location} as module; "
-            f"module.{target_function}({input_size[0]}, {input_size[1]})"
+            f"module.{target_function}({input_size[0]}, {input_size[1]}); "
         )
 
         profiler_cmd = (

@@ -1,0 +1,10 @@
+__run_id,__done,input_size,cache,sampling,execution_time,average_cpu_usage,memory_usage,energy_consumption,dram_energy,package_energy,pp0_energy,pp1_energy
+run_0_repetition_0,DONE,10,tower_of_hanoi,200,0.233661,7.87095579,37787.59765625,8.716724433898925,0.0,0.0,0.0,0.0
+run_1_repetition_0,DONE,10,tower_of_hanoi_cache,200,0.22914846,9.18199862,37835.06901042,9.264946868896486,0.0,0.0,0.0,0.0
+run_2_repetition_0,DONE,10,tower_of_hanoi_lru_cache,200,0.23274213,11.32936521,37784.38151042,8.548192043304443,0.0,0.0,0.0,0.0
+run_3_repetition_0,DONE,20,tower_of_hanoi,200,0.22973211,9.934982,37813.171875,10.779258865356445,0.0,0.0,0.0,0.0
+run_4_repetition_0,DONE,20,tower_of_hanoi_cache,200,0.23117766,7.83234133,37830.47005208,9.217149253845216,0.0,0.0,0.0,0.0
+run_5_repetition_0,DONE,20,tower_of_hanoi_lru_cache,200,0.2319659,4.66426484,37790.10416667,9.971572551727295,0.0,0.0,0.0,0.0
+run_6_repetition_0,DONE,30,tower_of_hanoi,200,0.23180385,9.82187955,37940.9921875,10.236884078979491,0.0,0.0,0.0,0.0
+run_7_repetition_0,DONE,30,tower_of_hanoi_cache,200,0.23415649,23.73367143,37886.89192708,8.743340034484865,0.0,0.0,0.0,0.0
+run_8_repetition_0,DONE,30,tower_of_hanoi_lru_cache,200,0.2312227,6.91337719,37776.83203125,8.513604736328125,0.0,0.0,0.0,0.0
