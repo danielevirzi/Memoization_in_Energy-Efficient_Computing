@@ -2,6 +2,7 @@
 
 from functools import cache, lru_cache, wraps
 from time import perf_counter
+import sys
 
 def timer(func, *args, **kwargs):
     
@@ -39,13 +40,14 @@ def merge(left: list, right: list) -> list:
 
 
 # Basic Implementation
-def merge_sort(arr: list) -> list:
+def merge_sort(arr: tuple) -> tuple:
+    arr = list(arr_tuple)  # Convert tuple back to list
     if len(arr) <= 1:
         return arr
 
     mid = len(arr) // 2
-    left = merge_sort(arr[:mid])
-    right = merge_sort(arr[mid:])
+    left = merge_sort_cache(tuple(arr[:mid]))
+    right = merge_sort_cache(tuple(arr[mid:]))
 
     return merge(left, right)
 
@@ -78,11 +80,12 @@ def merge_sort_lru_cache(arr_tuple: tuple) -> list:
 
 if __name__ == '__main__':
     # Example usage
+    sys.setrecursionlimit(10000)
     arr = [12, 11, 13, 5, 6, 7]
     arr_tuple = tuple(arr)  # Convert list to tuple for caching
 
 
-    print(measure_time(merge_sort, arr))
+    print(measure_time(merge_sort, arr_tuple))
 
     print(measure_time(merge_sort_cache, arr_tuple))
     print(measure_time(merge_sort_cache, arr_tuple))
