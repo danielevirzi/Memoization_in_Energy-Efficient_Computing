@@ -7,15 +7,18 @@ import numpy as np
 
 # Basic Implementation
 #@measure_energy(domains=[RaplPackageDomain(0)])
-def pca(X: np.ndarray, num_components: int) -> np.ndarray:
+def pca(X_tuple: tuple, num_components: int) -> np.ndarray:
+
+    X = np.array(X_tuple)
+
+
     X_meaned = X - np.mean(X, axis=0)
     cov_matrix = np.cov(X_meaned, rowvar=False)
     eigenvalues, eigenvectors = np.linalg.eigh(cov_matrix)
     sorted_index = np.argsort(eigenvalues)[::-1]
-    sorted_eigenvalues = eigenvalues[sorted_index]
     sorted_eigenvectors = eigenvectors[:, sorted_index]
     eigenvector_subset = sorted_eigenvectors[:, 0:num_components]
-    X_reduced = np.dot(eigenvector_subset.transpose(), X_meaned.transpose()).transpose()
+    X_reduced = np.dot(X_meaned, eigenvector_subset)
     return X_reduced
 
 
