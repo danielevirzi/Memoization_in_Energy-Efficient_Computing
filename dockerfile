@@ -11,7 +11,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y python3 python3-pip curl && \
+    apt-get install -y python3 python3-pip curl openssh-server && \
     apt-get install -y iputils-ping nano python3.12-venv && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -47,21 +47,22 @@ RUN cargo build --release
 RUN chmod +x target/release/energibridge && \
     cp target/release/energibridge /usr/local/bin/
 
-
 # Set up the experiment-runner directory (assumes it's in your context)
 COPY experiment-runner /stuff/experiment-runner
 
 # Install requirements from experiment-runner
 WORKDIR /stuff/experiment-runner
-RUN ./venv/bin/pip install --no-cache-dir -r requirements.txt
+
+
+RUN ../venv/bin/pip install --no-cache-dir -r requirements.txt
 
 # Set up SSH
-#RUN mkdir /var/run/sshd
-#RUN echo 'root:icecream03' | chpasswd  
-#RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN mkdir /var/run/sshd && \
+    echo 'root:icecream03' | chpasswd && \ 
+    sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
 # Expose SSH port
-#EXPOSE 22
+EXPOSE 22
 
 # At container start
 CMD ["/bin/bash"]
