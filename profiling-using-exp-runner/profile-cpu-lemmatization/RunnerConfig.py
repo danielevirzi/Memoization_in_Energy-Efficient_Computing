@@ -75,7 +75,7 @@ class RunnerConfig:
 
     """remote ssh connection details"""
     remote_user: str = "rr"
-    remote_host: str = "192.168.0.105"
+    remote_host: str = "192.168.0.104"
 
     """remote path to the experiment"""
     remote_package_dir: str = "/Users/rr/GreenLab/ProjectCode/profiling-using-exp-runner/packages"

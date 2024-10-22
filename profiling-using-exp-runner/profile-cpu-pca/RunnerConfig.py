@@ -54,7 +54,7 @@ class RunnerConfig:
 
     """remote ssh connection details"""
     remote_user: str = "rr"
-    remote_host: str = "192.168.0.105"
+    remote_host: str = "192.168.0.104"
 
     """remote path to the experiment"""
     remote_package_dir: str = "/Users/rr/GreenLab/ProjectCode/profiling-using-exp-runner/packages"
@@ -138,7 +138,7 @@ class RunnerConfig:
             f"import sys; import os; import numpy as np; "
             f"sys.path.append('{self.remote_package_dir}'); "
             f"import {self.target_function_location} as module; "
-            f"module.{target_function}({input_size[0]}, {input_size[1]}); "
+            f"module.{target_function}({input_size}, 10); "
         )
 
         profiler_cmd = (
