@@ -20,6 +20,11 @@ import textwrap
 import re
 import math
 
+def random_string(length: int) -> str:
+    import random
+    import string
+    return ''.join(random.choices(string.ascii_lowercase, k=length))
+
 class RunnerConfig:
     ROOT_DIR = Path(dirname(realpath(__file__)))
 
@@ -29,8 +34,12 @@ class RunnerConfig:
     """target function location in remote laptop"""
     target_function_location = 'recursive.edit'
     target_function_names = ['edit_distance', 'edit_distance_cache', 'edit_distance_lru_cache']
-    input_size_options = [4, 8, 12]
-    input_description = ["4 x 4 strings", "8 x 8 strings", "12 x 12 strings"]   
+    input_size_options = [
+        (random_string(5),random_string(5))
+        (random_string(10), random_string(10))
+        (random_string(15),random_string(15))
+    ]
+    input_description = ["Pair of 10-character random strings", "Pair of 20-character random strings", "Pair of 30-character random strings"]
     sampling_rate_options = [200]
     """The time Experiment Runner will wait after a run completes.
     This can be essential to accommodate for cooldown periods on some systems."""
@@ -134,10 +143,7 @@ class RunnerConfig:
             f"import sys; import os; import numpy as np; "
             f"sys.path.append(\\\"{self.remote_package_dir}\\\"); "
             f"import {self.target_function_location} as module; "
-            f"board = [[0 for _ in range({input_size})] for _ in range({input_size})]; "
-            f"X = tuple(map(tuple, board));"
-            f"X = tuple(np.random.random({input_size})); "
-            f"module.{target_function}(X,0); "
+            f"module.{target_function}(\\\"{input_size[0]}\\\",\\\"{input_size[1]}\\\",len(\\\"{input_size[0]}\\\"),len(\\\"{input_size[1]}\\\"))); "
             f"print(\\\"python_cmd executed successfully\\\");"
         )
 
