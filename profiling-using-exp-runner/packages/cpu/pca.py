@@ -23,7 +23,7 @@ def measure_time(func: callable, *args, **kwargs):
     return func(*args, **kwargs)
 
 # Basic Implementation
-def pca(X_tuple: tuple, num_components: int) -> np.ndarray:
+def pca_basic(X_tuple: tuple, num_components: int) -> np.ndarray:
     X = np.array(X_tuple)  # Convert tuple back to numpy array
     X_meaned = X - np.mean(X, axis=0)
     cov_matrix = np.cov(X_meaned, rowvar=False)
@@ -67,7 +67,7 @@ def pca_lru_cache(X_tuple: tuple, num_components: int) -> np.ndarray:
 
 if __name__ == '__main__':
     # Example usage
-    X = np.random.rand(100, 100)
+    X = np.random.rand(4096, 4096)
     num_components = 10
 
     # Convert numpy array to tuple for caching

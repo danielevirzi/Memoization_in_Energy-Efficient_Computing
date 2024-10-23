@@ -111,7 +111,8 @@ class RunnerConfig:
             f"sys.path.append(os.path.join(os.getcwd(), 'packages')); "
             f"import {self.target_function_location} as module; "
             f"X = tuple(np.random.random({input_size})); "
-            f"module.{target_function}(X)"
+            f"module.{target_function}(X); "
+            f"print(f'python_cmd executed successfully')"
         )
 
         profiler_cmd = (
@@ -119,11 +120,12 @@ class RunnerConfig:
             f"--max-execution 20 "
             f"--output {context.run_dir}/energibridge.csv "
             f"--summary "
-            f"python3 -c \"{python_cmd}\" "
+            f"python -c \"{python_cmd}\" "
         )
 
         energibridge_log = open(f'{context.run_dir}/energibridge.log', 'w')
-        self.profiler = subprocess.Popen(shlex.split(profiler_cmd), stdout=energibridge_log)
+        output.console_log(f"Executing command: {shlex.split(profiler_cmd)}")
+        self.profiler = subprocess.Popen(shlex.split(profiler_cmd), stdout=energibridge_log,stderr=energibridge_log)
 
         energibridge_log.write(f'sampling interval: {sampling_interval}, target function: {target_function}, input size: {input_size}\n')
         energibridge_log.flush()

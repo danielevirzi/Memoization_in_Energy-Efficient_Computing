@@ -23,12 +23,12 @@ def measure_time(func: callable, *args, **kwargs):
 
 
 # Basic Implementation
-def fibonacci(n: int) -> int:
+def fibonacci_basic(n: int) -> int:
     if n == 0:
         return 0
     if n == 1:
         return 1
-    return fibonacci(n - 1) + fibonacci(n - 2)
+    return fibonacci_basic(n - 1) + fibonacci_basic(n - 2)
 
 # Using functools.cache (Python 3.9+)
 @cache

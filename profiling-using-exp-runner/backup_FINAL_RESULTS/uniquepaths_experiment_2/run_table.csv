@@ -1,0 +1,10 @@
+__run_id,__done,input_size,sampling_rate,cache_strategy,input_description,execution_time,average_cpu_usage,memory_usage,energy_consumption,dram_energy,package_energy,pp0_energy,pp1_energy
+run_0_repetition_0,DONE,3,200,unique_paths,3 x 3 grid,0.22776099,16.04699506,34623.05859375,11.079154205322267,0.0,0.0,0.0,0.0
+run_1_repetition_0,DONE,3,200,unique_paths_cache,3 x 3 grid,0.22749162,5.61377396,34619.8984375,10.038992477416993,0.0,0.0,0.0,0.0
+run_2_repetition_0,DONE,3,200,unique_paths_lru_cache,3 x 3 grid,0.22793026,10.00365502,34635.40234375,10.094474792480469,0.0,0.0,0.0,0.0
+run_3_repetition_0,DONE,6,200,unique_paths,6 x 6 grid,0.22444555,10.43128669,34578.7890625,9.727534484863282,0.0,0.0,0.0,0.0
+run_4_repetition_0,DONE,6,200,unique_paths_cache,6 x 6 grid,0.23027065,10.82341284,34632.57161458,10.026572647094726,0.0,0.0,0.0,0.0
+run_5_repetition_0,DONE,6,200,unique_paths_lru_cache,6 x 6 grid,0.22947192,11.39384935,34618.45703125,10.118822250366211,0.0,0.0,0.0,0.0
+run_6_repetition_0,DONE,9,200,unique_paths,9 x 9 grid,0.22659203,13.30219492,34605.84505208,9.914013191223145,0.0,0.0,0.0,0.0
+run_7_repetition_0,DONE,9,200,unique_paths_cache,9 x 9 grid,0.23402812,12.80753978,34620.5703125,10.124127140045166,0.0,0.0,0.0,0.0
+run_8_repetition_0,DONE,9,200,unique_paths_lru_cache,9 x 9 grid,0.23354988,10.02029229,34601.84505208,10.442546871185302,0.0,0.0,0.0,0.0

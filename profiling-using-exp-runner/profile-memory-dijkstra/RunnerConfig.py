@@ -32,7 +32,7 @@ class RunnerConfig:
     name:                       str             = "dijkstra_experiment"
     """target function location in remote laptop"""
     target_function_location = 'memory.dijkstra'
-    target_function_names = ['dijkstra', 'dijkstra_cache', 'dijkstra_lru_cache']
+    target_function_names = ['dijkstra_basic', 'dijkstra_cache', 'dijkstra_lru_cache']
     graph_15 = {
         'A': {'B': 2, 'C': 3, 'D': 4, 'E': 5, 'F': 1, 'G': 6, 'H': 2, 'I': 7, 'J': 3, 'K': 4, 'L': 5, 'M': 6, 'N': 7,
               'O': 8},
@@ -180,7 +180,7 @@ class RunnerConfig:
 
     """remote ssh connection details"""
     remote_user:                str             = "rr"
-    remote_host:                str             = "192.168.0.105"
+    remote_host: str = "192.168.0.104"
 
     """remote path to the experiment"""
     remote_package_dir:        str             = "/Users/rr/GreenLab/ProjectCode/profiling-using-exp-runner/packages"
@@ -188,7 +188,8 @@ class RunnerConfig:
 
     """energibridge location in remote laptop"""
     energibridge_location:        str             = "/usr/local/bin/energibridge"
-
+    """python location in remote laptop"""
+    remote_python_location:        str             = "/Users/rr/anaconda3/bin/python"
     # Dynamic configurations can be one-time satisfied here before the program takes the config as-is
     # e.g. Setting some variable based on some criteria
     def __init__(self):
@@ -260,11 +261,11 @@ class RunnerConfig:
 
         remote_temporary_each_run_results_dir = f"{self.remote_temporary_results_dir}/{self.name}/run_{context.run_nr}"
         python_cmd = (
-            f"import sys; import os; import numpy as np; "
-            f"sys.path.append('{self.remote_package_dir}'); "
+            f"import sys; import os; "
+            f"sys.path.append(\\\"{self.remote_package_dir}\\\"); "
             f"import {self.target_function_location} as module; "
-            f"graph = {input_size}; "
-            f"module.{target_function}(graph, 'A'); "
+            f"module.{target_function}({input_size}, 'A'); "
+            f"print(\\\"python_cmd executed successfully\\\");"
         )
 
         profiler_cmd = (
@@ -272,13 +273,16 @@ class RunnerConfig:
             f"--max-execution 20 "
             f"--output {remote_temporary_each_run_results_dir}/energibridge.csv "
             f"--summary "
-            f"python3 -c \"{python_cmd}\" "
+            f"{self.remote_python_location} -c '{python_cmd}' "
         )
 
-        ssh_cmd = f"ssh {self.remote_user}@{self.remote_host} '{profiler_cmd}'"
+        ssh_cmd = f'ssh {self.remote_user}@{self.remote_host} "{profiler_cmd}" '
+
+        output.console_log(f"Executing Command:{ssh_cmd}")
 
         energibridge_log = open(f'{context.run_dir}/energibridge.log', 'w')
-        self.profiler = subprocess.Popen(shlex.split(ssh_cmd), stdout=energibridge_log, stderr=energibridge_log)
+
+        self.profiler = subprocess.Popen(ssh_cmd, shell=True, stdout=energibridge_log, stderr=energibridge_log)
 
         energibridge_log.write(f'sampling interval: {sampling_interval}, target function: {target_function}, input size: {input_size}\n')
         energibridge_log.flush()

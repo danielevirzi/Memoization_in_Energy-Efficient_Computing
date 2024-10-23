@@ -1,0 +1,40 @@
+__run_id,__done,input_size,cache_strategy,sampling_rate,input_description,execution_time,average_cpu_usage,memory_usage,energy_consumption,dram_energy,package_energy,pp0_energy,pp1_energy
+run_0_repetition_0,DONE,"Running quickly, the children played happily in the sunny park, unaware of the approaching storm.",lemmatization,200,15-word sentence,0.22977157,11.58324313,36299.12760417,7.60118392944336,0.0,0.0,0.0,0.0
+run_1_repetition_0,DONE,"Running quickly, the children played happily in the sunny park, unaware of the approaching storm.",lemmatization_cache,200,15-word sentence,0.23057409,6.22519859,36298.73046875,7.979138946533204,0.0,0.0,0.0,0.0
+run_2_repetition_0,DONE,"Running quickly, the children played happily in the sunny park, unaware of the approaching storm.",lemmatization_lru_cache,200,15-word sentence,0.23020783,5.33286351,36221.13020833,7.71301808166504,0.0,0.0,0.0,0.0
+run_3_repetition_0,DONE,"In the midst of the bustling city, there lies a forgotten garden. Overgrown with wildflowers and vines, 
+        it stands as a remnant of a bygone era. The air is filled with the scent of blooming roses, and the sound of 
+        chirping birds creates a symphony that contrasts sharply with the distant hum of traffic. This hidden oasis 
+        provides a sanctuary for those seeking peace and a respite from the relentless pace of modern life.",lemmatization,200,74-word sentence,0.23455572,5.96282381,36199.796875,7.560786087036133,0.0,0.0,0.0,0.0
+run_4_repetition_0,DONE,"In the midst of the bustling city, there lies a forgotten garden. Overgrown with wildflowers and vines, 
+        it stands as a remnant of a bygone era. The air is filled with the scent of blooming roses, and the sound of 
+        chirping birds creates a symphony that contrasts sharply with the distant hum of traffic. This hidden oasis 
+        provides a sanctuary for those seeking peace and a respite from the relentless pace of modern life.",lemmatization_cache,200,74-word sentence,0.2363546,4.78670639,36181.16927083,7.691134002685547,0.0,0.0,0.0,0.0
+run_5_repetition_0,DONE,"In the midst of the bustling city, there lies a forgotten garden. Overgrown with wildflowers and vines, 
+        it stands as a remnant of a bygone era. The air is filled with the scent of blooming roses, and the sound of 
+        chirping birds creates a symphony that contrasts sharply with the distant hum of traffic. This hidden oasis 
+        provides a sanctuary for those seeking peace and a respite from the relentless pace of modern life.",lemmatization_lru_cache,200,74-word sentence,0.25031686,5.18457601,36685.75390625,8.28192132949829,0.0,0.0,0.0,0.0
+run_6_repetition_0,DONE,"In the vast expanse of the digital universe, information flows like an endless river, touching every 
+        corner of the globe. The advent of the internet has revolutionized the way we communicate, learn, and conduct 
+        business. With just a few clicks, we can access a wealth of knowledge that was unimaginable just a few 
+        decades ago. However, this immense connectivity also brings challenges. The sheer volume of data generated 
+        every second requires sophisticated algorithms and technologies to process and make sense of it. Artificial 
+        intelligence and machine learning have become integral in managing this data deluge, enabling us to extract 
+        insights and make informed decisions.Moreover, the rise of social media platforms has transformed how we 
+        interact with one another.",lemmatization,200,118-word sentence,0.23095058,5.75501267,36730.05078125,7.908174350738526,0.0,0.0,0.0,0.0
+run_7_repetition_0,DONE,"In the vast expanse of the digital universe, information flows like an endless river, touching every 
+        corner of the globe. The advent of the internet has revolutionized the way we communicate, learn, and conduct 
+        business. With just a few clicks, we can access a wealth of knowledge that was unimaginable just a few 
+        decades ago. However, this immense connectivity also brings challenges. The sheer volume of data generated 
+        every second requires sophisticated algorithms and technologies to process and make sense of it. Artificial 
+        intelligence and machine learning have become integral in managing this data deluge, enabling us to extract 
+        insights and make informed decisions.Moreover, the rise of social media platforms has transformed how we 
+        interact with one another.",lemmatization_cache,200,118-word sentence,0.23532222,3.20044905,36661.81510417,7.726248794555665,0.0,0.0,0.0,0.0
+run_8_repetition_0,DONE,"In the vast expanse of the digital universe, information flows like an endless river, touching every 
+        corner of the globe. The advent of the internet has revolutionized the way we communicate, learn, and conduct 
+        business. With just a few clicks, we can access a wealth of knowledge that was unimaginable just a few 
+        decades ago. However, this immense connectivity also brings challenges. The sheer volume of data generated 
+        every second requires sophisticated algorithms and technologies to process and make sense of it. Artificial 
+        intelligence and machine learning have become integral in managing this data deluge, enabling us to extract 
+        insights and make informed decisions.Moreover, the rise of social media platforms has transformed how we 
+        interact with one another.",lemmatization_lru_cache,200,118-word sentence,0.24058922,6.68199858,36653.27473958,7.952710327148437,0.0,0.0,0.0,0.0

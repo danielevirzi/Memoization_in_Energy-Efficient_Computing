@@ -86,7 +86,6 @@ if __name__ == '__main__':
     weights_tuple = tuple(weights)
     values_tuple = tuple(values)
 
-    print("Basic Implementation:", knapsack_basic(weights_tuple, values_tuple, capacity))
     print(measure_time(knapsack_basic, weights_tuple, values_tuple, capacity))
     
     print(measure_time(knapsack_cache, weights_tuple, values_tuple, capacity))
