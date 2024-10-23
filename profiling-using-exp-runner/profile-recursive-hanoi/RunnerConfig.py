@@ -130,12 +130,12 @@ class RunnerConfig:
 
         remote_temporary_each_run_results_dir = f"{self.remote_temporary_results_dir}/{self.name}/run_{context.run_nr}"
         python_cmd = (
-            f"import sys; import os; import numpy as np; "
+            f"import sys; import os; "
             f"sys.path.append(\\\"{self.remote_package_dir}\\\"); "
             f"import {self.target_function_location} as module; "
             f"X = {input_size}; "
-            f"module.{target_function}(X,'A','C','B'); "
-            f"sys.path.append(\\\"{self.remote_package_dir}\\\"); "
+            f"module.{target_function}(X,\\\"A\\\",\\\"C\\\",\\\"B\\\"); "
+            f"print(\\\"python_cmd executed successfully\\\");"
         )
 
         profiler_cmd = (
