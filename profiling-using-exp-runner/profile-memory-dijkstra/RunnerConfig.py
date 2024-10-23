@@ -156,10 +156,10 @@ class RunnerConfig:
               'N': 3, 'O': 5, 'P': 7, 'Q': 4, 'R': 6, 'S': 9, 'T': 3, 'U': 6, 'V': 4, 'W': 5, 'X': 7}
     }
 
-    frozenset_graph_15 = dict_to_frozenset(graph_15)
-    frozenset_graph_20 = dict_to_frozenset(graph_20)
-    frozenset_graph_25 = dict_to_frozenset(graph_25)
-    input_size_options = [frozenset_graph_15, frozenset_graph_20, frozenset_graph_25]
+    # frozenset_graph_15 = dict_to_frozenset(graph_15)
+    # frozenset_graph_20 = dict_to_frozenset(graph_20)
+    # frozenset_graph_25 = dict_to_frozenset(graph_25)
+    input_size_options = [graph_15, graph_20, graph_25]
     input_description = ["graph with 15 nodes", "graph with 10 nodes", "graph with 5 nodes"]
     sampling_rate_options = [200]
     """The time Experiment Runner will wait after a run completes.
