@@ -32,9 +32,9 @@ class RunnerConfig:
     target_function_location = 'cpu.pca'
     target_function_names = ["pca", "pca_cache", "pca_lru_cache"]
     input_size_options = [
-        ( tuple(map(tuple, np.random.rand(10, 5))) ),
-        (tuple(map(tuple, np.random.rand(100, 20))) ),
-        (tuple(map(tuple, np.random.rand(1000, 50))) )
+        tuple(map(tuple, np.random.rand(10, 5))),
+        tuple(map(tuple, np.random.rand(100, 20))),
+        tuple(map(tuple, np.random.rand(1000, 50)))
     ]
 
     input_description = ['Sample size: 10x5, Num components: 2', 'Sample size: 100x20, Num components: 5',
