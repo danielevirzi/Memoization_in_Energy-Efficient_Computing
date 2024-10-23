@@ -1,0 +1,10 @@
+__run_id,__done,input_size,sampling_rate,cache_strategy,input_description,execution_time,average_cpu_usage,memory_usage,energy_consumption,dram_energy,package_energy,pp0_energy,pp1_energy
+run_0_repetition_0,DONE,10,200,fibonacci,10 terms,0.23146963,9.98106076,33880.89713542,10.271194114685057,0.0,0.0,0.0,0.0
+run_1_repetition_0,DONE,10,200,fibonacci_cache,10 terms,0.2359152,21.23872677,33914.11979167,11.755096347808838,0.0,0.0,0.0,0.0
+run_2_repetition_0,DONE,10,200,fibonacci_lru_cache,10 terms,0.22931315,10.29322855,33888.91927083,10.30502719116211,0.0,0.0,0.0,0.0
+run_3_repetition_0,DONE,20,200,fibonacci,20 terms,0.23060165,11.49801602,33902.96875,10.253263339996337,0.0,0.0,0.0,0.0
+run_4_repetition_0,DONE,20,200,fibonacci_cache,20 terms,0.22843356,6.10254345,33869.52994792,10.284144481658936,0.0,0.0,0.0,0.0
+run_5_repetition_0,DONE,20,200,fibonacci_lru_cache,20 terms,0.23545201,11.53048368,33903.46354167,10.604233013153076,0.0,0.0,0.0,0.0
+run_6_repetition_0,DONE,30,200,fibonacci,30 terms,0.2335423,13.29455268,33955.63671875,10.780288948059082,0.0,0.0,0.0,0.0
+run_7_repetition_0,DONE,30,200,fibonacci_cache,30 terms,0.23429354,12.31240984,33930.03645833,10.427938415527343,0.0,0.0,0.0,0.0
+run_8_repetition_0,DONE,30,200,fibonacci_lru_cache,30 terms,0.22517768,8.68042516,33849.01822917,9.911414337158204,0.0,0.0,0.0,0.0
