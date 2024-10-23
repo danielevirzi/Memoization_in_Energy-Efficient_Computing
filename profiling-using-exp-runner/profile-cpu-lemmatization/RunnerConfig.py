@@ -45,21 +45,9 @@ class RunnerConfig:
         every second requires sophisticated algorithms and technologies to process and make sense of it. Artificial 
         intelligence and machine learning have become integral in managing this data deluge, enabling us to extract 
         insights and make informed decisions.Moreover, the rise of social media platforms has transformed how we 
-        interact with one another. We are now able to maintain relationships across vast distances, share our 
-        experiences instantaneously, and participate in global conversations. This has led to a more interconnected 
-        and aware society, but it has also raised concerns about privacy, misinformation, and the impact on mental 
-        health. As we navigate this digital age, it is crucial to consider the ethical implications of technology. 
-        Developers and policymakers must work together to ensure that advancements serve the greater good, 
-        promoting inclusivity, security, and sustainability. Education plays a pivotal role in this endeavor, 
-        equipping individuals with the skills to engage critically with technology and its societal effects. Looking 
-        ahead, the potential for innovation is boundless. From quantum computing to biotechnology, the frontiers of 
-        science are being pushed further than ever before. It is an exciting time to be a part of this journey, 
-        but it requires responsibility, collaboration, and a vision that prioritizes humanity's well-being. In 
-        conclusion, the digital era presents both incredible opportunities and significant challenges. By harnessing 
-        technology thoughtfully, we can create a future that is not only technologically advanced but also equitable 
-        and just."""
+        interact with one another."""
     ]
-    input_description = ['Short sentence', 'Long sentence', 'Very long sentence']
+    input_description = ['15-word sentence', '74-word sentence', '118-word sentence']
     sampling_rate_options = [200]
     """The time Experiment Runner will wait after a run completes.
     This can be essential to accommodate for cooldown periods on some systems."""
