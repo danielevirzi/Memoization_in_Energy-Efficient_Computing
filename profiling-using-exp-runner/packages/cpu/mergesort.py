@@ -40,7 +40,7 @@ def merge(left: list, right: list) -> list:
 
 
 # Basic Implementation
-def merge_sort(arr: tuple) -> tuple:
+def merge_sort(arr_tuple: tuple) -> tuple:
     arr = list(arr_tuple)  # Convert tuple back to list
     if len(arr) <= 1:
         return arr
