@@ -111,8 +111,8 @@ if __name__ == '__main__':
 
     frozenset_graph = dict_to_frozenset(graph)
 
-    print("Basic Dijkstra:", dijkstra(frozenset_graph, 'A'))
-    print(measure_time(dijkstra, frozenset_graph, 'A'))
+    print("Basic Dijkstra:", dijkstra_basic(frozenset_graph, 'A'))
+    print(measure_time(dijkstra_basic, frozenset_graph, 'A'))
 
     print(measure_time(dijkstra_cache, frozenset_graph, 'A'))
     print(measure_time(dijkstra_cache, frozenset_graph, 'A'))
@@ -120,5 +120,5 @@ if __name__ == '__main__':
     print(measure_time(dijkstra_lru_cache, frozenset_graph, 'A'))
     print(measure_time(dijkstra_lru_cache, frozenset_graph, 'A'))
     
-    assert dijkstra(frozenset_graph, 'A') == dijkstra_cache(frozenset_graph, 'A') == dijkstra_lru_cache(frozenset_graph, 'A')
+    assert dijkstra_basic(frozenset_graph, 'A') == dijkstra_cache(frozenset_graph, 'A') == dijkstra_lru_cache(frozenset_graph, 'A')
 
