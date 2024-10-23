@@ -23,7 +23,7 @@ def measure_time(func: callable, *args, **kwargs):
     return func(*args, **kwargs)
 
 # Basic Implementation
-def dijkstra(graph_frozen: frozenset, start: str) -> dict:
+def dijkstra_basic(graph_frozen: frozenset, start: str) -> dict:
     graph = {k: dict(v) for k, v in graph_frozen}  # Convert frozenset back to dict
     distances = {node: float('inf') for node in graph}
     distances[start] = 0
