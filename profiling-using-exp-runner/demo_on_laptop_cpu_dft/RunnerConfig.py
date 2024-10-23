@@ -31,7 +31,7 @@ class RunnerConfig:
     target_function_names = ["DFT", "DFT_cache", "DFT_lru_cache"]
     input_size_options = [128, 256, 512]
     input_description = ["128 points", "256 points", "512 points"]
-    sampling_rate_options = [200]
+    sampling_rate_options = [50]
 
     """The path in which Experiment Runner will create a folder with the name `self.name`, in order to store the
     results from this experiment. (Path does not need to exist - it will be created if necessary.)

@@ -30,39 +30,39 @@ class RunnerConfig:
     target_function_location = 'memory.floyd'
     target_function_names = ['floyd_warshall', 'floyd_warshall_cache', 'floyd_warshall_lru_cache']
     input_size_options = [
-        np.array([
-            [0, 3, float('inf'), 7, 8, 3, 2, float('inf')],
-            [3, 0, 4, 2, float('inf'), float('inf'), 1, 5],
-            [float('inf'), 4, 0, 2, 1, float('inf'), 6, float('inf')],
+        tuple(map(tuple,np.array([
+            [0, 3, np.inf, 7, 8, 3, 2, np.inf],
+            [3, 0, 4, 2, np.inf, np.inf, 1, 5],
+            [np.inf, 4, 0, 2, 1, np.inf, 6, np.inf],
             [7, 2, 2, 0, 4, 3, 2, 8],
-            [8, float('inf'), 1, 4, 0, 3, 5, 6],
-            [3, 5, float('inf'), 3, 5, 0, float('inf'), 2],
-            [2, 1, 5, 6, 3, float('inf'), 0, 7],
-            [float('inf'), 5, float('inf'), 8, 6, 2, 7, 0]
-        ]),
-        np.array([
-            [0, 3, float('inf'), 7, 8, 3, 2, float('inf'), 6],
-            [3, 0, 4, 2, float('inf'), float('inf'), 1, 5, float('inf')],
-            [float('inf'), 4, 0, 2, 1, float('inf'), 6, float('inf'), 7],
-            [7, 2, 2, 0, 4, 3, 2, 8, float('inf')],
-            [8, float('inf'), 1, 4, 0, 3, 5, 6, float('inf')],
-            [3, 5, float('inf'), 3, 5, 0, float('inf'), 2, 1],
-            [2, 1, 5, 6, 3, float('inf'), 0, 7, 4],
-            [float('inf'), 5, float('inf'), 8, 6, 2, 7, 0, 3],
-            [6, float('inf'), 7, float('inf'), float('inf'), 1, 4, 3, 0]
-        ]),
-        np.array([
-            [0, 3, float('inf'), 7, 8, 3, 2, float('inf'), 5, float('inf')],
-            [3, 0, 4, 2, float('inf'), float('inf'), 1, 5, float('inf'), 7],
-            [float('inf'), 4, 0, 2, 1, float('inf'), 6, float('inf'), float('inf'), 3],
-            [7, 2, 2, 0, 4, 3, 2, 8, float('inf'), float('inf')],
-            [8, float('inf'), 1, 4, 0, 3, 5, 6, float('inf'), 2],
-            [3, 5, float('inf'), 3, 5, 0, float('inf'), 2, 1, 4],
-            [2, 1, 5, 6, 3, float('inf'), 0, 7, float('inf'), float('inf')],
-            [float('inf'), 5, float('inf'), 8, 6, 2, 7, 0, 4, 3],
-            [5, float('inf'), float('inf'), float('inf'), float('inf'), 1, float('inf'), 4, 0, 2],
-            [float('inf'), 7, 3, float('inf'), 2, 4, float('inf'), 3, 2, 0]
-        ])
+            [8, np.inf, 1, 4, 0, 3, 5, 6],
+            [3, 5, np.inf, 3, 5, 0, np.inf, 2],
+            [2, 1, 5, 6, 3, np.inf, 0, 7],
+            [np.inf, 5, np.inf, 8, 6, 2, 7, 0]
+        ]))),
+        tuple(map(tuple,np.array([
+            [0, 3, np.inf, 7, 8, 3, 2, np.inf, 6],
+            [3, 0, 4, 2, np.inf, np.inf, 1, 5, np.inf],
+            [np.inf, 4, 0, 2, 1, np.inf, 6, np.inf, 7],
+            [7, 2, 2, 0, 4, 3, 2, 8, np.inf],
+            [8, np.inf, 1, 4, 0, 3, 5, 6, np.inf],
+            [3, 5, np.inf, 3, 5, 0, np.inf, 2, 1],
+            [2, 1, 5, 6, 3, np.inf, 0, 7, 4],
+            [np.inf, 5, np.inf, 8, 6, 2, 7, 0, 3],
+            [6, np.inf, 7, np.inf, np.inf, 1, 4, 3, 0]
+        ]))),
+        tuple(map(tuple, np.array([
+            [0, 3, np.inf, 7, 8, 3, 2, np.inf, 5, np.inf],
+            [3, 0, 4, 2, np.inf, np.inf, 1, 5, np.inf, 7],
+            [np.inf, 4, 0, 2, 1, np.inf, 6, np.inf, np.inf, 3],
+            [7, 2, 2, 0, 4, 3, 2, 8, np.inf, np.inf],
+            [8, np.inf, 1, 4, 0, 3, 5, 6, np.inf, 2],
+            [3, 5, np.inf, 3, 5, 0, np.inf, 2, 1, 4],
+            [2, 1, 5, 6, 3, np.inf, 0, 7, np.inf, np.inf],
+            [np.inf, 5, np.inf, 8, 6, 2, 7, 0, 4, 3],
+            [5, np.inf, np.inf, np.inf, np.inf, 1, np.inf, 4, 0, 2],
+            [np.inf, 7, 3, np.inf, 2, 4, np.inf, 3, 2, 0]
+        ])))
     ]
     input_description = ["8x8 graph", "9x9 graph", "10x10 graph"]
     sampling_rate_options = [200]
@@ -167,8 +167,7 @@ class RunnerConfig:
             f"import sys; import os; import numpy as np; "
             f"sys.path.append(\\\"{self.remote_package_dir}\\\"); "
             f"import {self.target_function_location} as module; "
-            f"inf = np.inf; "
-            f"module.{target_function}(tuple(map(tuple,{input_size}))); "
+            f"module.{target_function}({input_size}); "
             f"print(\\\"python_cmd executed successfully\\\");"
         )
 

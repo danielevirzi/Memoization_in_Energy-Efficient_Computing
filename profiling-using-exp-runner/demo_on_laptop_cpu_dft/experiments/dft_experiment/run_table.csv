@@ -1,10 +1,10 @@
 __run_id,__done,input_size,sampling_rate,cache_strategy,input_description,execution_time,average_cpu_usage,memory_usage,energy_consumption,dram_energy,package_energy,pp0_energy,pp1_energy
-run_0_repetition_0,TODO,128,200,DFT, , , , , , , , , 
-run_1_repetition_0,TODO,128,200,DFT_cache, , , , , , , , , 
-run_2_repetition_0,TODO,128,200,DFT_lru_cache, , , , , , , , , 
-run_3_repetition_0,TODO,256,200,DFT, , , , , , , , , 
-run_4_repetition_0,TODO,256,200,DFT_cache, , , , , , , , , 
-run_5_repetition_0,TODO,256,200,DFT_lru_cache, , , , , , , , , 
-run_6_repetition_0,TODO,512,200,DFT, , , , , , , , , 
-run_7_repetition_0,TODO,512,200,DFT_cache, , , , , , , , , 
-run_8_repetition_0,TODO,512,200,DFT_lru_cache, , , , , , , , , 
+run_0_repetition_0,DONE,128,50,DFT,128 points,5.200432,12.46979636,35130.48375619,320.05132809066794,0.0,0.0,0.0,0.0
+run_1_repetition_0,DONE,128,50,DFT_cache,128 points,3.3297086,17.45123664,35149.2358774,192.976850429535,0.0,0.0,0.0,0.0
+run_2_repetition_0,DONE,128,50,DFT_lru_cache,128 points,3.2132223,18.68927654,35127.01020665,179.5181629829408,0.0,0.0,0.0,0.0
+run_3_repetition_0,DONE,256,50,DFT,256 points,3.2263157,18.33286123,35130.73580109,231.50953379058836,0.0,0.0,0.0,0.0
+run_4_repetition_0,DONE,256,50,DFT_cache,256 points,3.154574,16.86002182,35152.78157018,181.158881652832,0.0,0.0,0.0,0.0
+run_5_repetition_0,DONE,256,50,DFT_lru_cache,256 points,3.1999595,17.31666792,35129.73053175,230.2214891204834,0.0,0.0,0.0,0.0
+run_6_repetition_0,DONE,512,50,DFT,512 points,3.154702,16.08850533,35129.36488217,172.1877206077575,0.0,0.0,0.0,0.0
+run_7_repetition_0,DONE,512,50,DFT_cache,512 points,3.2359436,17.98816874,35090.66734871,178.9125912322998,0.0,0.0,0.0,0.0
+run_8_repetition_0,DONE,512,50,DFT_lru_cache,512 points,3.2994227,19.16533101,35070.59942627,200.6373636054993,0.0,0.0,0.0,0.0
