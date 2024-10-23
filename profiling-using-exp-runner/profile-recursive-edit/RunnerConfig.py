@@ -35,9 +35,9 @@ class RunnerConfig:
     target_function_location = 'recursive.edit'
     target_function_names = ['edit_distance', 'edit_distance_cache', 'edit_distance_lru_cache']
     input_size_options = [
-        tuple(map(tuple,(random_string(5),random_string(5)))),
-        tuple(map(tuple,(random_string(10),random_string(10)))),
-        tuple(map(tuple, (random_string(15), random_string(15))))
+        tuple((random_string(5),random_string(5))),
+        tuple((random_string(10),random_string(10))),
+        tuple((random_string(15), random_string(15)))
     ]
     input_description = ["Pair of 10-character random strings", "Pair of 20-character random strings", "Pair of 30-character random strings"]
     sampling_rate_options = [200]
@@ -143,7 +143,7 @@ class RunnerConfig:
             f"import sys; import os; import numpy as np; "
             f"sys.path.append(\\\"{self.remote_package_dir}\\\"); "
             f"import {self.target_function_location} as module; "
-            f"module.{target_function}(\\\"{input_size[0]}\\\",\\\"{input_size[1]}\\\",len(\\\"{input_size[0]}\\\"),len(\\\"{input_size[1]}\\\"))); "
+            f"module.{target_function}(\\\"{input_size[0]}\\\",\\\"{input_size[1]}\\\",len(\\\"{input_size[0]}\\\"),len(\\\"{input_size[1]}\\\")); "
             f"print(\\\"python_cmd executed successfully\\\");"
         )
 
