@@ -31,7 +31,7 @@ class RunnerConfig:
     target_function_location = 'cpu.lemmatization'
     target_function_names = ["lemmatization", "lemmatization_cache", "lemmatization_lru_cache"]
     input_size_options = [
-        "Running quickly, the children played happily in the sunny park, unaware of the approaching storm.",
+        """Running quickly, the children played happily in the sunny park, unaware of the approaching storm.""",
 
         """In the midst of the bustling city, there lies a forgotten garden. Overgrown with wildflowers and vines, 
         it stands as a remnant of a bygone era. The air is filled with the scent of blooming roses, and the sound of 
@@ -151,9 +151,9 @@ class RunnerConfig:
             f"import sys; import os; import numpy as np; import spacy; "
             f"sys.path.append(\\\"{self.remote_package_dir}\\\"); "
             f"import {self.target_function_location} as module; "
-            f"nlp = spacy.load(\\\'en_core_web_sm\\\'); "
-            f"sentence = {input_size}; "
-            f"module.{target_function}(nlp, sentence); "
+            f"nlp = spacy.load(\\\"en_core_web_sm\\\"); "
+            f"print(module); "
+            f"module.{target_function}(nlp,\\\"{input_size}\\\"); "
             f"print(\\\"python_cmd executed successfully\\\");"
         )
 
