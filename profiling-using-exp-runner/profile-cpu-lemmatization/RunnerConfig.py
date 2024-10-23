@@ -31,7 +31,7 @@ class RunnerConfig:
     target_function_location = 'cpu.lemmatization'
     target_function_names = ["lemmatization", "lemmatization_cache", "lemmatization_lru_cache"]
     input_size_options = [
-        "Running quickly, the children played happily in the sunny park, unaware of the approaching storm.",
+        """Running quickly, the children played happily in the sunny park, unaware of the approaching storm.""",
 
         """In the midst of the bustling city, there lies a forgotten garden. Overgrown with wildflowers and vines, 
         it stands as a remnant of a bygone era. The air is filled with the scent of blooming roses, and the sound of 

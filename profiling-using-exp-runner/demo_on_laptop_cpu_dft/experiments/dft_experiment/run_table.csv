@@ -1,5 +1,5 @@
 __run_id,__done,input_size,sampling_rate,cache_strategy,input_description,execution_time,average_cpu_usage,memory_usage,energy_consumption,dram_energy,package_energy,pp0_energy,pp1_energy
-run_0_repetition_0,DONE,128,200,DFT,128 points,0.2300686,16.50590777,37930.5,9.054337326049804,0.0,0.0,0.0,0.0
+run_0_repetition_0,TODO,128,200,DFT, , , , , , , , , 
 run_1_repetition_0,TODO,128,200,DFT_cache, , , , , , , , , 
 run_2_repetition_0,TODO,128,200,DFT_lru_cache, , , , , , , , , 
 run_3_repetition_0,TODO,256,200,DFT, , , , , , , , , 

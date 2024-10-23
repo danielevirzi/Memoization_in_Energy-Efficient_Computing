@@ -120,7 +120,7 @@ class RunnerConfig:
             f"--max-execution 20 "
             f"--output {context.run_dir}/energibridge.csv "
             f"--summary "
-            f"python3 -c \"{python_cmd}\" "
+            f"python -c \"{python_cmd}\" "
         )
 
         energibridge_log = open(f'{context.run_dir}/energibridge.log', 'w')
