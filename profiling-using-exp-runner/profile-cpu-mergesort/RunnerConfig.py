@@ -61,6 +61,8 @@ class RunnerConfig:
     """energibridge location in remote laptop"""
     energibridge_location: str = "/usr/local/bin/energibridge"
 
+    """python location in remote laptop"""
+    remote_python_location:        str             = "/Users/rr/anaconda3/bin/python"
     # Dynamic configurations can be one-time satisfied here before the program takes the config as-is
     # e.g. Setting some variable based on some criteria
     def __init__(self):
@@ -134,9 +136,10 @@ class RunnerConfig:
         remote_temporary_each_run_results_dir = f"{self.remote_temporary_results_dir}/{self.name}/run_{context.run_nr}"
         python_cmd = (
             f"import sys; import os; import numpy as np; "
-            f"sys.path.append('{self.remote_package_dir}'); "
+            f"sys.path.append(\\\"{self.remote_package_dir}\\\"); "
             f"import {self.target_function_location} as module; "
-            f"module.{target_function}({input_size})"
+            f"module.{target_function}({input_size}); "
+            f"print(\\\"python_cmd executed successfully\\\");"
         )
 
         profiler_cmd = (
@@ -144,13 +147,14 @@ class RunnerConfig:
             f"--max-execution 20 "
             f"--output {remote_temporary_each_run_results_dir}/energibridge.csv "
             f"--summary "
-            f"python3 -c \"{python_cmd}\" "
+            f"{self.remote_python_location} -c '{python_cmd}' "
         )
 
-        ssh_cmd = f"ssh {self.remote_user}@{self.remote_host} '{profiler_cmd}'"
+        ssh_cmd = f'ssh {self.remote_user}@{self.remote_host} "{profiler_cmd}" '
+        output.console_log(f"Executing Command:{ssh_cmd}")
 
         energibridge_log = open(f'{context.run_dir}/energibridge.log', 'w')
-        self.profiler = subprocess.Popen(shlex.split(ssh_cmd), stdout=energibridge_log, stderr=energibridge_log)
+        self.profiler = subprocess.Popen(ssh_cmd, shell=True, stdout=energibridge_log, stderr=energibridge_log)
 
         energibridge_log.write(
             f'sampling interval: {sampling_interval}, target function: {target_function}, input size: {input_size}\n')
