@@ -19,7 +19,8 @@ import json
 
 def dict_to_frozenset(d: dict) -> frozenset:
     return frozenset((k, frozenset(v.items())) for k, v in d.items())
-
+def frozenset_to_dict(frozenset_input: frozenset) -> dict:
+    return {k: dict(v) for k, v in frozenset_input}
 class RunnerConfig:
     ROOT_DIR = Path(dirname(realpath(__file__)))
 
@@ -156,10 +157,10 @@ class RunnerConfig:
               'N': 3, 'O': 5, 'P': 7, 'Q': 4, 'R': 6, 'S': 9, 'T': 3, 'U': 6, 'V': 4, 'W': 5, 'X': 7}
     }
 
-    # frozenset_graph_15 = dict_to_frozenset(graph_15)
-    # frozenset_graph_20 = dict_to_frozenset(graph_20)
-    # frozenset_graph_25 = dict_to_frozenset(graph_25)
-    input_size_options = [graph_15, graph_20, graph_25]
+    frozenset_graph_15 = dict_to_frozenset(graph_15)
+    frozenset_graph_20 = dict_to_frozenset(graph_20)
+    frozenset_graph_25 = dict_to_frozenset(graph_25)
+    input_size_options = [frozenset_graph_15, frozenset_graph_20, frozenset_graph_25]
     input_description = ["graph with 15 nodes", "graph with 10 nodes", "graph with 5 nodes"]
     sampling_rate_options = [200]
     """The time Experiment Runner will wait after a run completes.
@@ -255,7 +256,7 @@ class RunnerConfig:
         target_function = context.run_variation['cache_strategy']
         input_size = context.run_variation['input_size']
 
-        input_size_json = json.dumps(input_size)
+        input_size_json = json.dumps(frozenset_to_dict(input_size))
 
         remote_temporary_each_run_results_dir = f"{self.remote_temporary_results_dir}/{self.name}/run_{context.run_nr}"
         python_cmd = (
