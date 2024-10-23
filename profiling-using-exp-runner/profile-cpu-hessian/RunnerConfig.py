@@ -133,7 +133,7 @@ class RunnerConfig:
             f"import {self.target_function_location} as module; "
             f"x_array = np.random.rand({input_size});"
             f"x_tuple = tuple(x_array); "
-            f"module.{target_function}(x_tuple)"
+            f"module.{target_function}(x_tuple); "
             f"print(\\\"python_cmd executed successfully\\\");"
         )
 
