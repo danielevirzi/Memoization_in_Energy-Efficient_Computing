@@ -130,7 +130,7 @@ class RunnerConfig:
             f"module.{target_function}(X); "
             f"end_time = time.perf_counter(); "
             f"execution_time = end_time - start_time; "
-            f"print(\\\"python_cmd executed successfully {{execution_time}} seconds of execution\\\");"
+            f"print(f\\\"python_cmd executed successfully {{execution_time}} seconds of actual execution\\\");"
         )
         
 
@@ -142,21 +142,13 @@ class RunnerConfig:
             f"{self.remote_python_location} -c '{python_cmd}' "
         )
 
-
         ssh_cmd = f'ssh {self.remote_user}@{self.remote_host} "{profiler_cmd}" '
 
         output.console_log(f"Executing Command:{ssh_cmd}")
 
         energibridge_log = open(f'{context.run_dir}/energibridge.log', 'w')
 
-
-
         self.profiler = subprocess.Popen(ssh_cmd, shell=True, stdout=energibridge_log, stderr=energibridge_log)
-
-
-
-
-        output.console_log(f"Execution time: {self.execution_time} seconds")
 
         energibridge_log.write(f'sampling interval: {sampling_interval}, target function: {target_function}, input size: {input_size}\n')
         energibridge_log.flush()
