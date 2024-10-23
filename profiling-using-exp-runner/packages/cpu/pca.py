@@ -67,7 +67,7 @@ def pca_lru_cache(X_tuple: tuple, num_components: int) -> np.ndarray:
 
 if __name__ == '__main__':
     # Example usage
-    X = np.random.rand(2000, 2000)
+    X = np.random.rand(4096, 4096)
     num_components = 10
 
     # Convert numpy array to tuple for caching
