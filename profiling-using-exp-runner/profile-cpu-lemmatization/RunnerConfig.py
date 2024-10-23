@@ -29,7 +29,7 @@ class RunnerConfig:
     name: str = "lemmatization_experiment"
     """target function location in remote laptop"""
     target_function_location = 'cpu.lemmatization'
-    target_function_names = ["lemmatization", "lemmatization_cache", "lemmatization_lru_cache"]
+    target_function_names = ["lemmatization_basic", "lemmatization_cache", "lemmatization_lru_cache"]
     input_size_options = [
         """Running quickly, the children played happily in the sunny park, unaware of the approaching storm.""",
 
