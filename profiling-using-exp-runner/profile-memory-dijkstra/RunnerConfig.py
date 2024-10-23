@@ -8,17 +8,13 @@ from ProgressManager.Output.OutputProcedure import OutputProcedure as output
 from typing import Dict, List, Any, Optional
 from pathlib import Path
 from os.path import dirname, realpath
-import numpy as np
-import sys
-import os
-import signal
 import pandas as pd
 import time
 import subprocess
 import shlex
-import textwrap
 import re
 import math
+import json
 
 
 def dict_to_frozenset(d: dict) -> frozenset:
@@ -259,6 +255,7 @@ class RunnerConfig:
         target_function = context.run_variation['cache_strategy']
         input_size = context.run_variation['input_size']
 
+        input_size_json = json.dumps(input_size)
         remote_temporary_each_run_results_dir = f"{self.remote_temporary_results_dir}/{self.name}/run_{context.run_nr}"
         python_cmd = (
             f"import sys; import os; "
