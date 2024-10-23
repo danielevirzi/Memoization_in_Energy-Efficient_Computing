@@ -26,7 +26,7 @@ class RunnerConfig:
     """The name of the experiment."""
     name:                       str             = "hessian_experiment"
     """target function location in remote laptop"""
-    target_function_location = 'cpu.hesssian'
+    target_function_location = 'cpu.hessian'
     target_function_names = ["hessian", "hessian_cache", "hessian_lru_cache"]
     input_size_options = [10, 50, 100]
     input_description = ["10 elements", "50 elements", "100 elements"]
