@@ -131,10 +131,9 @@ class RunnerConfig:
             f"import sys; import os; import numpy as np; "
             f"sys.path.append(\\\"{self.remote_package_dir}\\\"); "
             f"import {self.target_function_location} as module; "
-            f"def high_dim_func(x): return np.sum(x**2); "
             f"x_array = np.random.rand({input_size});"
             f"x_tuple = tuple(x_array); "
-            f"module.{target_function}(high_dim_func, x_tuple); "
+            f"module.{target_function}(x_tuple); "
             f"print(\\\"python_cmd executed successfully\\\");"
         )
 

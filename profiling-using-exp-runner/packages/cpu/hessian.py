@@ -24,7 +24,7 @@ def measure_time(func: callable, *args, **kwargs):
 
 
 # Basic Implementation
-def hessian_basic(f: callable, x: np.ndarray) -> np.ndarray:
+def hessian(x: np.ndarray) -> np.ndarray:
     x = np.asarray(x)
     n = x.size
     hessian_matrix = np.zeros((n, n))
@@ -35,17 +35,17 @@ def hessian_basic(f: callable, x: np.ndarray) -> np.ndarray:
             x_ij = x.copy()
             x_ij[i] += epsilon
             x_ij[j] += epsilon
-            f_ij = f(x_ij)
+            f_ij = np.sum(x_ij ** 2)
             
             x_i = x.copy()
             x_i[i] += epsilon
-            f_i = f(x_i)
+            f_i = np.sum(x_i ** 2)
             
             x_j = x.copy()
             x_j[j] += epsilon
-            f_j = f(x_j)
+            f_j = np.sum(x_j ** 2)
             
-            f_0 = f(x)
+            f_0 = np.sum(x ** 2)
             
             hessian_matrix[i, j] = (f_ij - f_i - f_j + f_0) / (epsilon ** 2)
     
@@ -53,7 +53,7 @@ def hessian_basic(f: callable, x: np.ndarray) -> np.ndarray:
 
 # Using functools.cache (Python 3.9+)
 @cache
-def hessian_cache(f: callable, x_tuple: tuple) -> np.ndarray:
+def hessian_cache(x_tuple: tuple) -> np.ndarray:
     x = np.array(x_tuple)  # Convert tuple back to numpy array
     n = x.size
     hessian_matrix = np.zeros((n, n))
@@ -64,17 +64,17 @@ def hessian_cache(f: callable, x_tuple: tuple) -> np.ndarray:
             x_ij = x.copy()
             x_ij[i] += epsilon
             x_ij[j] += epsilon
-            f_ij = f(x_ij)
+            f_ij = np.sum(x_ij ** 2)
 
             x_i = x.copy()
             x_i[i] += epsilon
-            f_i = f(x_i)
+            f_i = np.sum(x_i ** 2)
 
             x_j = x.copy()
             x_j[j] += epsilon
-            f_j = f(x_j)
+            f_j = np.sum(x_j ** 2)
 
-            f_0 = f(x)
+            f_0 = np.sum(x ** 2)
 
             hessian_matrix[i, j] = (f_ij - f_i - f_j + f_0) / (epsilon ** 2)
 
@@ -83,7 +83,7 @@ def hessian_cache(f: callable, x_tuple: tuple) -> np.ndarray:
 
 # Using functools.lru_cache
 @lru_cache(maxsize=None)
-def hessian_lru_cache(f: callable, x_tuple: tuple) -> np.ndarray:
+def hessian_lru_cache(x_tuple: tuple) -> np.ndarray:
     x = np.array(x_tuple)  # Convert tuple back to numpy array
     n = x.size
     hessian_matrix = np.zeros((n, n))
@@ -94,17 +94,17 @@ def hessian_lru_cache(f: callable, x_tuple: tuple) -> np.ndarray:
             x_ij = x.copy()
             x_ij[i] += epsilon
             x_ij[j] += epsilon
-            f_ij = f(x_ij)
+            f_ij = np.sum(x_ij ** 2)
 
             x_i = x.copy()
             x_i[i] += epsilon
-            f_i = f(x_i)
+            f_i = np.sum(x_i ** 2)
 
             x_j = x.copy()
             x_j[j] += epsilon
-            f_j = f(x_j)
+            f_j = np.sum(x_j ** 2)
 
-            f_0 = f(x)
+            f_0 = np.sum(x ** 2)
 
             hessian_matrix[i, j] = (f_ij - f_i - f_j + f_0) / (epsilon ** 2)
 
@@ -112,19 +112,19 @@ def hessian_lru_cache(f: callable, x_tuple: tuple) -> np.ndarray:
 
 if __name__ == '__main__':
     # Example usage
-    def high_dim_func(x):
-        return np.sum(x**2)
+    # def high_dim_func(x):
+    #     return np.sum(x**2)
 
     # Example usage:
     x = np.random.rand(100)  # 100-dimensional input
     x_tuple = tuple(x)
     
-    print(measure_time(hessian, high_dim_func, x))
+    print(measure_time(hessian, x))
     
-    print(measure_time(hessian_cache, high_dim_func, x_tuple))
-    print(measure_time(hessian_cache, high_dim_func, x_tuple))
+    print(measure_time(hessian_cache, x_tuple))
+    print(measure_time(hessian_cache, x_tuple))
 
-    print(measure_time(hessian_lru_cache, high_dim_func, x_tuple))
-    print(measure_time(hessian_lru_cache, high_dim_func, x_tuple))
+    print(measure_time(hessian_lru_cache, x_tuple))
+    print(measure_time(hessian_lru_cache, x_tuple))
 
-    assert np.allclose(hessian(high_dim_func, x), hessian_cache(high_dim_func, x_tuple)) and np.allclose(hessian(high_dim_func, x_tuple), hessian_lru_cache(high_dim_func, x_tuple))
+    assert np.allclose(hessian(x_tuple), hessian_cache(x_tuple)) and np.allclose(hessian_cache(x_tuple), hessian_lru_cache(x_tuple))
