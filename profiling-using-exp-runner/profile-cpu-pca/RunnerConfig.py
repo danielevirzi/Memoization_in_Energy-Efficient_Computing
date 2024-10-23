@@ -31,14 +31,10 @@ class RunnerConfig:
     """target function location in remote laptop"""
     target_function_location = 'cpu.pca'
     target_function_names = ["pca", "pca_cache", "pca_lru_cache"]
-    input_size_options = [
-        tuple(map(tuple, np.random.rand(10, 5))),
-        tuple(map(tuple, np.random.rand(100, 20))),
-        tuple(map(tuple, np.random.rand(1000, 50)))
-    ]
+    input_size_options = [500,1000,2000]
 
-    input_description = ['Sample size: 10x5, Num components: 2', 'Sample size: 100x20, Num components: 5',
-                         'Sample size: 1000x50, Num components: 10']
+    input_description = ['Sample size: 500x500, N: 10', 'Sample size: 1000x1000, N: 10',
+                         'Sample size: 2000x2000, N: 10']
     sampling_rate_options = [200]
     """The time Experiment Runner will wait after a run completes.
     This can be essential to accommodate for cooldown periods on some systems."""
@@ -138,7 +134,9 @@ class RunnerConfig:
             f"import sys; import os; import numpy as np; "
             f"sys.path.append('{self.remote_package_dir}'); "
             f"import {self.target_function_location} as module; "
-            f"module.{target_function}({input_size}, 10); "
+            f"X = np.random.rand({input_size},{input_size}); "
+            f"X_tuple = tuple(map(tuple, X)); "
+            f"module.{target_function}(X_tuple, 10); "
         )
 
         profiler_cmd = (
