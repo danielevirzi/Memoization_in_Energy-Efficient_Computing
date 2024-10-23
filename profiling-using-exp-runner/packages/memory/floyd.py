@@ -80,7 +80,8 @@ def floyd_warshall_lru_cache(graph_tuple: tuple) -> np.ndarray:
 
 if __name__ == '__main__':
     # Example usage
-    INF = float('inf')
+    # INF = float('inf')
+    INF = np.inf;
     graph = np.array([
         [0, 3, INF, INF, 7, 8, 3, 2],
         [3, 0, 4, 2, INF, INF, 1, 5],

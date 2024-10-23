@@ -30,7 +30,7 @@ class RunnerConfig:
     target_function_location = 'memory.floyd'
     target_function_names = ['floyd_warshall', 'floyd_warshall_cache', 'floyd_warshall_lru_cache']
     input_size_options = [
-        tuple(map(tuple, np.array([
+        np.array([
             [0, 3, float('inf'), 7, 8, 3, 2, float('inf')],
             [3, 0, 4, 2, float('inf'), float('inf'), 1, 5],
             [float('inf'), 4, 0, 2, 1, float('inf'), 6, float('inf')],
@@ -39,8 +39,8 @@ class RunnerConfig:
             [3, 5, float('inf'), 3, 5, 0, float('inf'), 2],
             [2, 1, 5, 6, 3, float('inf'), 0, 7],
             [float('inf'), 5, float('inf'), 8, 6, 2, 7, 0]
-        ]))),
-        tuple(map(tuple, np.array([
+        ]),
+        np.array([
             [0, 3, float('inf'), 7, 8, 3, 2, float('inf'), 6],
             [3, 0, 4, 2, float('inf'), float('inf'), 1, 5, float('inf')],
             [float('inf'), 4, 0, 2, 1, float('inf'), 6, float('inf'), 7],
@@ -50,8 +50,8 @@ class RunnerConfig:
             [2, 1, 5, 6, 3, float('inf'), 0, 7, 4],
             [float('inf'), 5, float('inf'), 8, 6, 2, 7, 0, 3],
             [6, float('inf'), 7, float('inf'), float('inf'), 1, 4, 3, 0]
-        ]))),
-        tuple(map(tuple, np.array([
+        ]),
+        np.array([
             [0, 3, float('inf'), 7, 8, 3, 2, float('inf'), 5, float('inf')],
             [3, 0, 4, 2, float('inf'), float('inf'), 1, 5, float('inf'), 7],
             [float('inf'), 4, 0, 2, 1, float('inf'), 6, float('inf'), float('inf'), 3],
@@ -62,7 +62,7 @@ class RunnerConfig:
             [float('inf'), 5, float('inf'), 8, 6, 2, 7, 0, 4, 3],
             [5, float('inf'), float('inf'), float('inf'), float('inf'), 1, float('inf'), 4, 0, 2],
             [float('inf'), 7, 3, float('inf'), 2, 4, float('inf'), 3, 2, 0]
-        ])))
+        ])
     ]
     input_description = ["8x8 graph", "9x9 graph", "10x10 graph"]
     sampling_rate_options = [200]
@@ -167,8 +167,8 @@ class RunnerConfig:
             f"import sys; import os; import numpy as np; "
             f"sys.path.append(\\\"{self.remote_package_dir}\\\"); "
             f"import {self.target_function_location} as module; "
-            f"graph_tuple = {input_size}; "
-            f"module.{target_function}(graph_tuple); "
+            f"inf = np.inf; "
+            f"module.{target_function}(tuple(map(tuple,{input_size}))); "
             f"print(\\\"python_cmd executed successfully\\\");"
         )
 
