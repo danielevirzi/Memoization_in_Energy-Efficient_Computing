@@ -133,7 +133,7 @@ class RunnerConfig:
             f"import sys; import os; import numpy as np; "
             f"sys.path.append(\\\"{self.remote_package_dir}\\\"); "
             f"import {self.target_function_location} as module; "
-            f"up = UniquePaths(); "
+            f"up = module.UniquePaths(); "
             f"up.{target_function}({input_size},{input_size}); "
             f"print(\\\"python_cmd executed successfully\\\");"
 
