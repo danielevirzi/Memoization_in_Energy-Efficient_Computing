@@ -8,22 +8,19 @@ from ProgressManager.Output.OutputProcedure import OutputProcedure as output
 from typing import Dict, List, Any, Optional
 from pathlib import Path
 from os.path import dirname, realpath
-import numpy as np
-import sys
-import os
-import signal
 import pandas as pd
 import time
 import subprocess
 import shlex
-import textwrap
 import re
 import math
+import json
 
 
 def dict_to_frozenset(d: dict) -> frozenset:
     return frozenset((k, frozenset(v.items())) for k, v in d.items())
-
+def frozenset_to_dict(frozenset_input: frozenset) -> dict:
+    return {k: dict(v) for k, v in frozenset_input}
 class RunnerConfig:
     ROOT_DIR = Path(dirname(realpath(__file__)))
 
@@ -259,11 +256,15 @@ class RunnerConfig:
         target_function = context.run_variation['cache_strategy']
         input_size = context.run_variation['input_size']
 
+        input_size_json = json.dumps(frozenset_to_dict(input_size))
+
         remote_temporary_each_run_results_dir = f"{self.remote_temporary_results_dir}/{self.name}/run_{context.run_nr}"
         python_cmd = (
-            f"import sys; import os; "
+            f"import sys; import os; import json;"
             f"sys.path.append(\\\"{self.remote_package_dir}\\\"); "
             f"import {self.target_function_location} as module; "
+            f"input_size = dict(json.loads(\\\"{input_size_json}\\\")); "
+            f"input_size = frozenset((k, frozenset(v.items())) for k, v in input_size.items()); "
             f"module.{target_function}({input_size}, 'A'); "
             f"print(\\\"python_cmd executed successfully\\\");"
         )
