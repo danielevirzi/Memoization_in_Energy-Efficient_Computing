@@ -28,7 +28,7 @@ class RunnerConfig:
     name:                       str             = "fibonacci_experiment"
     """target function location in remote laptop"""
     target_function_location = 'recursive.fibonacci'
-    target_function_names = ['fibonacci', 'fibonacci_cache', 'fibonacci_lru_cache']
+    target_function_names = ['fibonacci_basic', 'fibonacci_cache', 'fibonacci_lru_cache']
     input_size_options = [10,20,30]
     input_description = ["10 terms","20 terms","30 terms"]
     sampling_rate_options = [200]

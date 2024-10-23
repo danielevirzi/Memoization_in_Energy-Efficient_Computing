@@ -32,7 +32,7 @@ class RunnerConfig:
     name:                       str             = "dijkstra_experiment"
     """target function location in remote laptop"""
     target_function_location = 'memory.dijkstra'
-    target_function_names = ['dijkstra', 'dijkstra_cache', 'dijkstra_lru_cache']
+    target_function_names = ['dijkstra_basic', 'dijkstra_cache', 'dijkstra_lru_cache']
     graph_15 = {
         'A': {'B': 2, 'C': 3, 'D': 4, 'E': 5, 'F': 1, 'G': 6, 'H': 2, 'I': 7, 'J': 3, 'K': 4, 'L': 5, 'M': 6, 'N': 7,
               'O': 8},

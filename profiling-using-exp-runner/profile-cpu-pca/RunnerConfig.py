@@ -30,7 +30,7 @@ class RunnerConfig:
     name: str = "pca_experiment"
     """target function location in remote laptop"""
     target_function_location = 'cpu.pca'
-    target_function_names = ["pca", "pca_cache", "pca_lru_cache"]
+    target_function_names = ["pca_basic", "pca_cache", "pca_lru_cache"]
     input_size_options = [500,1000,2000]
 
     input_description = ['Sample size: 500x500, N: 10', 'Sample size: 1000x1000, N: 10',
