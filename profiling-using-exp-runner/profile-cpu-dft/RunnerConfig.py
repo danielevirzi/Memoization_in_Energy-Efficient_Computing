@@ -55,6 +55,8 @@ class RunnerConfig:
     """energibridge location in remote laptop"""
     energibridge_location:        str             = "/usr/local/bin/energibridge"
 
+    """python location in remote laptop"""
+    remote_python_location:        str             = "/Users/rr/anaconda3/bin/python"
     # Dynamic configurations can be one-time satisfied here before the program takes the config as-is
     # e.g. Setting some variable based on some criteria
     def __init__(self):
@@ -140,7 +142,7 @@ class RunnerConfig:
             f"--max-execution 20 "
             f"--output {remote_temporary_each_run_results_dir}/energibridge.csv "
             f"--summary "
-            f"/Users/rr/anaconda3/bin/python -c '{python_cmd}' "
+            f"{self.remote_python_location} -c '{python_cmd}' "
         )
 
 
