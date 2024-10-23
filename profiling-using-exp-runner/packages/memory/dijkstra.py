@@ -94,6 +94,7 @@ def dijkstra_lru_cache(graph_frozen: frozenset, start: str) -> dict:
 def dict_to_frozenset(d: dict) -> frozenset:
     return frozenset((k, frozenset(v.items())) for k, v in d.items())
 
+
 if __name__ == '__main__':
     # Example usage
     graph = {
