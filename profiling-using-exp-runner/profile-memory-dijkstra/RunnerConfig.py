@@ -256,16 +256,18 @@ class RunnerConfig:
         target_function = context.run_variation['cache_strategy']
         input_size = context.run_variation['input_size']
 
-        input_size_json = json.dumps(frozenset_to_dict(input_size))
+        input_size_json = json.dumps(frozenset_to_dict(input_size)).replace('"', '\\\"')
+        
+        output.console_log(f"input_size dump to json: {input_size_json}")
 
         remote_temporary_each_run_results_dir = f"{self.remote_temporary_results_dir}/{self.name}/run_{context.run_nr}"
         python_cmd = (
             f"import sys; import os; import json;"
             f"sys.path.append(\\\"{self.remote_package_dir}\\\"); "
             f"import {self.target_function_location} as module; "
-            f"input_size = dict(json.loads(\\\"{input_size_json}\\\")); "
-            f"input_size = frozenset((k, frozenset(v.items())) for k, v in input_size.items()); "
-            f"module.{target_function}({input_size}, 'A'); "
+            f"input_size_dict = dict({input_size_json}); "
+            f"input_size_frozenset = frozenset((k, frozenset(v.items())) for k, v in input_size_dict.items()); "
+            f"module.{target_function}(input_size_frozenset, \\\"A\\\"); "
             f"print(\\\"python_cmd executed successfully\\\");"
         )
 
