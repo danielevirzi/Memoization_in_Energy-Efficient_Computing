@@ -8,15 +8,9 @@ from ProgressManager.Output.OutputProcedure import OutputProcedure as output
 from typing import Dict, List, Any, Optional
 from pathlib import Path
 from os.path import dirname, realpath
-import numpy as np
-import sys
-import os
-import signal
 import pandas as pd
 import time
 import subprocess
-import shlex
-import textwrap
 import re
 import math
 import shlex
@@ -128,12 +122,15 @@ class RunnerConfig:
         input_size = context.run_variation['input_size']
         remote_temporary_each_run_results_dir = f"{self.remote_temporary_results_dir}/{self.name}/run_{context.run_nr}"
         python_cmd = (
-            f"import sys; import os; import numpy as np; "
+            f"import sys; import os; import numpy as np; import time;"
             f"sys.path.append(\\\"{self.remote_package_dir}\\\"); "
             f"import {self.target_function_location} as module; "
             f"X = tuple(np.random.random({input_size})); "
+            f"start_time = time.perf_counter(); "
             f"module.{target_function}(X); "
-            f"print(\\\"python_cmd executed successfully\\\");"
+            f"end_time = time.perf_counter(); "
+            f"execution_time = end_time - start_time; "
+            f"print(\\\"python_cmd executed successfully {{execution_time}} seconds of execution\\\");"
         )
         
 
@@ -146,13 +143,20 @@ class RunnerConfig:
         )
 
 
-        ssh_cmd = f'ssh {self.remote_user}@{self.remote_host} "{profiler_cmd}" ' 
+        ssh_cmd = f'ssh {self.remote_user}@{self.remote_host} "{profiler_cmd}" '
 
         output.console_log(f"Executing Command:{ssh_cmd}")
 
         energibridge_log = open(f'{context.run_dir}/energibridge.log', 'w')
 
+
+
         self.profiler = subprocess.Popen(ssh_cmd, shell=True, stdout=energibridge_log, stderr=energibridge_log)
+
+
+
+
+        output.console_log(f"Execution time: {self.execution_time} seconds")
 
         energibridge_log.write(f'sampling interval: {sampling_interval}, target function: {target_function}, input size: {input_size}\n')
         energibridge_log.flush()
