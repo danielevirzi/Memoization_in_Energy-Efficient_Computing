@@ -28,7 +28,7 @@ class RunnerConfig:
     name:                       str             = "knapsack_experiment"
     """target function location in remote laptop"""
     target_function_location = 'memory.knapsack'
-    target_function_names = ['knapsack', 'knapsack_cache', 'knapsack_lru_cache']
+    target_function_names = ['knapsack_basic', 'knapsack_cache', 'knapsack_lru_cache']
     input_size_options = [
         (tuple([3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31]),
          tuple([10, 25, 35, 45, 60, 75, 85, 95, 110, 125, 140, 155, 165, 180, 195]), 50),

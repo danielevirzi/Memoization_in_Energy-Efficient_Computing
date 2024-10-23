@@ -134,7 +134,7 @@ class RunnerConfig:
             f"import sys; import os; import numpy as np; "
             f"sys.path.append(\\\"{self.remote_package_dir}\\\"); "
             f"import {self.target_function_location} as module; "
-            f"board = [[0 for _ in range({input_size})] for _ in range({input_size})]；"
+            f"board = [[0 for _ in range({input_size})] for _ in range({input_size})]; "
             f"X = tuple(map(tuple, board));"
             f"X = tuple(np.random.random({input_size})); "
             f"module.{target_function}(X,0); "
