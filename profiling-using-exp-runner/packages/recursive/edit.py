@@ -73,11 +73,11 @@ if __name__ == '__main__':
     # set recursion limit to the maximum
     sys.setrecursionlimit(10**6)
     
-    str1 = random_string(12)
-    str2 = random_string(12)
+    str1 = random_string(7)
+    str2 = random_string(7)
     m = len(str1)
     n = len(str2)
-    
+
     print(measure_time(edit_distance, str1, str2, m, n))
     
     print(measure_time(edit_distance_cache, str1, str2, m, n))

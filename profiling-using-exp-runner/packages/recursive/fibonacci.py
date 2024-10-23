@@ -54,13 +54,13 @@ if __name__ == '__main__':
     # Example usage
     n = 30
 
-    print(measure_time(fibonacci, n))
+    print(measure_time(fibonacci_basic, n))
     
     print(measure_time(fibonacci_cache, n))
     
     print(measure_time(fibonacci_lru_cache, n))
     
-    assert fibonacci(n) == fibonacci_cache(n) == fibonacci_lru_cache(n)
+    assert fibonacci_basic(n) == fibonacci_cache(n) == fibonacci_lru_cache(n)
 
 
 

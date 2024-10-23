@@ -128,7 +128,7 @@ class RunnerConfig:
 
         remote_temporary_each_run_results_dir = f"{self.remote_temporary_results_dir}/{self.name}/run_{context.run_nr}"
         python_cmd = (
-            f"import sys; import os; import numpy as np; "
+            f"import sys; import os; "
             f"sys.path.append(\\\"{self.remote_package_dir}\\\"); "
             f"import {self.target_function_location} as module; "
             f"X = {input_size}; "
@@ -141,7 +141,7 @@ class RunnerConfig:
             f"--max-execution 20 "
             f"--output {remote_temporary_each_run_results_dir}/energibridge.csv "
             f"--summary "
-            f"python3 -c \"{python_cmd}\" "
+            f"{self.remote_python_location} -c '{python_cmd}' "
         )
 
         ssh_cmd = f'ssh {self.remote_user}@{self.remote_host} "{profiler_cmd}" '
