@@ -24,7 +24,7 @@ def measure_time(func: callable, *args, **kwargs):
 
 
 # Basic Implementation
-def hessian(f: callable, x: np.ndarray) -> np.ndarray:
+def hessian_basic(f: callable, x: np.ndarray) -> np.ndarray:
     x = np.asarray(x)
     n = x.size
     hessian_matrix = np.zeros((n, n))

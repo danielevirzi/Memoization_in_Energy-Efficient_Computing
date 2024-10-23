@@ -25,7 +25,7 @@ def measure_time(func: callable, *args, **kwargs):
 nlp = spacy.load("en_core_web_sm")
 
 # Basic Implementation
-def lemmatization(nlp: spacy.language.Language, sentence: str) -> str:
+def lemmatization_basic(nlp: spacy.language.Language, sentence: str) -> str:
     doc = nlp(sentence)
     lemmatized_sentence = ' '.join([token.lemma_ for token in doc])
     return lemmatized_sentence

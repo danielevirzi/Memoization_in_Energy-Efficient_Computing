@@ -23,7 +23,7 @@ def measure_time(func: callable, *args, **kwargs):
     return func(*args, **kwargs)
 
 # Basic Implementation
-def pca(X_tuple: tuple, num_components: int) -> np.ndarray:
+def pca_basic(X_tuple: tuple, num_components: int) -> np.ndarray:
     X = np.array(X_tuple)  # Convert tuple back to numpy array
     X_meaned = X - np.mean(X, axis=0)
     cov_matrix = np.cov(X_meaned, rowvar=False)
