@@ -8,15 +8,10 @@ from ProgressManager.Output.OutputProcedure import OutputProcedure as output
 from typing import Dict, List, Any, Optional
 from pathlib import Path
 from os.path import dirname, realpath
-import numpy as np
-import sys
-import os
-import signal
 import pandas as pd
 import time
 import subprocess
 import shlex
-import textwrap
 import re
 import math
 
@@ -82,7 +77,7 @@ class RunnerConfig:
         cache_factor = FactorModel("cache_strategy", self.target_function_names)  # Different cache strategies
         self.run_table_model = RunTableModel(
             factors=[input_size_factor, sampling_factor, cache_factor],
-            data_columns=['input_description', 'execution_time','average_cpu_usage','memory_usage','energy_consumption', 'dram_energy', 'package_energy', 'pp0_energy', 'pp1_energy']
+            data_columns=['input_description', 'execution_time','average_cpu_usage','memory_usage','energy_consumption_per_sec', 'dram_energy', 'package_energy', 'pp0_energy', 'pp1_energy']
         )
         return self.run_table_model
 
@@ -128,12 +123,14 @@ class RunnerConfig:
 
         remote_temporary_each_run_results_dir = f"{self.remote_temporary_results_dir}/{self.name}/run_{context.run_nr}"
         python_cmd = (
-            f"import sys; import os; "
+            f"import sys; import os; import time;"
             f"sys.path.append(\\\"{self.remote_package_dir}\\\"); "
             f"import {self.target_function_location} as module; "
             f"X = {input_size}; "
+            f"start_time = time.perf_counter(); "
             f"module.{target_function}(X); "
-            f"print(\\\"python_cmd executed successfully\\\");"
+            f"end_time = time.perf_counter(); "
+            f"print(f\\\"python_cmd executed successfully {{execution_time}} seconds of actual execution\\\");"
         )
 
         profiler_cmd = (
@@ -229,9 +226,10 @@ class RunnerConfig:
                             log_content = log_file.read()
                             # Use regular expression to find the execution time in seconds
                             match = re.search(r"Energy consumption in joules: ([\d\.]+) for ([\d\.]+) sec of execution",log_content)
+                            match_time = re.search(r"python_cmd executed successfully ([\d\.]+) seconds of actual execution",log_content)
                             if match:
-                                run_data['energy_consumption'] = float(match.group(1))  # Extract energy consumption in joules
-                                run_data['execution_time'] = float(match.group(2))  # Extract the execution time in seconds
+                                run_data['energy_consumption_per_sec'] = float(match.group(1))/float(match.group(2))  # Extract energy consumption in joules
+                                run_data['execution_time'] = float(match_time.group(1)) # Extract the execution time in seconds
                             else:
                                 output.console_log(f"Warning: No energy consumption or execution time found in {local_log_path}")
                                 time.sleep(1)  # Wait for 1 second before retrying
@@ -239,7 +237,7 @@ class RunnerConfig:
                         output.console_log(f"Error reading file {local_log_path}. Retrying... ({attempt + 1}/{retries})")
                         time.sleep(1)  # Wait for 1 second before retrying
 
-                if 'execution_time' and 'energy_consumption' not in run_data:
+                if 'execution_time' and 'energy_consumption_per_sec' not in run_data:
                     output.console_log(f"Error: Unable to retrieve execution time from {local_log_path} after {retries} attempts.")
             except Exception as e:
                 output.console_log(f"Exception occurred while reading log file {local_log_path}: {e}")
