@@ -36,10 +36,10 @@ class RunnerConfig:
     target_function_names = ['edit_distance', 'edit_distance_cache', 'edit_distance_lru_cache']
     input_size_options = [
         tuple((random_string(5),random_string(5))),
-        tuple((random_string(10),random_string(10))),
-        tuple((random_string(15), random_string(15)))
+        tuple((random_string(8),random_string(8))),
+        tuple((random_string(11), random_string(11)))
     ]
-    input_description = ["Pair of 10-character random strings", "Pair of 20-character random strings", "Pair of 30-character random strings"]
+    input_description = ["Pair of 5-character random strings", "Pair of 8-character random strings", "Pair of 11-character random strings"]
     sampling_rate_options = [200]
     """The time Experiment Runner will wait after a run completes.
     This can be essential to accommodate for cooldown periods on some systems."""

@@ -1,7 +1,7 @@
-sampling interval: 200, target function: edit_distance, input size: ('jjoctsunbg', 'hoqbgeildj')
+sampling interval: 200, target function: edit_distance, input size: ('yydnidso', 'dbvajlsx')
 first call executed successfully
-first call execution time: 1.1606509560369886 seconds
+first call execution time: 0.02334516600240022 seconds
 second call executed successfully
-second call execution time: 1.185132232028991 seconds
-Total execution time: 2.345815938024316 seconds
-Energy consumption in joules: 125.63315281295777 for 2.4906304 sec of execution.
+second call execution time: 0.019571119046304375 seconds
+Total execution time: 0.042935545032378286 seconds
+Energy consumption in joules: 7.723406906127929 for 0.23257637 sec of execution.

@@ -29,8 +29,8 @@ class RunnerConfig:
     """target function location in remote laptop"""
     target_function_location = 'recursive.hanoi'
     target_function_names = ['tower_of_hanoi', 'tower_of_hanoi_cache', 'tower_of_hanoi_lru_cache']
-    input_size_options = [10,20,30]
-    input_description = ["10 disks","20 disks","30 disks"]
+    input_size_options = [10,15,20]
+    input_description = ["10 disks","15 disks","20 disks"]
     sampling_rate_options = [200]
     """The time Experiment Runner will wait after a run completes.
     This can be essential to accommodate for cooldown periods on some systems."""

@@ -1,7 +1,7 @@
-sampling interval: 200, target function: edit_distance_lru_cache, input size: ('jjoctsunbg', 'hoqbgeildj')
+sampling interval: 200, target function: edit_distance_lru_cache, input size: ('yydnidso', 'dbvajlsx')
 first call executed successfully
-first call execution time: 7.668696343898773e-05 seconds
+first call execution time: 5.589902866631746e-05 seconds
 second call executed successfully
-second call execution time: 7.879571057856083e-07 seconds
-Total execution time: 0.00010475795716047287 seconds
-Energy consumption in joules: 10.531724067687987 for 0.23442948 sec of execution.
+second call execution time: 8.039642125368118e-07 seconds
+Total execution time: 7.89840123616159e-05 seconds
+Energy consumption in joules: 7.41903076171875 for 0.23807558 sec of execution.

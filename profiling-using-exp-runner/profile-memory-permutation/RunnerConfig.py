@@ -31,10 +31,10 @@ class RunnerConfig:
     target_function_names = ['generate_permutations', 'generate_permutations_cache', 'generate_permutations_lru_cache']
     input_size_options = [
         (1, 2, 3, 4, 5),
-        (1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
-        (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15),
-    ]
-    input_description = ["5 nums", "10 nums", "15 nums"]
+        (1, 2, 3, 4, 5, 6, 7, 8,),
+        (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11),
+        ]
+    input_description = ["5 nums", "8 nums", "11 nums"]
     sampling_rate_options = [200]
     """The time Experiment Runner will wait after a run completes.
     This can be essential to accommodate for cooldown periods on some systems."""

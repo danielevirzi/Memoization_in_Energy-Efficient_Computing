@@ -1,2 +1,7 @@
-sampling interval: 200, target function: generate_permutations_cache, input size: (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
-Energy consumption in joules: 1308.2868583946229 for 20.174381 sec of execution.
+sampling interval: 200, target function: generate_permutations_cache, input size: (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
+first call executed successfully
+first call execution time: 4.9436126360087655 seconds
+second call executed successfully
+second call execution time: 1.6559497453272343e-06 seconds
+Total execution time: 4.943634860974271 seconds
+Energy consumption in joules: 503.6194959373473 for 8.142208 sec of execution.

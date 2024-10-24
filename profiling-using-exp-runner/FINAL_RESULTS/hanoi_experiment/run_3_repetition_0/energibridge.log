@@ -1,7 +1,7 @@
-sampling interval: 200, target function: tower_of_hanoi, input size: 20
+sampling interval: 200, target function: tower_of_hanoi, input size: 15
 first call executed successfully
-first call execution time: 0.06893478601705283 seconds
+first call execution time: 0.0020850939908996224 seconds
 second call executed successfully
-second call execution time: 0.0648477670038119 seconds
-Total execution time: 0.133814427012112 seconds
-Energy consumption in joules: 9.18431893157959 for 0.2359666 sec of execution.
+second call execution time: 0.0020953360362909734 seconds
+Total execution time: 0.004201952018775046 seconds
+Energy consumption in joules: 7.436990798950195 for 0.23012568 sec of execution.
