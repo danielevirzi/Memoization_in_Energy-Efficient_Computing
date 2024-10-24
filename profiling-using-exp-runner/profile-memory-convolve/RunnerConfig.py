@@ -138,15 +138,34 @@ class RunnerConfig:
         input_size = context.run_variation['input_size']
 
         remote_temporary_each_run_results_dir = f"{self.remote_temporary_results_dir}/{self.name}/run_{context.run_nr}"
-        python_cmd = (
-            f"import sys; import os; import numpy as np; "
-            f"sys.path.append(\\\"{self.remote_package_dir}\\\"); "
-            f"import {self.target_function_location} as module; "
-            f"matrix = {input_size[0]}; "
-            f"kernel = {input_size[1]}; "
-            f"module.{target_function}(matrix, kernel); "
-            f"print(\\\"python_cmd executed successfully\\\");"
-        )
+        # For cache version, we need to run twice to effect the cache:
+        if (context.run_nr % len(self.target_function_names) != 1):
+            python_cmd = (
+                f"import sys; import os; import numpy as np; import time;"
+                f"sys.path.append(\\\"{self.remote_package_dir}\\\"); "
+                f"import {self.target_function_location} as module; "
+                f"matrix = {input_size[0]}; "
+                f"kernel = {input_size[1]}; "
+                f"module.{target_function}(matrix, kernel); "
+                f"start_time = time.perf_counter(); "
+                f"module.{target_function}(matrix, kernel); "
+                f"end_time = time.perf_counter(); "
+                f"execution_time = end_time - start_time; "
+                f"print(f\\\"python_cmd executed successfully {{execution_time}} seconds of actual execution\\\");"
+            )
+        else:
+            python_cmd = (
+                f"import sys; import os; import numpy as np; import time;"
+                f"sys.path.append(\\\"{self.remote_package_dir}\\\"); "
+                f"import {self.target_function_location} as module; "
+                f"matrix = {input_size[0]}; "
+                f"kernel = {input_size[1]}; "
+                f"start_time = time.perf_counter(); "
+                f"module.{target_function}(matrix, kernel); "
+                f"end_time = time.perf_counter(); "
+                f"execution_time = end_time - start_time; "
+                f"print(f\\\"python_cmd executed successfully {{execution_time}} seconds of actual execution\\\");"
+            )
 
         profiler_cmd = (
             f"{self.energibridge_location} --interval {sampling_interval} "
@@ -238,12 +257,19 @@ class RunnerConfig:
                         with open(local_log_path, 'r') as log_file:
                             log_content = log_file.read()
                             # Use regular expression to find the execution time in seconds
-                            match = re.search(r"Energy consumption in joules: ([\d\.]+) for ([\d\.]+) sec of execution",log_content)
+                            match = re.search(r"Energy consumption in joules: ([\d\.]+) for ([\d\.]+) sec of execution",
+                                              log_content)
+                            match_time = re.search(
+                                r"python_cmd executed successfully ([+-]?\d*\.?\d+(?:[eE][+-]?\d+)?) seconds of actual execution",
+                                log_content)
                             if match:
-                                run_data['energy_consumption'] = float(match.group(1))  # Extract energy consumption in joules
-                                run_data['execution_time'] = float(match.group(2))  # Extract the execution time in seconds
+                                run_data['energy_consumption'] = float(
+                                    match.group(1))  # Extract energy consumption in joules
+                                run_data['execution_time'] = float(
+                                    match_time.group(1))  # Extract the execution time in seconds
                             else:
-                                output.console_log(f"Warning: No energy consumption or execution time found in {local_log_path}")
+                                output.console_log(
+                                    f"Warning: No energy consumption or execution time found in {local_log_path}")
                                 time.sleep(1)  # Wait for 1 second before retrying
                     except IOError:
                         output.console_log(f"Error reading file {local_log_path}. Retrying... ({attempt + 1}/{retries})")
