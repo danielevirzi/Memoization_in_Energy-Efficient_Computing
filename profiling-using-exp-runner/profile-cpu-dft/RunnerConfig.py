@@ -122,7 +122,7 @@ class RunnerConfig:
         remote_temporary_each_run_results_dir = f"{self.remote_temporary_results_dir}/{self.name}/run_{context.run_nr}"
 
         # For cache version, we need to run twice to effect the cache:
-        if context.run_nr % (len(self.target_function_names) != 1):
+        if (context.run_nr % len(self.target_function_names) != 1):
             python_cmd = (
                 f"import sys; import os; import numpy as np; import time;"
                 f"sys.path.append(\\\"{self.remote_package_dir}\\\"); "
@@ -265,8 +265,8 @@ class RunnerConfig:
     def after_experiment(self) -> None:
         """Perform any activity required after stopping the experiment here
         Invoked only once during the lifetime of the program."""
-        run_table_path = self.results_output_path / 'run_table.csv'
-        processed_run_table_path = self.results_output_path / 'processed_run_table.csv'
+        run_table_path = self.results_output_path / self.name / 'run_table.csv'
+        processed_run_table_path = self.results_output_path / self.name / 'processed_run_table.csv'
 
         if not run_table_path.exists():
             output.console_log(f"Error: {run_table_path} does not exist.")
