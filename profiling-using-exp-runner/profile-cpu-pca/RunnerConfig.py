@@ -150,7 +150,7 @@ class RunnerConfig:
             f"end_time_2 = time.perf_counter(); "
             f"execution_time_2 = end_time_2 - start_time_2; "
             f"print(f\\\"second call executed successfully\\\"); "
-            f"print(f\\\"second call execution time: {{execution_time_1}} seconds\\\"); "
+            f"print(f\\\"second call execution time: {{execution_time_2}} seconds\\\"); "
             f"total_time = end_time_2 - start_time_1; "
             f"print(f\\\"Total execution time: {{total_time}} seconds\\\");"
         )
