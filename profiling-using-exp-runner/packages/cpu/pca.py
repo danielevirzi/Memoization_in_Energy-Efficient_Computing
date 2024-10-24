@@ -67,13 +67,13 @@ def pca_lru_cache(X_tuple: tuple, num_components: int) -> np.ndarray:
 
 if __name__ == '__main__':
     # Example usage
-    X = np.random.rand(4096, 4096)
+    X = np.random.rand(1024, 1024)
     num_components = 10
 
     # Convert numpy array to tuple for caching
     X_tuple = tuple(map(tuple, X))  # Convert 2D array to tuple of tuples
 
-    print(measure_time(pca, X_tuple, num_components))
+    print(measure_time(pca_basic, X_tuple, num_components))
     
     print(measure_time(pca_cache, X_tuple, num_components))
     print(measure_time(pca_cache, X_tuple, num_components))
@@ -81,5 +81,5 @@ if __name__ == '__main__':
     print(measure_time(pca_lru_cache, X_tuple, num_components))
     print(measure_time(pca_lru_cache, X_tuple, num_components))
 
-    assert np.allclose(pca(X_tuple, num_components), pca_cache(X_tuple, num_components)) and np.allclose(pca(X_tuple, num_components), pca_lru_cache(X_tuple, num_components))
+    assert np.allclose(pca_basic(X_tuple, num_components), pca_cache(X_tuple, num_components)) and np.allclose(pca_basic(X_tuple, num_components), pca_lru_cache(X_tuple, num_components))
 
