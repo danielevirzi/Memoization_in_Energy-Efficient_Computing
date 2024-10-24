@@ -31,10 +31,10 @@ class RunnerConfig:
     """target function location in remote laptop"""
     target_function_location = 'cpu.pca'
     target_function_names = ["pca_basic", "pca_cache", "pca_lru_cache"]
-    input_size_options = [3000,4000,5000]
+    input_size_options = [1000,2000,4000]
 
-    input_description = ['Sample size: 500, N: 10', 'Sample size: 1000, N: 10',
-                         'Sample size: 2000, N: 10']
+    input_description = ['Sample size: 1000, N: 10', 'Sample size: 2000, N: 10',
+                         'Sample size: 4000, N: 10']
     sampling_rate_options = [200]
     """The time Experiment Runner will wait after a run completes.
     This can be essential to accommodate for cooldown periods on some systems."""
