@@ -1,0 +1,10 @@
+__run_id,__done,input_size,cache_strategy,sampling_rate,input_description,execution_time,average_cpu_usage,memory_usage,energy_consumption,dram_energy,package_energy,pp0_energy,pp1_energy
+run_0_repetition_0,DONE,500,pca_basic,200,"Sample size: 500x500, N: 10",0.058259291981812567,16.85769627,28019.69769965,158.29002770614625,0.0,0.0,0.0,0.0
+run_1_repetition_0,DONE,500,pca_cache,200,"Sample size: 500x500, N: 10", ,-6.070953200000002,38.44798049999736,-13.893703933715813,0.0,0.0,0.0,0.0
+run_2_repetition_0,DONE,500,pca_lru_cache,200,"Sample size: 500x500, N: 10", ,-7.2089010500000015,44.70648233999964,-11.8857240333557,0.0,0.0,0.0,0.0
+run_3_repetition_0,DONE,1000,pca_basic,200,"Sample size: 1000x1000, N: 10",0.22257475700462237,19.57881474,28076.07092928,177.42401325988772,0.0,0.0,0.0,0.0
+run_4_repetition_0,DONE,1000,pca_cache,200,"Sample size: 1000x1000, N: 10", ,-11.753373949999999,13.173943770001642,-54.874410240173376,0.0,0.0,0.0,0.0
+run_5_repetition_0,DONE,1000,pca_lru_cache,200,"Sample size: 1000x1000, N: 10", ,-11.108101609999999,-106.52956898999764,-38.56310613250733,0.0,0.0,0.0,0.0
+run_6_repetition_0,DONE,2000,pca_basic,200,"Sample size: 2000x2000, N: 10",0.9035408120253123,25.86455179,28074.75461648,204.7386251754761,0.0,0.0,0.0,0.0
+run_7_repetition_0,DONE,2000,pca_cache,200,"Sample size: 2000x2000, N: 10", ,-18.20778772,-102.79693418999886,-59.48306095504762,0.0,0.0,0.0,0.0
+run_8_repetition_0,DONE,2000,pca_lru_cache,200,"Sample size: 2000x2000, N: 10", ,-17.739568390000002,-81.95544368999981,-67.6183207778931,0.0,0.0,0.0,0.0

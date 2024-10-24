@@ -1,0 +1,10 @@
+__run_id,__done,input_size,sampling_rate,cache_strategy,input_description,execution_time,average_cpu_usage,memory_usage,energy_consumption,dram_energy,package_energy,pp0_energy,pp1_energy
+run_0_repetition_0,DONE,"('ndiic', 'uiacm')",200,edit_distance,Pair of 10-character random strings,0.00016395002603530884,9.3154765,27516.3125,10.531841613769531,0.0,0.0,0.0,0.0
+run_1_repetition_0,DONE,"('ndiic', 'uiacm')",200,edit_distance_cache,Pair of 10-character random strings,8.420320227742195e-07,5.138888649999998,-21.397135420000268,1.0169807434082028,0.0,0.0,0.0,0.0
+run_2_repetition_0,DONE,"('ndiic', 'uiacm')",200,edit_distance_lru_cache,Pair of 10-character random strings,8.700299076735973e-07,1.466513579999999,36.10546875,-0.9291682739257805,0.0,0.0,0.0,0.0
+run_3_repetition_0,DONE,"('ljfxtpuwqe', 'whbmdzwkyi')",200,edit_distance,Pair of 20-character random strings,1.179270399035886,11.10476284,27700.3984375,152.9994105834961,0.0,0.0,0.0,0.0
+run_4_repetition_0,DONE,"('ljfxtpuwqe', 'whbmdzwkyi')",200,edit_distance_cache,Pair of 20-character random strings,8.709612302482128e-07,-2.845834179999999,-31.7890625,-143.19250886535644,0.0,0.0,0.0,0.0
+run_5_repetition_0,DONE,"('ljfxtpuwqe', 'whbmdzwkyi')",200,edit_distance_lru_cache,Pair of 20-character random strings,9.579816833138466e-07,-0.4092740899999985,23.73828125,-142.1918580856323,0.0,0.0,0.0,0.0
+run_6_repetition_0,DONE,"('pgbnmonxgxhjpig', 'tsueocuofczislq')",200,edit_distance,Pair of 30-character random strings, ,15.62621668,27725.26708491,1501.6136776313774,0.0,0.0,0.0,0.0
+run_7_repetition_0,DONE,"('pgbnmonxgxhjpig', 'tsueocuofczislq')",200,edit_distance_cache,Pair of 30-character random strings,8.530332706868649e-07,-3.2140070200000004,-55.25145990999954,-1491.7255786170952,0.0,0.0,0.0,0.0
+run_8_repetition_0,DONE,"('pgbnmonxgxhjpig', 'tsueocuofczislq')",200,edit_distance_lru_cache,Pair of 30-character random strings,8.00006091594696e-07,-6.98534351,8.47510259000046,-1491.475558658599,0.0,0.0,0.0,0.0
