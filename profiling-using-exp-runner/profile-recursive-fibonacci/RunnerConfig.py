@@ -29,7 +29,7 @@ class RunnerConfig:
     sampling_rate_options = [200]
     """The time Experiment Runner will wait after a run completes.
     This can be essential to accommodate for cooldown periods on some systems."""
-    time_between_runs_in_ms:    int             = 60000 # should be 60000, 1minute
+    time_between_runs_in_ms:    int             = 1000 # should be 60000, 1minute
 
     """The path in which Experiment Runner will create a folder with the name `self.name`, in order to store the
     results from this experiment. (Path does not need to exist - it will be created if necessary.)
@@ -130,6 +130,7 @@ class RunnerConfig:
             f"start_time = time.perf_counter(); "
             f"module.{target_function}(X); "
             f"end_time = time.perf_counter(); "
+            f"execution_time = end_time - start_time; "
             f"print(f\\\"python_cmd executed successfully {{execution_time}} seconds of actual execution\\\");"
         )
 
@@ -226,7 +227,7 @@ class RunnerConfig:
                             log_content = log_file.read()
                             # Use regular expression to find the execution time in seconds
                             match = re.search(r"Energy consumption in joules: ([\d\.]+) for ([\d\.]+) sec of execution",log_content)
-                            match_time = re.search(r"python_cmd executed successfully ([\d\.]+) seconds of actual execution",log_content)
+                            match_time = re.search(r"python_cmd executed successfully ([+-]?\d*\.?\d+(?:[eE][+-]?\d+)?) seconds of actual execution", log_content)
                             if match:
                                 run_data['energy_consumption_per_sec'] = float(match.group(1))/float(match.group(2))  # Extract energy consumption in joules
                                 run_data['execution_time'] = float(match_time.group(1)) # Extract the execution time in seconds
