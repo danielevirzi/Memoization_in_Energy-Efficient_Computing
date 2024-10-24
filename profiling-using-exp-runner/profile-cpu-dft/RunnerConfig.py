@@ -123,11 +123,7 @@ class RunnerConfig:
                 f"sys.path.append(\\\"{self.remote_package_dir}\\\"); "
                 f"import {self.target_function_location} as module; "
                 f"X = tuple(np.random.random({input_size})); "
-                f"start_time = time.perf_counter(); "
                 f"module.{target_function}(X); "
-                f"end_time = time.perf_counter(); "
-                f"execution_time = end_time - start_time; "
-                f"print(f\\\"python_cmd executed successfully {{execution_time}} seconds of actual execution\\\");"
             )
             run_cmd = (
                 f"{self.remote_python_location} -c '{python_cmd}' "
