@@ -1,0 +1,10 @@
+__run_id,__done,input_size,sampling_rate,cache_strategy,input_description,execution_time,average_cpu_usage,memory_usage,energy_consumption,dram_energy,package_energy,pp0_energy,pp1_energy
+run_0_repetition_0,DONE,"(1, 2, 3, 4, 5)",200,generate_permutations,5 nums,1.1374999303370714e-05,10.67956372,24656.01822917,7.55790412902832,0.0,0.0,0.0,0.0
+run_1_repetition_0,DONE,"(1, 2, 3, 4, 5)",200,generate_permutations_cache,5 nums,6.599584594368935e-07,6.8560606,24741.07421875,7.62714033126831,0.0,0.0,0.0,0.0
+run_2_repetition_0,DONE,"(1, 2, 3, 4, 5)",200,generate_permutations_lru_cache,5 nums,6.280024535953999e-07,5.31610753,24725.77994792,7.377408771514893,0.0,0.0,0.0,0.0
+run_3_repetition_0,DONE,"(1, 2, 3, 4, 5, 6, 7, 8)",200,generate_permutations,8 nums,0.005332831991836429,7.90674603,24815.58984375,7.5210829544067375,0.0,0.0,0.0,0.0
+run_4_repetition_0,DONE,"(1, 2, 3, 4, 5, 6, 7, 8)",200,generate_permutations_cache,8 nums,1.200998667627573e-06,13.08636189,24801.93359375,7.386900390625001,0.0,0.0,0.0,0.0
+run_5_repetition_0,DONE,"(1, 2, 3, 4, 5, 6, 7, 8)",200,generate_permutations_lru_cache,8 nums,1.0569929145276546e-06,7.01011527,24822.3359375,7.647231876373292,0.0,0.0,0.0,0.0
+run_6_repetition_0,DONE,"(1, 2, 3, 4, 5, 6, 7, 8, 9, 11)",200,generate_permutations,11 nums,0.5780260869651102,9.69407423,24895.14648438,29.3262790145874,0.0,0.0,0.0,0.0
+run_7_repetition_0,DONE,"(1, 2, 3, 4, 5, 6, 7, 8, 9, 11)",200,generate_permutations_cache,11 nums,3.168999683111906e-06,9.71545826,24824.91992188,29.548174785614016,0.0,0.0,0.0,0.0
+run_8_repetition_0,DONE,"(1, 2, 3, 4, 5, 6, 7, 8, 9, 11)",200,generate_permutations_lru_cache,11 nums,2.3070024326443672e-06,9.59863156,24940.78683036,37.627468322753906,0.0,0.0,0.0,0.0

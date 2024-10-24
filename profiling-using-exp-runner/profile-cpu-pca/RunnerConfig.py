@@ -140,7 +140,7 @@ class RunnerConfig:
             f"X = np.random.rand({input_size},{input_size}); "
             f"X_tuple = tuple(map(tuple, X)); "
             f"start_time_1 = time.perf_counter(); "
-            f"module.{target_function}(X); "
+            f"module.{target_function}(X_tuple, 10); "
             f"end_time_1 = time.perf_counter(); "
             f"execution_time_1 = end_time_1 - start_time_1; "
             f"start_time_2 = time.perf_counter(); "
