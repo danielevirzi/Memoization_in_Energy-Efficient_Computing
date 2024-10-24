@@ -77,7 +77,7 @@ class RunnerConfig:
         cache_factor = FactorModel("cache_strategy", self.target_function_names)  # Different cache strategies
         self.run_table_model = RunTableModel(
             factors=[input_size_factor, cache_factor, sampling_factor],
-            data_columns=['input_description', 'execution_time','average_cpu_usage','memory_usage','energy_consumption_per_sec', 'dram_energy', 'package_energy', 'pp0_energy', 'pp1_energy']
+            data_columns=['input_description', 'execution_time','average_cpu_usage','memory_usage','energy_consumption', 'dram_energy', 'package_energy', 'pp0_energy', 'pp1_energy']
         )
         return self.run_table_model
 
@@ -114,45 +114,40 @@ class RunnerConfig:
             output.console_log(f"Error creating remote run directory: {e}")
             raise e
 
-        # for cache version, we need to run the implementation first to cache the input
-        if context.run_nr % len(self.target_function_names) != 1:
-            target_function = context.run_variation['cache_strategy']
-            input_size = context.run_variation['input_size']
-            python_cmd = (
-                f"import sys; import os; import numpy as np; import time;"
-                f"sys.path.append(\\\"{self.remote_package_dir}\\\"); "
-                f"import {self.target_function_location} as module; "
-                f"X = tuple(np.random.random({input_size})); "
-                f"module.{target_function}(X); "
-            )
-            run_cmd = (
-                f"{self.remote_python_location} -c '{python_cmd}' "
-            )
-            ssh_cmd = f'ssh {self.remote_user}@{self.remote_host} "{run_cmd}" '
-            cache_prerun_log = open(f'{context.run_dir}/cache_prerun.log', 'w')
-            self.profiler = subprocess.Popen(ssh_cmd, shell=True, stdout=cache_prerun_log, stderr=cache_prerun_log)
-            output.console_log(f"Pre-run: For CACHE version, pre-run the implementation first to cache the input.")
-
-
-
-
     def start_measurement(self, context: RunnerContext) -> None:
         """Start energy measurement using Energibridge."""
         sampling_interval = context.run_variation['sampling_rate']
         target_function = context.run_variation['cache_strategy']
         input_size = context.run_variation['input_size']
         remote_temporary_each_run_results_dir = f"{self.remote_temporary_results_dir}/{self.name}/run_{context.run_nr}"
-        python_cmd = (
-            f"import sys; import os; import numpy as np; import time;"
-            f"sys.path.append(\\\"{self.remote_package_dir}\\\"); "
-            f"import {self.target_function_location} as module; "
-            f"X = tuple(np.random.random({input_size})); "
-            f"start_time = time.perf_counter(); "
-            f"module.{target_function}(X); "
-            f"end_time = time.perf_counter(); "
-            f"execution_time = end_time - start_time; "
-            f"print(f\\\"python_cmd executed successfully {{execution_time}} seconds of actual execution\\\");"
-        )
+
+        # For cache version, we need to run twice to effect the cache:
+        if context.run_nr % (len(self.target_function_names) != 1):
+            python_cmd = (
+                f"import sys; import os; import numpy as np; import time;"
+                f"sys.path.append(\\\"{self.remote_package_dir}\\\"); "
+                f"import {self.target_function_location} as module; "
+                f"X = tuple(np.random.random({input_size})); "
+                f"module.{target_function}(X); " # first run to prefill the cache
+                f"start_time = time.perf_counter(); "
+                f"module.{target_function}(X); " # second run to effect the cache, and measure the actual execution time
+                f"end_time = time.perf_counter(); "
+                f"execution_time = end_time - start_time; "
+                f"print(f\\\"python_cmd executed successfully {{execution_time}} seconds of actual execution\\\");"
+            )
+        else:
+            # for non-cache version, we only need to run once
+            python_cmd = (
+                f"import sys; import os; import numpy as np; import time;"
+                f"sys.path.append(\\\"{self.remote_package_dir}\\\"); "
+                f"import {self.target_function_location} as module; "
+                f"X = tuple(np.random.random({input_size})); "
+                f"start_time = time.perf_counter(); "
+                f"module.{target_function}(X); "
+                f"end_time = time.perf_counter(); "
+                f"execution_time = end_time - start_time; "
+                f"print(f\\\"python_cmd executed successfully {{execution_time}} seconds of actual execution\\\");"
+            )
         
 
         profiler_cmd = (
@@ -248,9 +243,9 @@ class RunnerConfig:
                             log_content = log_file.read()
                             # Use regular expression to find the execution time in seconds
                             match = re.search(r"Energy consumption in joules: ([\d\.]+) for ([\d\.]+) sec of execution",log_content)
-                            match_time = re.search(r"python_cmd executed successfully ([\d\.]+) seconds of actual execution",log_content)
+                            match_time = re.search(r"python_cmd executed successfully ([+-]?\d*\.?\d+(?:[eE][+-]?\d+)?) seconds of actual execution", log_content)
                             if match:
-                                run_data['energy_consumption_per_sec'] = float(match.group(1))/float(match.group(2))  # Extract energy consumption in joules
+                                run_data['energy_consumption'] = float(match.group(1))  # Extract energy consumption in joules
                                 run_data['execution_time'] = float(match_time.group(1)) # Extract the execution time in seconds
                             else:
                                 output.console_log(f"Warning: No energy consumption or execution time found in {local_log_path}")
@@ -259,7 +254,7 @@ class RunnerConfig:
                         output.console_log(f"Error reading file {local_log_path}. Retrying... ({attempt + 1}/{retries})")
                         time.sleep(1)  # Wait for 1 second before retrying
 
-                if 'execution_time' and 'energy_consumption_per_sec' not in run_data:
+                if 'execution_time' and 'energy_consumption' not in run_data:
                     output.console_log(f"Error: Unable to retrieve execution time from {local_log_path} after {retries} attempts.")
             except Exception as e:
                 output.console_log(f"Exception occurred while reading log file {local_log_path}: {e}")
@@ -270,7 +265,76 @@ class RunnerConfig:
     def after_experiment(self) -> None:
         """Perform any activity required after stopping the experiment here
         Invoked only once during the lifetime of the program."""
-        pass
+        run_table_path = self.results_output_path / 'run_table.csv'
+        processed_run_table_path = self.results_output_path / 'processed_run_table.csv'
+
+        if not run_table_path.exists():
+            print(f"Error: {run_table_path} does not exist.")
+            return
+
+        try:
+            df = pd.read_csv(run_table_path)
+        except Exception as e:
+            print(f"Error reading {run_table_path}: {e}")
+            return
+
+        if len(df) != 9:
+            print(f"Error: {run_table_path} doesn't contain 9 rows.")
+            return
+
+        processed_df = df.copy()
+
+        basic_average_cpu_usage = None
+        basic_memory_usage = None
+        basic_energy_consumption = None
+
+        for index, row in df.iterrows():
+            # calculate the row number, note that index starts from 1, except for the column name row
+            row_num = index + 1
+
+            if row_num % 3 == 1:
+                basic_average_cpu_usage = row['average_cpu_usage']
+                basic_memory_usage = row['memory_usage']
+                basic_energy_consumption = row['energy_consumption']
+
+                output.console_log(f"Row {row_num}: Basic strategy detected.")
+                output.console_log(f"  Average CPU Usage: {basic_average_cpu_usage}")
+                output.console_log(f"  Memory Usage: {basic_memory_usage}")
+                output.console_log(f"  Energy Consumption: {basic_energy_consumption}")
+
+            else:
+                if basic_average_cpu_usage is None:
+                    print(f"Error: Basic strategy values not set before row {row_num}.")
+                    return
+
+                current_average_cpu_usage = row['average_cpu_usage']
+                current_memory_usage = row['memory_usage']
+                current_energy_consumption = row['energy_consumption']
+
+                new_average_cpu_usage = current_average_cpu_usage - basic_average_cpu_usage
+                new_memory_usage = current_memory_usage - basic_memory_usage
+                new_energy_consumption = current_energy_consumption - basic_energy_consumption
+
+                processed_df.at[index, 'average_cpu_usage'] = new_average_cpu_usage
+                processed_df.at[index, 'memory_usage'] = new_memory_usage
+                processed_df.at[index, 'energy_consumption'] = new_energy_consumption
+
+                cache_strategy = 'cache' if row_num % 3 == 2 else 'lru_cache'
+                print(f"Row {row_num}: {cache_strategy} strategy detected.")
+                print(f"  Original Average CPU Usage: {current_average_cpu_usage}")
+                print(f"  Original Memory Usage: {current_memory_usage}")
+                print(f"  Original Energy Consumption: {current_energy_consumption}")
+                print(f"  New Average CPU Usage: {new_average_cpu_usage}")
+                print(f"  New Memory Usage: {new_memory_usage}")
+                print(f"  New Energy Consumption: {new_energy_consumption}")
+
+        try:
+            processed_df.to_csv(processed_run_table_path, index=False)
+            print(f"Processed run table saved to {processed_run_table_path}.")
+        except Exception as e:
+            print(f"Error writing {processed_run_table_path}: {e}")
+            return
+
 
     # ================================ DO NOT ALTER BELOW THIS LINE ================================
     experiment_path:            Path             = None
