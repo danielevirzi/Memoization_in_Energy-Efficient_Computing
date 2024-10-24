@@ -114,6 +114,31 @@ class RunnerConfig:
             output.console_log(f"Error creating remote run directory: {e}")
             raise e
 
+        # for cache version, we need to run the implementation first to cache the input
+        if context.run_nr % len(self.target_function_names) != 1:
+            target_function = context.run_variation['cache_strategy']
+            input_size = context.run_variation['input_size']
+            python_cmd = (
+                f"import sys; import os; import numpy as np; import time;"
+                f"sys.path.append(\\\"{self.remote_package_dir}\\\"); "
+                f"import {self.target_function_location} as module; "
+                f"X = tuple(np.random.random({input_size})); "
+                f"start_time = time.perf_counter(); "
+                f"module.{target_function}(X); "
+                f"end_time = time.perf_counter(); "
+                f"execution_time = end_time - start_time; "
+                f"print(f\\\"python_cmd executed successfully {{execution_time}} seconds of actual execution\\\");"
+            )
+            run_cmd = (
+                f"{self.remote_python_location} -c '{python_cmd}' "
+            )
+            ssh_cmd = f'ssh {self.remote_user}@{self.remote_host} "{run_cmd}" '
+            cache_prerun_log = open(f'{context.run_dir}/cache_prerun.log', 'w')
+            self.profiler = subprocess.Popen(ssh_cmd, shell=True, stdout=cache_prerun_log, stderr=cache_prerun_log)
+            output.console_log(f"Pre-run: For CACHE version, pre-run the implementation first to cache the input.")
+
+
+
 
     def start_measurement(self, context: RunnerContext) -> None:
         """Start energy measurement using Energibridge."""

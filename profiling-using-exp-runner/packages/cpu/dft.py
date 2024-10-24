@@ -58,7 +58,8 @@ if __name__ == '__main__':
     X_tuple = tuple(X)
     
     print(measure_time(DFT, X_tuple))
-    
+    print(measure_time(DFT, X_tuple))
+
     print(measure_time(DFT_cache, X_tuple))
     print(measure_time(DFT_cache, X_tuple))
 
