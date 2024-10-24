@@ -16,15 +16,28 @@ run_profiling() {
     echo "Type: $type"
     echo "--------------------------------------------"
 
+    # Define the experiments directory path
+    experiments_dir="$dir/experiments"
+
+    # Check if the experiments directory exists
+    if [[ -d "$experiments_dir" ]]; then
+        echo "Experiments directory exists. Deleting its contents..."
+        # Delete all contents within the experiments directory
+        rm -rf "$experiments_dir"/*
+    else
+        echo "Experiments directory does not exist. Creating it..."
+        # Create the experiments directory
+        mkdir -p "$experiments_dir"
+    fi
+
     # Execute the Python command
     python3 experiment-runner/ "$dir"/RunnerConfig.py
 
-    # Optional: Verify the experiments directory was created
-    experiments_dir="$dir/experiments"
+    # Optional: Verify the experiments directory was created or updated
     if [[ -d "$experiments_dir" ]]; then
         echo "Experiment completed successfully for $dir. Results in $experiments_dir"
     else
-        echo "Error: *_experiment directory not found in $dir/experiments after running."
+        echo "Error: experiments directory not found in $dir after running."
         exit 1
     fi
 
@@ -48,23 +61,23 @@ fi
 echo "Starting profiling experiments in directory: $current_dir"
 echo ""
 
+# Define the types to look for
+TYPES=("cpu" "memory" "recursive")
+
 # Iterate over all directories matching profile-<type>-<problem>
-for dir in profile-*/; do
-    # Remove trailing slash
-    dir="${dir%/}"
+for type in "${TYPES[@]}"; do
+    for dir in profile-"$type"-*/; do
+        # Remove trailing slash
+        dir="${dir%/}"
 
-    # Extract the type by splitting the directory name
-    IFS='-' read -r prefix type problem <<< "$dir"
+        # Extract the problem part by removing the prefix
+        problem="${dir#profile-$type-}"
 
-    # Validate the type
-    if [[ "$type" != "recursive" && "$type" != "cpu" && "$type" != "memory" ]]; then
-        echo "Skipping directory '$dir': Unknown type '$type'"
-        echo ""
-        continue
-    fi
+        echo "Found directory: $dir with type: $type and problem: $problem"
 
-    # Run profiling for the directory
-    run_profiling "$dir" "$type"
+        # Run profiling for the directory
+        run_profiling "$dir" "$type"
+    done
 done
 
 echo "All profiling experiments have been completed successfully."
