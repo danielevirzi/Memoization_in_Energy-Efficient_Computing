@@ -1,0 +1,7 @@
+sampling interval: 200, target function: merge_sort_cache, input size: (4, 20, 9, 12, 17, 19, 7, 8, 5, 14, 6, 11, 2, 18, 1, 13, 3, 16, 15, 10)
+first call executed successfully
+first call execution time: 4.042801447212696e-05 seconds
+second call executed successfully
+second call execution time: 5.630427040159702e-07 seconds
+Total execution time: 5.2660005167126656e-05 seconds
+Energy consumption in joules: 129.20439636993405 for 2.8783624 sec of execution.

@@ -1,0 +1,7 @@
+sampling interval: 200, target function: knapsack_basic, input size: ((2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40), (15, 30, 45, 60, 75, 90, 105, 120, 135, 150, 165, 180, 195, 210, 225, 240, 255, 270, 285, 300), 75)
+first call executed successfully
+first call execution time: 0.0016583660035394132 seconds
+second call executed successfully
+second call execution time: 0.001648260047659278 seconds
+Total execution time: 0.003317464026622474 seconds
+Energy consumption in joules: 9.11177527999878 for 0.23394705 sec of execution.

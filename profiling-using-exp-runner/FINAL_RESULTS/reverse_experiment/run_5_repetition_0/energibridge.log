@@ -1,0 +1,7 @@
+sampling interval: 200, target function: reverse_string_lru_cache, input size: abcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcde
+first call executed successfully
+first call execution time: 0.0001459400518797338 seconds
+second call executed successfully
+second call execution time: 1.334992703050375e-06 seconds
+Total execution time: 0.00017190404469147325 seconds
+Energy consumption in joules: 8.65050846862793 for 0.23053125 sec of execution.

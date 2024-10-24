@@ -1,0 +1,7 @@
+sampling interval: 200, target function: edit_distance_cache, input size: ('ywutjvvzworxpss', 'gjdkmexgefrfobp')
+first call executed successfully
+first call execution time: 0.00016091502038761973 seconds
+second call executed successfully
+second call execution time: 8.42963345348835e-07 seconds
+Total execution time: 0.00018540001474320889 seconds
+Energy consumption in joules: 9.913299793243407 for 0.23470299 sec of execution.

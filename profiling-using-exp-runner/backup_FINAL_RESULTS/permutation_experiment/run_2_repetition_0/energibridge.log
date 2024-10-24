@@ -1,0 +1,6 @@
+sampling interval: 200, target function: generate_permutations_lru_cache, input size: (1, 2, 3, 4, 5)
+  File "<string>", line 1
+    import sys; import os; import numpy as np; sys.path.append(/Users/rr/GreenLab/ProjectCode/profiling-using-exp-runner/packages); import memory.permutation as module; input_tuple = (1, 2, 3, 4, 5); module.generate_permutations_lru_cache(input_tuple); 
+                                                               ^
+SyntaxError: invalid syntax
+Energy consumption in joules: 7.4079932022094725 for 0.23458135 sec of execution.

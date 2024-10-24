@@ -1,0 +1,7 @@
+sampling interval: 200, target function: fibonacci_lru_cache, input size: 10
+first call executed successfully
+first call execution time: 6.462971214205027e-06 seconds
+second call executed successfully
+second call execution time: 5.430192686617374e-07 seconds
+Total execution time: 3.185000969097018e-05 seconds
+Energy consumption in joules: 9.043462783813476 for 0.2321295 sec of execution.

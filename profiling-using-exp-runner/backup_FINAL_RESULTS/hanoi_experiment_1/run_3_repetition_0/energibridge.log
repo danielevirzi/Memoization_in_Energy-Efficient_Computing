@@ -1,0 +1,6 @@
+sampling interval: 200, target function: tower_of_hanoi, input size: 20
+  File "<string>", line 1
+    import sys; import os; import numpy as np; sys.path.append(/Users/rr/GreenLab/ProjectCode/profiling-using-exp-runner/packages); import recursive.hanoi as module; X = 20; module.tower_of_hanoi(X,A,C,B); 
+                                                               ^
+SyntaxError: invalid syntax
+Energy consumption in joules: 10.354623947143555 for 0.23087741 sec of execution.

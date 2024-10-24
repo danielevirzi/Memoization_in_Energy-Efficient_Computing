@@ -1,0 +1,7 @@
+sampling interval: 200, target function: floyd_warshall_lru_cache, input size: ((0.0, 3.0, inf, 7.0, 8.0, 3.0, 2.0, inf, 6.0), (3.0, 0.0, 4.0, 2.0, inf, inf, 1.0, 5.0, inf), (inf, 4.0, 0.0, 2.0, 1.0, inf, 6.0, inf, 7.0), (7.0, 2.0, 2.0, 0.0, 4.0, 3.0, 2.0, 8.0, inf), (8.0, inf, 1.0, 4.0, 0.0, 3.0, 5.0, 6.0, inf), (3.0, 5.0, inf, 3.0, 5.0, 0.0, inf, 2.0, 1.0), (2.0, 1.0, 5.0, 6.0, 3.0, inf, 0.0, 7.0, 4.0), (inf, 5.0, inf, 8.0, 6.0, 2.0, 7.0, 0.0, 3.0), (6.0, inf, 7.0, inf, inf, 1.0, 4.0, 3.0, 0.0))
+first call executed successfully
+first call execution time: 0.9997521369950846 seconds
+second call executed successfully
+second call execution time: 5.707028321921825e-06 seconds
+Total execution time: 0.999778593017254 seconds
+Energy consumption in joules: 64.68726959228516 for 1.2282498 sec of execution.

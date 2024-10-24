@@ -1,0 +1,7 @@
+sampling interval: 200, target function: pca_lru_cache, input size: 2000
+first call executed successfully
+first call execution time: 1.015014210017398 seconds
+second call executed successfully
+second call execution time: 0.10187040502205491 seconds
+Total execution time: 1.1169054800411686 seconds
+Energy consumption in joules: 245.06342803573614 for 4.48957 sec of execution.

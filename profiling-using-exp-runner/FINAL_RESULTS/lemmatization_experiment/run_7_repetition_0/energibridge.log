@@ -1,0 +1,7 @@
+sampling interval: 200, target function: lemmatization_cache, input size: The advent of the internet has revolutionized the way we communicate, learn, and conduct business. With just a few clicks, we can access a wealth of knowledge that was unimaginable just a few decades ago.
+first call executed successfully
+first call execution time: 0.010212712979409844 seconds
+second call executed successfully
+second call execution time: 8.3498889580369e-07 seconds
+Total execution time: 0.010222901008091867 seconds
+Energy consumption in joules: 168.01689835739134 for 3.3161511 sec of execution.

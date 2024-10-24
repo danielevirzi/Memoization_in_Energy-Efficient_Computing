@@ -1,0 +1,7 @@
+sampling interval: 200, target function: generate_permutations_lru_cache, input size: (1, 2, 3, 4, 5)
+first call executed successfully
+first call execution time: 1.531100133433938e-05 seconds
+second call executed successfully
+second call execution time: 7.060007192194462e-07 seconds
+Total execution time: 2.9148999601602554e-05 seconds
+Energy consumption in joules: 10.35147216796875 for 0.2356141 sec of execution.

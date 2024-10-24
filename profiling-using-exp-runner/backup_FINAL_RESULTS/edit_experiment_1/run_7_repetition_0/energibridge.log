@@ -1,0 +1,6 @@
+sampling interval: 200, target function: edit_distance_cache, input size: 12
+  File "<string>", line 1
+    import sys; import os; import numpy as np; sys.path.append(/Users/rr/GreenLab/ProjectCode/profiling-using-exp-runner/packages); import recursive.edit as module; board = [[0 for _ in range(12)] for _ in range(12)]；X = tuple(map(tuple, board));X = tuple(np.random.random(12)); module.edit_distance_cache(X,0)
+                                                               ^
+SyntaxError: invalid syntax
+Energy consumption in joules: 7.142164215087891 for 0.23122504 sec of execution.

@@ -1,0 +1,6 @@
+sampling interval: 200, target function: DFT_cache, input size: 1024
+  File "<string>", line 1
+    import sys; import os; import numpy as np; sys.path.append(/Users/rr/GreenLab/ProjectCode/profiling-using-exp-runner/packages); import cpu.dft as module; X = tuple(np.random.random(1024)); module.DFT_cache(X)
+                                                               ^
+SyntaxError: invalid syntax
+Energy consumption in joules: 8.299351615905762 for 0.23476222 sec of execution.

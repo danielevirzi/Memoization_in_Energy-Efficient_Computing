@@ -1,0 +1,7 @@
+sampling interval: 200, target function: DFT_cache, input size: 1024
+first call executed successfully
+first call execution time: 0.050651212979573756 seconds
+second call executed successfully
+second call execution time: 3.339402610436082e-05 seconds
+Total execution time: 0.05070202797651291 seconds
+Energy consumption in joules: 183.70808879089356 for 3.464295 sec of execution.

@@ -1,0 +1,7 @@
+sampling interval: 200, target function: pca_basic, input size: 2000
+first call executed successfully
+first call execution time: 0.9585290429531597 seconds
+second call executed successfully
+second call execution time: 0.9209477850235999 seconds
+Total execution time: 1.8794964359840378 seconds
+Energy consumption in joules: 309.757561794281 for 5.0884233 sec of execution.

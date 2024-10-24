@@ -1,0 +1,2 @@
+sampling interval: 200, target function: generate_permutations_lru_cache, input size: (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
+Energy consumption in joules: 1291.9052128257754 for 20.152681 sec of execution.

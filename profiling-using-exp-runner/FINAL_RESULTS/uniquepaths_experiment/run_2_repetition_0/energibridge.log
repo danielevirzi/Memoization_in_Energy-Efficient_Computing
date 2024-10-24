@@ -1,0 +1,7 @@
+sampling interval: 200, target function: unique_paths_lru_cache, input size: 3
+first call executed successfully
+first call execution time: 6.584974471479654e-06 seconds
+second call executed successfully
+second call execution time: 5.469773896038532e-07 seconds
+Total execution time: 2.332497388124466e-05 seconds
+Energy consumption in joules: 9.40189516067505 for 0.22591893 sec of execution.

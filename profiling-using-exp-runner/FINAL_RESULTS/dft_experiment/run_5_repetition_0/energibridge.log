@@ -1,0 +1,7 @@
+sampling interval: 200, target function: DFT_lru_cache, input size: 4096
+first call executed successfully
+first call execution time: 0.5973101080162451 seconds
+second call executed successfully
+second call execution time: 0.00011276500299572945 seconds
+Total execution time: 0.5974429840571247 seconds
+Energy consumption in joules: 172.07902309036257 for 3.4697242 sec of execution.

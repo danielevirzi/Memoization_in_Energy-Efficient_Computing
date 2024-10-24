@@ -1,0 +1,7 @@
+sampling interval: 200, target function: hessian_lru_cache, input size: 50
+first call executed successfully
+first call execution time: 0.04531728400615975 seconds
+second call executed successfully
+second call execution time: 1.695007085800171e-06 seconds
+Total execution time: 0.04532906599342823 seconds
+Energy consumption in joules: 143.93438373184208 for 3.0745616 sec of execution.

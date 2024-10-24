@@ -1,0 +1,6 @@
+sampling interval: 200, target function: unique_paths_cache, input size: 6
+  File "<string>", line 1
+    import sys; import os; import numpy as np; sys.path.append(/Users/rr/GreenLab/ProjectCode/profiling-using-exp-runner/packages); import recursive.uniquepaths as module; up = UniquePaths(); up.unique_paths_cache(6,6); 
+                                                               ^
+SyntaxError: invalid syntax
+Energy consumption in joules: 10.026572647094726 for 0.23027065 sec of execution.

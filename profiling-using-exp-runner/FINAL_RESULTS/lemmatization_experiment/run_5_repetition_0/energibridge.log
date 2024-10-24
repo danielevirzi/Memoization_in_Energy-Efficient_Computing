@@ -1,0 +1,7 @@
+sampling interval: 200, target function: lemmatization_lru_cache, input size: The sheer volume of data generated every second requires sophisticated algorithms and technologies to process and make sense of it.
+first call executed successfully
+first call execution time: 0.007586424995679408 seconds
+second call executed successfully
+second call execution time: 8.749775588512421e-07 seconds
+Total execution time: 0.0075965269934386015 seconds
+Energy consumption in joules: 164.58856279373168 for 3.32697 sec of execution.

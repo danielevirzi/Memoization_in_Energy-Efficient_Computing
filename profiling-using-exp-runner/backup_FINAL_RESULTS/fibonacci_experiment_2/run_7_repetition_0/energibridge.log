@@ -1,0 +1,6 @@
+sampling interval: 200, target function: fibonacci_cache, input size: 30
+  File "<string>", line 1
+    import sys; import os; import numpy as np; sys.path.append(/Users/rr/GreenLab/ProjectCode/profiling-using-exp-runner/packages); import recursive.fibonacci as module; X = 30; module.fibonacci_cache(X); 
+                                                               ^
+SyntaxError: invalid syntax
+Energy consumption in joules: 10.427938415527343 for 0.23429354 sec of execution.

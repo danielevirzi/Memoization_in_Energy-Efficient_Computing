@@ -1,0 +1,7 @@
+sampling interval: 200, target function: generate_permutations_cache, input size: (1, 2, 3, 4, 5)
+first call executed successfully
+first call execution time: 1.4384044334292412e-05 seconds
+second call executed successfully
+second call execution time: 8.220085874199867e-07 seconds
+Total execution time: 2.8316047973930836e-05 seconds
+Energy consumption in joules: 9.397364501953126 for 0.22782353 sec of execution.

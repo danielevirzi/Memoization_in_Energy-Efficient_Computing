@@ -1,0 +1,7 @@
+sampling interval: 200, target function: DFT, input size: 8192
+first call executed successfully
+first call execution time: 2.2873968519852497 seconds
+second call executed successfully
+second call execution time: 2.307834221981466 seconds
+Total execution time: 4.59525037597632 seconds
+Energy consumption in joules: 481.2000338592529 for 7.4294186 sec of execution.

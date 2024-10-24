@@ -1,0 +1,6 @@
+sampling interval: 200, target function: hessian, input size: 100
+  File "<string>", line 1
+    import sys; import os; import numpy as np; sys.path.append(/Users/rr/GreenLab/ProjectCode/profiling-using-exp-runner/packages); import cpu.hesssian as module; x_array = np.random.rand(100);x_tuple = tuple(x_array); module.hessian(x_tuple)
+                                                               ^
+SyntaxError: invalid syntax
+Energy consumption in joules: 7.784624443054199 for 0.23765005 sec of execution.

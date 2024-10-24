@@ -1,0 +1,2 @@
+sampling interval: 200, target function: tower_of_hanoi, input size: 30
+Energy consumption in joules: 1415.1766120338439 for 20.093126 sec of execution.

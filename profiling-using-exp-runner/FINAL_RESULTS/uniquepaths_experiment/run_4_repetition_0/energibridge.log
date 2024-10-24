@@ -1,0 +1,7 @@
+sampling interval: 200, target function: unique_paths_cache, input size: 6
+first call executed successfully
+first call execution time: 1.3266981113702059e-05 seconds
+second call executed successfully
+second call execution time: 5.150213837623596e-07 seconds
+Total execution time: 2.3111002519726753e-05 seconds
+Energy consumption in joules: 10.014875492095948 for 0.23018172 sec of execution.

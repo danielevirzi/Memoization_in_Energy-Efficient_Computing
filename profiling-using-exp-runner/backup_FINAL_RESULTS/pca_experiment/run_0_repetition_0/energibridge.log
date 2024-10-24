@@ -1,0 +1,6 @@
+sampling interval: 200, target function: pca, input size: 500
+  File "<string>", line 1
+    import sys; import os; import numpy as np; sys.path.append(/Users/rr/GreenLab/ProjectCode/profiling-using-exp-runner/packages); import cpu.pca as module; X = np.random.rand(500,500); X_tuple = tuple(map(tuple, X)); module.pca(X_tuple, 10); 
+                                                               ^
+SyntaxError: invalid syntax
+Energy consumption in joules: 7.701157974243164 for 0.23305967 sec of execution.

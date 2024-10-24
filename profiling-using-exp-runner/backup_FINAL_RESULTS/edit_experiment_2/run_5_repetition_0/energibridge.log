@@ -1,0 +1,6 @@
+sampling interval: 200, target function: edit_distance_lru_cache, input size: 8
+  File "<string>", line 1
+    import sys; import os; import numpy as np; sys.path.append(/Users/rr/GreenLab/ProjectCode/profiling-using-exp-runner/packages); import recursive.edit as module; board = [[0 for _ in range(8)] for _ in range(8)]；X = tuple(map(tuple, board));X = tuple(np.random.random(8)); module.edit_distance_lru_cache(X,0)
+                                                               ^
+SyntaxError: invalid syntax
+Energy consumption in joules: 10.043518074035646 for 0.22793576 sec of execution.

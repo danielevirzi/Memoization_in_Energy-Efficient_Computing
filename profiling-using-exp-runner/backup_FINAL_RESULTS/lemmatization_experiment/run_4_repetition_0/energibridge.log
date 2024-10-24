@@ -1,0 +1,9 @@
+sampling interval: 200, target function: lemmatization_cache, input size: In the midst of the bustling city, there lies a forgotten garden. Overgrown with wildflowers and vines, 
+        it stands as a remnant of a bygone era. The air is filled with the scent of blooming roses, and the sound of 
+        chirping birds creates a symphony that contrasts sharply with the distant hum of traffic. This hidden oasis 
+        provides a sanctuary for those seeking peace and a respite from the relentless pace of modern life.
+  File "<string>", line 1
+    import sys; import os; import numpy as np; import spacy; sys.path.append(/Users/rr/GreenLab/ProjectCode/profiling-using-exp-runner/packages); import cpu.lemmatization as module; nlp = spacy.load(en_core_web_sm); sentence = In the midst of the bustling city, there lies a forgotten garden. Overgrown with wildflowers and vines, 
+                                                                             ^
+SyntaxError: invalid syntax
+Energy consumption in joules: 7.691134002685547 for 0.2363546 sec of execution.

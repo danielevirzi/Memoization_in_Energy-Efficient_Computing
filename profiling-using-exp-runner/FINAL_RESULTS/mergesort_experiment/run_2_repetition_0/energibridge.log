@@ -1,0 +1,7 @@
+sampling interval: 200, target function: merge_sort_lru_cache, input size: (4, 20, 9, 12, 17, 19, 7, 8, 5, 14, 6, 11, 2, 18, 1, 13, 3, 16, 15, 10)
+first call executed successfully
+first call execution time: 5.050597246736288e-05 seconds
+second call executed successfully
+second call execution time: 7.499475032091141e-07 seconds
+Total execution time: 6.276497151702642e-05 seconds
+Energy consumption in joules: 239.06121067810062 for 3.4838345 sec of execution.

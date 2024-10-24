@@ -1,0 +1,7 @@
+sampling interval: 200, target function: fibonacci_basic, input size: 10
+first call executed successfully
+first call execution time: 1.428800169378519e-05 seconds
+second call executed successfully
+second call execution time: 1.1677970178425312e-05 seconds
+Total execution time: 5.084299482405186e-05 seconds
+Energy consumption in joules: 9.36638703918457 for 0.23163643 sec of execution.

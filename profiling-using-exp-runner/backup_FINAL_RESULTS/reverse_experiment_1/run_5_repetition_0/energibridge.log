@@ -1,0 +1,6 @@
+sampling interval: 200, target function: reverse_string_lru_cache, input size: abcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcde
+  File "<string>", line 1
+    import sys; import os; import numpy as np; sys.path.append(/Users/rr/GreenLab/ProjectCode/profiling-using-exp-runner/packages); import recursive.reverse as module; X = abcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcde; module.reverse_string_lru_cache(X); 
+                                                               ^
+SyntaxError: invalid syntax
+Energy consumption in joules: 10.123601264953614 for 0.23408458 sec of execution.

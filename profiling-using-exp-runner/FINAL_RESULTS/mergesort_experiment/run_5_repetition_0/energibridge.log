@@ -1,0 +1,7 @@
+sampling interval: 200, target function: merge_sort_lru_cache, input size: (11, 60, 12, 73, 68, 89, 23, 91, 10, 8, 83, 1, 51, 36, 92, 59, 47, 88, 35, 45, 80, 37, 85, 22, 58, 46, 71, 67, 20, 52, 5, 7, 26, 50, 100, 57, 4, 2, 42, 87, 39, 33, 15, 70, 18, 21, 43, 98, 38, 25, 93, 74, 61, 90, 19, 44, 96, 41, 64, 76, 79, 14, 34, 9, 63, 94, 27, 13, 97, 16, 75, 86, 84, 40, 62, 29, 69, 32, 82, 77, 24, 65, 6, 17, 95, 28, 54, 78, 72, 66, 55, 31, 48, 30, 99, 3, 53, 56, 81, 49)
+first call executed successfully
+first call execution time: 0.00020556699018925428 seconds
+second call executed successfully
+second call execution time: 7.839989848434925e-07 seconds
+Total execution time: 0.00021746900165453553 seconds
+Energy consumption in joules: 230.63993934249874 for 3.4682622 sec of execution.

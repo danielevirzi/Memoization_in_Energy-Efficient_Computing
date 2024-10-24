@@ -1,0 +1,7 @@
+sampling interval: 200, target function: lemmatization_lru_cache, input size: In the midst of the bustling city, there lies a forgotten garden.
+first call executed successfully
+first call execution time: 0.007794758013915271 seconds
+second call executed successfully
+second call execution time: 7.959897629916668e-07 seconds
+Total execution time: 0.0078049770090729 seconds
+Energy consumption in joules: 158.22592330169678 for 3.3235564 sec of execution.

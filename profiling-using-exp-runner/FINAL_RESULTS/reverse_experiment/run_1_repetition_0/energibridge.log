@@ -1,0 +1,7 @@
+sampling interval: 200, target function: reverse_string_cache, input size: abcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcde
+first call executed successfully
+first call execution time: 2.5545014068484306e-05 seconds
+second call executed successfully
+second call execution time: 4.189787432551384e-07 seconds
+Total execution time: 3.761000698432326e-05 seconds
+Energy consumption in joules: 8.831224822998047 for 0.22959605 sec of execution.

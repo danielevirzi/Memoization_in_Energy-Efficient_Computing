@@ -1,0 +1,13 @@
+sampling interval: 200, target function: lemmatization_lru_cache, input size: In the vast expanse of the digital universe, information flows like an endless river, touching every 
+        corner of the globe. The advent of the internet has revolutionized the way we communicate, learn, and conduct 
+        business. With just a few clicks, we can access a wealth of knowledge that was unimaginable just a few 
+        decades ago. However, this immense connectivity also brings challenges. The sheer volume of data generated 
+        every second requires sophisticated algorithms and technologies to process and make sense of it. Artificial 
+        intelligence and machine learning have become integral in managing this data deluge, enabling us to extract 
+        insights and make informed decisions.Moreover, the rise of social media platforms has transformed how we 
+        interact with one another.
+  File "<string>", line 1
+    import sys; import os; import numpy as np; import spacy; sys.path.append(/Users/rr/GreenLab/ProjectCode/profiling-using-exp-runner/packages); import cpu.lemmatization as module; nlp = spacy.load(en_core_web_sm); sentence = In the vast expanse of the digital universe, information flows like an endless river, touching every 
+                                                                             ^
+SyntaxError: invalid syntax
+Energy consumption in joules: 7.952710327148437 for 0.24058922 sec of execution.

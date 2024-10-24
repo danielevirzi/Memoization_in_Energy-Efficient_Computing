@@ -1,0 +1,7 @@
+sampling interval: 200, target function: floyd_warshall, input size: ((0.0, 3.0, inf, 7.0, 8.0, 3.0, 2.0, inf, 6.0), (3.0, 0.0, 4.0, 2.0, inf, inf, 1.0, 5.0, inf), (inf, 4.0, 0.0, 2.0, 1.0, inf, 6.0, inf, 7.0), (7.0, 2.0, 2.0, 0.0, 4.0, 3.0, 2.0, 8.0, inf), (8.0, inf, 1.0, 4.0, 0.0, 3.0, 5.0, 6.0, inf), (3.0, 5.0, inf, 3.0, 5.0, 0.0, inf, 2.0, 1.0), (2.0, 1.0, 5.0, 6.0, 3.0, inf, 0.0, 7.0, 4.0), (inf, 5.0, inf, 8.0, 6.0, 2.0, 7.0, 0.0, 3.0), (6.0, inf, 7.0, inf, inf, 1.0, 4.0, 3.0, 0.0))
+first call executed successfully
+first call execution time: 0.9536805530078709 seconds
+second call executed successfully
+second call execution time: 0.940642986970488 seconds
+Total execution time: 1.8943451690138318 seconds
+Energy consumption in joules: 100.28779602050781 for 2.056654 sec of execution.

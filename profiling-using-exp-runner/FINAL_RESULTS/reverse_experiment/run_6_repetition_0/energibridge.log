@@ -1,0 +1,7 @@
+sampling interval: 200, target function: reverse_string, input size: abcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcde
+first call executed successfully
+first call execution time: 5.369697464630008e-05 seconds
+second call executed successfully
+second call execution time: 3.826699685305357e-05 seconds
+Total execution time: 0.00010552798630669713 seconds
+Energy consumption in joules: 8.954383209228515 for 0.23158847 sec of execution.

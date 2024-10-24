@@ -1,0 +1,7 @@
+sampling interval: 200, target function: hessian_basic, input size: 10
+first call executed successfully
+first call execution time: 0.001745785993989557 seconds
+second call executed successfully
+second call execution time: 0.0017262499895878136 seconds
+Total execution time: 0.0034802709706127644 seconds
+Energy consumption in joules: 150.47079984283448 for 3.054417 sec of execution.

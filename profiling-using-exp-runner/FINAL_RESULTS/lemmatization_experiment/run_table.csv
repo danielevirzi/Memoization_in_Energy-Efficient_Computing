@@ -1,40 +1,10 @@
-__run_id,__done,input_size,cache_strategy,sampling_rate,input_description,execution_time,average_cpu_usage,memory_usage,energy_consumption,dram_energy,package_energy,pp0_energy,pp1_energy
-run_0_repetition_0,DONE,"Running quickly, the children played happily in the sunny park, unaware of the approaching storm.",lemmatization_basic,200,15-word sentence,0.0264039040193893,11.27769349,29159.45476974,182.06842276763916,0.0,0.0,0.0,0.0
-run_1_repetition_0,DONE,"Running quickly, the children played happily in the sunny park, unaware of the approaching storm.",lemmatization_cache,200,15-word sentence,1.2280070222914219e-06,11.705756,29268.66449653,167.2592986984253,0.0,0.0,0.0,0.0
-run_2_repetition_0,DONE,"Running quickly, the children played happily in the sunny park, unaware of the approaching storm.",lemmatization_lru_cache,200,15-word sentence,9.739887900650501e-07,11.45163269,29123.81032986,164.74963396453856,0.0,0.0,0.0,0.0
-run_3_repetition_0,DONE,"In the midst of the bustling city, there lies a forgotten garden. Overgrown with wildflowers and vines, 
-        it stands as a remnant of a bygone era. The air is filled with the scent of blooming roses, and the sound of 
-        chirping birds creates a symphony that contrasts sharply with the distant hum of traffic. This hidden oasis 
-        provides a sanctuary for those seeking peace and a respite from the relentless pace of modern life.",lemmatization_basic,200,74-word sentence, ,8.63095252,29071.10546875,7.2399557647705075,0.0,0.0,0.0,0.0
-run_4_repetition_0,DONE,"In the midst of the bustling city, there lies a forgotten garden. Overgrown with wildflowers and vines, 
-        it stands as a remnant of a bygone era. The air is filled with the scent of blooming roses, and the sound of 
-        chirping birds creates a symphony that contrasts sharply with the distant hum of traffic. This hidden oasis 
-        provides a sanctuary for those seeking peace and a respite from the relentless pace of modern life.",lemmatization_cache,200,74-word sentence, ,6.20580813,27727.76432292,7.303503154754639,0.0,0.0,0.0,0.0
-run_5_repetition_0,DONE,"In the midst of the bustling city, there lies a forgotten garden. Overgrown with wildflowers and vines, 
-        it stands as a remnant of a bygone era. The air is filled with the scent of blooming roses, and the sound of 
-        chirping birds creates a symphony that contrasts sharply with the distant hum of traffic. This hidden oasis 
-        provides a sanctuary for those seeking peace and a respite from the relentless pace of modern life.",lemmatization_lru_cache,200,74-word sentence, ,8.12003983,27663.84375,7.198009632110596,0.0,0.0,0.0,0.0
-run_6_repetition_0,DONE,"In the vast expanse of the digital universe, information flows like an endless river, touching every 
-        corner of the globe. The advent of the internet has revolutionized the way we communicate, learn, and conduct 
-        business. With just a few clicks, we can access a wealth of knowledge that was unimaginable just a few 
-        decades ago. However, this immense connectivity also brings challenges. The sheer volume of data generated 
-        every second requires sophisticated algorithms and technologies to process and make sense of it. Artificial 
-        intelligence and machine learning have become integral in managing this data deluge, enabling us to extract 
-        insights and make informed decisions.Moreover, the rise of social media platforms has transformed how we 
-        interact with one another.",lemmatization_basic,200,118-word sentence, ,6.92956358,27743.22786458,7.36391421508789,0.0,0.0,0.0,0.0
-run_7_repetition_0,DONE,"In the vast expanse of the digital universe, information flows like an endless river, touching every 
-        corner of the globe. The advent of the internet has revolutionized the way we communicate, learn, and conduct 
-        business. With just a few clicks, we can access a wealth of knowledge that was unimaginable just a few 
-        decades ago. However, this immense connectivity also brings challenges. The sheer volume of data generated 
-        every second requires sophisticated algorithms and technologies to process and make sense of it. Artificial 
-        intelligence and machine learning have become integral in managing this data deluge, enabling us to extract 
-        insights and make informed decisions.Moreover, the rise of social media platforms has transformed how we 
-        interact with one another.",lemmatization_cache,200,118-word sentence, ,13.42539606,27766.1171875,7.1782784957885735,0.0,0.0,0.0,0.0
-run_8_repetition_0,DONE,"In the vast expanse of the digital universe, information flows like an endless river, touching every 
-        corner of the globe. The advent of the internet has revolutionized the way we communicate, learn, and conduct 
-        business. With just a few clicks, we can access a wealth of knowledge that was unimaginable just a few 
-        decades ago. However, this immense connectivity also brings challenges. The sheer volume of data generated 
-        every second requires sophisticated algorithms and technologies to process and make sense of it. Artificial 
-        intelligence and machine learning have become integral in managing this data deluge, enabling us to extract 
-        insights and make informed decisions.Moreover, the rise of social media platforms has transformed how we 
-        interact with one another.",lemmatization_lru_cache,200,118-word sentence, ,12.43731978,27685.86067708,7.503081184387207,0.0,0.0,0.0,0.0
+__run_id,__done,input_size,cache_strategy,sampling_rate,input_description,execution_time,execution_time_1,execution_time_2,average_cpu_usage,memory_usage,energy_consumption,dram_energy,package_energy,pp0_energy,pp1_energy
+run_0_repetition_0,DONE,"In the midst of the bustling city, there lies a forgotten garden.",lemmatization_basic,200,12-word sentence,0.03507653594715521,0.0302523149875924,0.00481274095363915,7.97015037,26874.63498264,158.32796951293946,0.0,0.0,0.0,0.0
+run_1_repetition_0,DONE,"In the midst of the bustling city, there lies a forgotten garden.",lemmatization_cache,200,12-word sentence,0.005445545015390962,0.00543557497439906,7.890048436820507e-07,7.88011944,26841.45052083,152.24543206405642,0.0,0.0,0.0,0.0
+run_2_repetition_0,DONE,"In the midst of the bustling city, there lies a forgotten garden.",lemmatization_lru_cache,200,12-word sentence,0.0078049770090729,0.007794758013915271,7.959897629916668e-07,7.50678273,26862.96701389,158.22592330169678,0.0,0.0,0.0,0.0
+run_3_repetition_0,DONE,The sheer volume of data generated every second requires sophisticated algorithms and technologies to process and make sense of it.,lemmatization_basic,200,20-word sentence,0.011456424021162093,0.00728985300520435,0.004157862043939531,7.86387777,26790.96397569,163.1098282432556,0.0,0.0,0.0,0.0
+run_4_repetition_0,DONE,The sheer volume of data generated every second requires sophisticated algorithms and technologies to process and make sense of it.,lemmatization_cache,200,20-word sentence,0.007243804982863367,0.007233768992591649,8.770148269832134e-07,8.43314107,26802.92252604,159.26232659530638,0.0,0.0,0.0,0.0
+run_5_repetition_0,DONE,The sheer volume of data generated every second requires sophisticated algorithms and technologies to process and make sense of it.,lemmatization_lru_cache,200,20-word sentence,0.0075965269934386015,0.007586424995679408,8.749775588512421e-07,9.2153287,26775.2953559,164.58856279373168,0.0,0.0,0.0,0.0
+run_6_repetition_0,DONE,"The advent of the internet has revolutionized the way we communicate, learn, and conduct business. With just a few clicks, we can access a wealth of knowledge that was unimaginable just a few decades ago.",lemmatization_basic,200,35-word sentence,0.014220879995264113,0.007657604990527034,0.006554606952704489,8.86689568,26813.61122533,180.20047291564939,0.0,0.0,0.0,0.0
+run_7_repetition_0,DONE,"The advent of the internet has revolutionized the way we communicate, learn, and conduct business. With just a few clicks, we can access a wealth of knowledge that was unimaginable just a few decades ago.",lemmatization_cache,200,35-word sentence,0.010222901008091867,0.010212712979409844,8.3498889580369e-07,9.18054326,26820.18164062,168.01689835739134,0.0,0.0,0.0,0.0
+run_8_repetition_0,DONE,"The advent of the internet has revolutionized the way we communicate, learn, and conduct business. With just a few clicks, we can access a wealth of knowledge that was unimaginable just a few decades ago.",lemmatization_lru_cache,200,35-word sentence,0.008312119985930622,0.008301535970531404,8.380156941711903e-07,8.48628059,26818.46137153,164.38175102996826,0.0,0.0,0.0,0.0

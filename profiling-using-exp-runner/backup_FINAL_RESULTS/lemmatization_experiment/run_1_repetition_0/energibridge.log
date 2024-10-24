@@ -1,0 +1,6 @@
+sampling interval: 200, target function: lemmatization_cache, input size: Running quickly, the children played happily in the sunny park, unaware of the approaching storm.
+  File "<string>", line 1
+    import sys; import os; import numpy as np; import spacy; sys.path.append(/Users/rr/GreenLab/ProjectCode/profiling-using-exp-runner/packages); import cpu.lemmatization as module; nlp = spacy.load(en_core_web_sm); sentence = Running quickly, the children played happily in the sunny park, unaware of the approaching storm.; module.lemmatization_cache(nlp, sentence)
+                                                                             ^
+SyntaxError: invalid syntax
+Energy consumption in joules: 7.979138946533204 for 0.23057409 sec of execution.

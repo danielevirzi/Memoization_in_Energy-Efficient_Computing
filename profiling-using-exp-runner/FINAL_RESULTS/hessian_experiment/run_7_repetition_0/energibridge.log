@@ -1,0 +1,7 @@
+sampling interval: 200, target function: hessian_cache, input size: 100
+first call executed successfully
+first call execution time: 0.17550240200944245 seconds
+second call executed successfully
+second call execution time: 3.6329729482531548e-06 seconds
+Total execution time: 0.17551900300895795 seconds
+Energy consumption in joules: 139.71023419952394 for 3.0652108 sec of execution.

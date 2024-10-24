@@ -1,0 +1,6 @@
+sampling interval: 200, target function: solve_n_queens_cache, input size: 1024
+  File "<string>", line 1
+    import sys; import os; import numpy as np; sys.path.append(/Users/rr/GreenLab/ProjectCode/profiling-using-exp-runner/packages); import recursive.n_queens as module; board = [[0 for _ in range(1024)] for _ in range(1024)]；X = tuple(map(tuple, board));X = tuple(np.random.random(1024)); module.solve_n_queens_cache(X,0)
+                                                               ^
+SyntaxError: invalid syntax
+Energy consumption in joules: 8.645678443908691 for 0.2304526 sec of execution.
