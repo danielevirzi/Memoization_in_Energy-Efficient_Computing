@@ -31,23 +31,13 @@ class RunnerConfig:
     target_function_location = 'cpu.lemmatization'
     target_function_names = ["lemmatization_basic", "lemmatization_cache", "lemmatization_lru_cache"]
     input_size_options = [
-        """Running quickly, the children played happily in the sunny park, unaware of the approaching storm.""",
+        """In the midst of the bustling city, there lies a forgotten garden.""",
 
-        """In the midst of the bustling city, there lies a forgotten garden. Overgrown with wildflowers and vines, 
-        it stands as a remnant of a bygone era. The air is filled with the scent of blooming roses, and the sound of 
-        chirping birds creates a symphony that contrasts sharply with the distant hum of traffic. This hidden oasis 
-        provides a sanctuary for those seeking peace and a respite from the relentless pace of modern life.""",
+        """The sheer volume of data generated every second requires sophisticated algorithms and technologies to process and make sense of it.""",
 
-        """In the vast expanse of the digital universe, information flows like an endless river, touching every 
-        corner of the globe. The advent of the internet has revolutionized the way we communicate, learn, and conduct 
-        business. With just a few clicks, we can access a wealth of knowledge that was unimaginable just a few 
-        decades ago. However, this immense connectivity also brings challenges. The sheer volume of data generated 
-        every second requires sophisticated algorithms and technologies to process and make sense of it. Artificial 
-        intelligence and machine learning have become integral in managing this data deluge, enabling us to extract 
-        insights and make informed decisions.Moreover, the rise of social media platforms has transformed how we 
-        interact with one another."""
+        """The advent of the internet has revolutionized the way we communicate, learn, and conduct business. With just a few clicks, we can access a wealth of knowledge that was unimaginable just a few decades ago."""
     ]
-    input_description = ['15-word sentence', '74-word sentence', '118-word sentence']
+    input_description = ['12-word sentence', '20-word sentence', '35-word sentence']
     sampling_rate_options = [200]
     """The time Experiment Runner will wait after a run completes.
     This can be essential to accommodate for cooldown periods on some systems."""
@@ -103,7 +93,7 @@ class RunnerConfig:
         cache_factor = FactorModel("cache_strategy", self.target_function_names)  # Different cache strategies
         self.run_table_model = RunTableModel(
             factors=[input_size_factor, cache_factor, sampling_factor],
-            data_columns=['input_description', 'execution_time', 'average_cpu_usage', 'memory_usage',
+            data_columns=['input_description',  'execution_time','execution_time_1', 'execution_time_2', 'average_cpu_usage', 'memory_usage',
                           'energy_consumption', 'dram_energy', 'package_energy', 'pp0_energy', 'pp1_energy']
         )
         return self.run_table_model
@@ -147,32 +137,26 @@ class RunnerConfig:
         target_function = context.run_variation['cache_strategy']
         input_size = context.run_variation['input_size']
         remote_temporary_each_run_results_dir = f"{self.remote_temporary_results_dir}/{self.name}/run_{context.run_nr}"
-        # For cache version, we need to run twice to effect the cache:
-        if (context.run_nr % len(self.target_function_names) != 1):
-            python_cmd = (
-                f"import sys; import os; import numpy as np; import spacy; import time;"
-                f"sys.path.append(\\\"{self.remote_package_dir}\\\"); "
-                f"import {self.target_function_location} as module; "
-                f"nlp = spacy.load(\\\"en_core_web_sm\\\"); "
-                f"module.{target_function}(nlp,\\\"{input_size}\\\"); "
-                f"start_time = time.perf_counter(); "
-                f"module.{target_function}(nlp,\\\"{input_size}\\\"); "
-                f"end_time = time.perf_counter(); "
-                f"execution_time = end_time - start_time; "
-                f"print(f\\\"python_cmd executed successfully {{execution_time}} seconds of actual execution\\\");"
-            )
-        else:
-            python_cmd = (
-                f"import sys; import os; import numpy as np; import spacy; import time;"
-                f"sys.path.append(\\\"{self.remote_package_dir}\\\"); "
-                f"import {self.target_function_location} as module; "
-                f"nlp = spacy.load(\\\"en_core_web_sm\\\"); "
-                f"start_time = time.perf_counter(); "
-                f"module.{target_function}(nlp,\\\"{input_size}\\\"); "
-                f"end_time = time.perf_counter(); "
-                f"execution_time = end_time - start_time; "
-                f"print(f\\\"python_cmd executed successfully {{execution_time}} seconds of actual execution\\\");"
-            )
+        python_cmd = (
+            f"import sys; import os; import numpy as np; import spacy; import time;"
+            f"sys.path.append(\\\"{self.remote_package_dir}\\\"); "
+            f"import {self.target_function_location} as module; "
+            f"nlp = spacy.load(\\\"en_core_web_sm\\\"); "
+            f"start_time_1 = time.perf_counter(); "
+            f"module.{target_function}(nlp,\\\"{input_size}\\\"); "
+            f"end_time_1 = time.perf_counter(); "
+            f"execution_time_1 = end_time_1 - start_time_1; "
+            f"print(f\\\"first call executed successfully\\\"); "
+            f"print(f\\\"first call execution time: {{execution_time_1}} seconds\\\"); "   
+            f"start_time_2 = time.perf_counter(); "
+            f"module.{target_function}(nlp,\\\"{input_size}\\\"); "
+            f"end_time_2 = time.perf_counter(); "
+            f"execution_time_2 = end_time_2 - start_time_2; "
+            f"print(f\\\"second call executed successfully\\\"); "
+            f"print(f\\\"second call execution time: {{execution_time_2}} seconds\\\"); "
+            f"total_time = end_time_2 - start_time_1; "
+            f"print(f\\\"Total execution time: {{total_time}} seconds\\\");"
+        )
 
         profiler_cmd = (
             f"{self.energibridge_location} --interval {sampling_interval} "
@@ -265,10 +249,20 @@ class RunnerConfig:
                             # Use regular expression to find the execution time in seconds
                             match = re.search(r"Energy consumption in joules: ([\d\.]+) for ([\d\.]+) sec of execution",
                                               log_content)
-                            match_time = re.search(r"python_cmd executed successfully ([+-]?\d*\.?\d+(?:[eE][+-]?\d+)?) seconds of actual execution", log_content)
+                            match_time1 = re.search(
+                                r"first call execution time: ([+-]?\d*\.?\d+(?:[eE][+-]?\d+)?) seconds", log_content)
+                            match_time2 = re.search(
+                                r"second call execution time: ([+-]?\d*\.?\d+(?:[eE][+-]?\d+)?) seconds", log_content)
+                            match_timetotal = re.search(
+                                r"Total execution time: ([+-]?\d*\.?\d+(?:[eE][+-]?\d+)?) seconds", log_content)
                             if match:
-                                run_data['energy_consumption'] = float(match.group(1))  # Extract energy consumption in joules
-                                run_data['execution_time'] = float(match_time.group(1))  # Extract the execution time in seconds
+                                run_data['energy_consumption'] = float(
+                                    match.group(1))  # Extract energy consumption in joules
+                                run_data['execution_time'] = float(match_timetotal.group(1))
+                                run_data['execution_time_1'] = float(
+                                    match_time1.group(1))  # Extract the execution time in seconds
+                                run_data['execution_time_2'] = float(
+                                    match_time2.group(1))  # Extract the execution time in seconds
                             else:
                                 output.console_log(
                                     f"Warning: No energy consumption or execution time found in {local_log_path}")
@@ -290,75 +284,75 @@ class RunnerConfig:
     def after_experiment(self) -> None:
         """Perform any activity required after stopping the experiment here
         Invoked only once during the lifetime of the program."""
-        run_table_path = self.results_output_path / self.name / 'run_table.csv'
-        processed_run_table_path = self.results_output_path / self.name / 'processed_run_table.csv'
-
-        if not run_table_path.exists():
-            output.console_log(f"Error: {run_table_path} does not exist.")
-            return
-
-        try:
-            df = pd.read_csv(run_table_path)
-        except Exception as e:
-            output.console_log(f"Error reading {run_table_path}: {e}")
-            return
-
-        if len(df) != 9:
-            output.console_log(f"Error: {run_table_path} doesn't contain 9 rows.")
-            return
-
-        processed_df = df.copy()
-
-        basic_average_cpu_usage = None
-        basic_memory_usage = None
-        basic_energy_consumption = None
-
-        for index, row in df.iterrows():
-            # calculate the row number, note that index starts from 1, except for the column name row
-            row_num = index + 1
-
-            if row_num % 3 == 1:
-                basic_average_cpu_usage = row['average_cpu_usage']
-                basic_memory_usage = row['memory_usage']
-                basic_energy_consumption = row['energy_consumption']
-
-                output.console_log(f"Row {row_num}: Basic strategy detected.")
-                output.console_log(f"  Average CPU Usage: {basic_average_cpu_usage}")
-                output.console_log(f"  Memory Usage: {basic_memory_usage}")
-                output.console_log(f"  Energy Consumption: {basic_energy_consumption}")
-
-            else:
-                if basic_average_cpu_usage is None:
-                    output.console_log(f"Error: Basic strategy values not set before row {row_num}.")
-                    return
-
-                current_average_cpu_usage = row['average_cpu_usage']
-                current_memory_usage = row['memory_usage']
-                current_energy_consumption = row['energy_consumption']
-
-                new_average_cpu_usage = current_average_cpu_usage - basic_average_cpu_usage
-                new_memory_usage = current_memory_usage - basic_memory_usage
-                new_energy_consumption = current_energy_consumption - basic_energy_consumption
-
-                processed_df.at[index, 'average_cpu_usage'] = new_average_cpu_usage
-                processed_df.at[index, 'memory_usage'] = new_memory_usage
-                processed_df.at[index, 'energy_consumption'] = new_energy_consumption
-
-                cache_strategy = 'cache' if row_num % 3 == 2 else 'lru_cache'
-                output.console_log(f"Row {row_num}: {cache_strategy} strategy detected.")
-                output.console_log(f"  Original Average CPU Usage: {current_average_cpu_usage}")
-                output.console_log(f"  Original Memory Usage: {current_memory_usage}")
-                output.console_log(f"  Original Energy Consumption: {current_energy_consumption}")
-                output.console_log(f"  New Average CPU Usage: {new_average_cpu_usage}")
-                output.console_log(f"  New Memory Usage: {new_memory_usage}")
-                output.console_log(f"  New Energy Consumption: {new_energy_consumption}")
-
-        try:
-            processed_df.to_csv(processed_run_table_path, index=False)
-            output.console_log(f"Processed run table saved to {processed_run_table_path}.")
-        except Exception as e:
-            output.console_log(f"Error writing {processed_run_table_path}: {e}")
-            return
+        # run_table_path = self.results_output_path / self.name / 'run_table.csv'
+        # processed_run_table_path = self.results_output_path / self.name / 'processed_run_table.csv'
+        #
+        # if not run_table_path.exists():
+        #     output.console_log(f"Error: {run_table_path} does not exist.")
+        #     return
+        #
+        # try:
+        #     df = pd.read_csv(run_table_path)
+        # except Exception as e:
+        #     output.console_log(f"Error reading {run_table_path}: {e}")
+        #     return
+        #
+        # if len(df) != 9:
+        #     output.console_log(f"Error: {run_table_path} doesn't contain 9 rows.")
+        #     return
+        #
+        # processed_df = df.copy()
+        #
+        # basic_average_cpu_usage = None
+        # basic_memory_usage = None
+        # basic_energy_consumption = None
+        #
+        # for index, row in df.iterrows():
+        #     # calculate the row number, note that index starts from 1, except for the column name row
+        #     row_num = index + 1
+        #
+        #     if row_num % 3 == 1:
+        #         basic_average_cpu_usage = row['average_cpu_usage']
+        #         basic_memory_usage = row['memory_usage']
+        #         basic_energy_consumption = row['energy_consumption']
+        #
+        #         output.console_log(f"Row {row_num}: Basic strategy detected.")
+        #         output.console_log(f"  Average CPU Usage: {basic_average_cpu_usage}")
+        #         output.console_log(f"  Memory Usage: {basic_memory_usage}")
+        #         output.console_log(f"  Energy Consumption: {basic_energy_consumption}")
+        #
+        #     else:
+        #         if basic_average_cpu_usage is None:
+        #             output.console_log(f"Error: Basic strategy values not set before row {row_num}.")
+        #             return
+        #
+        #         current_average_cpu_usage = row['average_cpu_usage']
+        #         current_memory_usage = row['memory_usage']
+        #         current_energy_consumption = row['energy_consumption']
+        #
+        #         new_average_cpu_usage = current_average_cpu_usage - basic_average_cpu_usage
+        #         new_memory_usage = current_memory_usage - basic_memory_usage
+        #         new_energy_consumption = current_energy_consumption - basic_energy_consumption
+        #
+        #         processed_df.at[index, 'average_cpu_usage'] = new_average_cpu_usage
+        #         processed_df.at[index, 'memory_usage'] = new_memory_usage
+        #         processed_df.at[index, 'energy_consumption'] = new_energy_consumption
+        #
+        #         cache_strategy = 'cache' if row_num % 3 == 2 else 'lru_cache'
+        #         output.console_log(f"Row {row_num}: {cache_strategy} strategy detected.")
+        #         output.console_log(f"  Original Average CPU Usage: {current_average_cpu_usage}")
+        #         output.console_log(f"  Original Memory Usage: {current_memory_usage}")
+        #         output.console_log(f"  Original Energy Consumption: {current_energy_consumption}")
+        #         output.console_log(f"  New Average CPU Usage: {new_average_cpu_usage}")
+        #         output.console_log(f"  New Memory Usage: {new_memory_usage}")
+        #         output.console_log(f"  New Energy Consumption: {new_energy_consumption}")
+        #
+        # try:
+        #     processed_df.to_csv(processed_run_table_path, index=False)
+        #     output.console_log(f"Processed run table saved to {processed_run_table_path}.")
+        # except Exception as e:
+        #     output.console_log(f"Error writing {processed_run_table_path}: {e}")
+        return
 
     # ================================ DO NOT ALTER BELOW THIS LINE ================================
     experiment_path: Path = None
