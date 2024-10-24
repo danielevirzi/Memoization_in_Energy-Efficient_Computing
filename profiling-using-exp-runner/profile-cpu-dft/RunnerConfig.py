@@ -269,17 +269,17 @@ class RunnerConfig:
         processed_run_table_path = self.results_output_path / 'processed_run_table.csv'
 
         if not run_table_path.exists():
-            print(f"Error: {run_table_path} does not exist.")
+            output.console_log(f"Error: {run_table_path} does not exist.")
             return
 
         try:
             df = pd.read_csv(run_table_path)
         except Exception as e:
-            print(f"Error reading {run_table_path}: {e}")
+            output.console_log(f"Error reading {run_table_path}: {e}")
             return
 
         if len(df) != 9:
-            print(f"Error: {run_table_path} doesn't contain 9 rows.")
+            output.console_log(f"Error: {run_table_path} doesn't contain 9 rows.")
             return
 
         processed_df = df.copy()
@@ -304,7 +304,7 @@ class RunnerConfig:
 
             else:
                 if basic_average_cpu_usage is None:
-                    print(f"Error: Basic strategy values not set before row {row_num}.")
+                    output.console_log(f"Error: Basic strategy values not set before row {row_num}.")
                     return
 
                 current_average_cpu_usage = row['average_cpu_usage']
@@ -320,19 +320,19 @@ class RunnerConfig:
                 processed_df.at[index, 'energy_consumption'] = new_energy_consumption
 
                 cache_strategy = 'cache' if row_num % 3 == 2 else 'lru_cache'
-                print(f"Row {row_num}: {cache_strategy} strategy detected.")
-                print(f"  Original Average CPU Usage: {current_average_cpu_usage}")
-                print(f"  Original Memory Usage: {current_memory_usage}")
-                print(f"  Original Energy Consumption: {current_energy_consumption}")
-                print(f"  New Average CPU Usage: {new_average_cpu_usage}")
-                print(f"  New Memory Usage: {new_memory_usage}")
-                print(f"  New Energy Consumption: {new_energy_consumption}")
+                output.console_log(f"Row {row_num}: {cache_strategy} strategy detected.")
+                output.console_log(f"  Original Average CPU Usage: {current_average_cpu_usage}")
+                output.console_log(f"  Original Memory Usage: {current_memory_usage}")
+                output.console_log(f"  Original Energy Consumption: {current_energy_consumption}")
+                output.console_log(f"  New Average CPU Usage: {new_average_cpu_usage}")
+                output.console_log(f"  New Memory Usage: {new_memory_usage}")
+                output.console_log(f"  New Energy Consumption: {new_energy_consumption}")
 
         try:
             processed_df.to_csv(processed_run_table_path, index=False)
-            print(f"Processed run table saved to {processed_run_table_path}.")
+            output.console_log(f"Processed run table saved to {processed_run_table_path}.")
         except Exception as e:
-            print(f"Error writing {processed_run_table_path}: {e}")
+            output.console_log(f"Error writing {processed_run_table_path}: {e}")
             return
 
 
