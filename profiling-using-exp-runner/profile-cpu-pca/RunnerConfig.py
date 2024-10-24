@@ -143,12 +143,16 @@ class RunnerConfig:
             f"module.{target_function}(X_tuple, 10); "
             f"end_time_1 = time.perf_counter(); "
             f"execution_time_1 = end_time_1 - start_time_1; "
+            f"print(f\\\"first call executed successfully\\\"); "
+            f"printf(f\\\"first call execution time: {{execution_time_1}} seconds\\\"); "   
             f"start_time_2 = time.perf_counter(); "
             f"module.{target_function}(X_tuple, 10); "
             f"end_time_2 = time.perf_counter(); "
             f"execution_time_2 = end_time_2 - start_time_2; "
+            f"print(f\\\"second call executed successfully\\\"); "
+            f"printf(f\\\"second call execution time: {{execution_time_1}} seconds\\\"); "
             f"total_time = end_time_2 - start_time_1; "
-            f"print(f\\\"python_cmd executed successfully: {{total_time}} in total, {{execution_time_1}} seconds of first call and {{execution_time_2}} seconds of second call\\\");"
+            f"print(f\\\"Total execution time: {{total_time}} seconds\\\");"
         )
 
 
@@ -243,15 +247,17 @@ class RunnerConfig:
                             # Use regular expression to find the execution time in seconds
                             match = re.search(r"Energy consumption in joules: ([\d\.]+) for ([\d\.]+) sec of execution",
                                               log_content)
-                            match_time = re.search(r"python_cmd executed successfully: ([+-]?\d*\.?\d+(?:[eE][+-]?\d+)?) in total, ([+-]?\d*\.?\d+(?:[eE][+-]?\d+)?) seconds of first call and ([+-]?\d*\.?\d+(?:[eE][+-]?\d+)?) seconds of second call", log_content)
+                            match_time1 = re.search(r"first call execution time: ([+-]?\d*\.?\d+(?:[eE][+-]?\d+)?) seconds", log_content)
+                            match_time2 = re.search(r"second call execution time: ([+-]?\d*\.?\d+(?:[eE][+-]?\d+)?) seconds", log_content)
+                            match_timetotal = re.search(r"Total execution time: ([+-]?\d*\.?\d+(?:[eE][+-]?\d+)?) seconds", log_content)
                             if match:
                                 run_data['energy_consumption'] = float(
                                     match.group(1))  # Extract energy consumption in joules
-                                run_data['execution_time'] = float(match_time.group(1))
+                                run_data['execution_time'] = float(match_timetotal.group(1))
                                 run_data['execution_time_1'] = float(
-                                    match_time.group(2))  # Extract the execution time in seconds
+                                    match_time1.group(1))  # Extract the execution time in seconds
                                 run_data['execution_time_2'] = float(
-                                    match_time.group(3))  # Extract the execution time in seconds
+                                    match_time2.group(1))  # Extract the execution time in seconds
                             else:
                                 output.console_log(
                                     f"Warning: No energy consumption or execution time found in {local_log_path}")
