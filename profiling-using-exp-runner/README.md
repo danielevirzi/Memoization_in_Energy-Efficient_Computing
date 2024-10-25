@@ -8,35 +8,29 @@ Each category encompasses five unique problem.
 
 ## Function Categories
 
-### 1. CPU-Intensive Functions
+### 1. Non-Recursive Functions
 
-These functions primarily demand significant CPU resources
 
 - **DFT** (Discrete Fourier Transform)
 - **Hessian**
 - **Lemmatization**
-- **MergeSort**
 - **PCA** (Principal Component Analysis)
-
-### 2. Memory-Intensive Functions
-
-Memory-intensive functions require substantial memory allocation and management
-
 - **Convolve**
 - **Dijkstra**
 - **Floyd**
-- **Knapsack**
 - **Permutation**
 
-### 3. Recursive Functions
+### 2. Recursive Functions
 
 Recursive functions utilize self-referential logic
 
 - **Fibonacci**
 - **Hanoi**
-- **N_Queens**
+- **EditDistance**
 - **Reverse**
 - **UniquePaths**
+- **Knapsack**
+- **MergeSort**
 
 ## Directory Structure
 
