@@ -46,8 +46,8 @@ def merge_sort(arr_tuple: tuple) -> tuple:
         return arr
 
     mid = len(arr) // 2
-    left = merge_sort_cache(tuple(arr[:mid]))
-    right = merge_sort_cache(tuple(arr[mid:]))
+    left = merge_sort(tuple(arr[:mid]))
+    right = merge_sort(tuple(arr[mid:]))
 
     return merge(left, right)
 
