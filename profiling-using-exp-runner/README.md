@@ -2,7 +2,7 @@
 
 # Introduction
 
-This project aims to evaluate and analyze the performance of functions categorized into three distinct types: **CPU-intensive**, **Memory-intensive**, and **Recursive**. 
+This project aims to evaluate and analyze the performance of functions categorized into three distinct types: **Non-Recursive** and **Recursive**. 
 
 Each category encompasses five unique problem.
 
